@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}" method="post">
+    <table>
+        <tr>
+            <td>제목</td>
+            <td><input type="text" name="boardTitle" th:value="${board.boardTitle}" /></td>
+        </tr>
+        <tr>
+            <td>작성자</td>
+            <td><input type="text" name="boardWriter" th:value="${board.boardWriter}" /></td>
+        </tr>
+        <tr>
+            <td>작성할 게시판</td>
+            <td>
+                <select id="boardDivision" name="boardDivision" >
+                    <option value="공지사항">공지사항</option>
+                    <option value="자유게시판">자유게시판</option>
+                    <option value="Q&A">Q&A</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>내용</td>
+            <td><textarea type="text" name="boardContent"  cols="20" rows="5" th:text="${board.boardContent}"></textarea></td>
+        </tr>
+    </table>
+    <input type="submit"/>
+</form>
+</body>
+</html>

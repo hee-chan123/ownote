@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 게시판</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <th>글 번호</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>등록날짜</th>
+    <th>조회수</th>
+    </thead>
+    <tr th:each="notice : ${noticeList}">
+    <th:block th:if="${notice.noticeDivision == '공지사항'}">
+        <td th:text="${notice.noticeNum}"></td>
+        <td><a th:href = "@{/templates/board/noticeView/{noticeNum}(noticeNum=${notice.noticeNum})}" th:text="${notice.noticeTitle}"></a></td>
+        <td th:text="${notice.noticeWriter}"></td>
+        <td th:text="${notice.noticeRegDate}"></td>
+        <td th:text="${notice.noticeHit}"></td>
+    </th:block>>
+    </tr>
+    <tr>
+        <td class="main" colspan="5">
+        <a th:href = "@{/board/boardwriteform}">글쓰기</a></td>
+    </tr>
+</table>
+</body>
+</html>

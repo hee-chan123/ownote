@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 게시판</title>
+</head>
+<body>
+<form action="#">
+    <input type="text" name="search" />
+    <button type="submit">검색</button>
+</form>
+
+<table border="1" th:if="${boardList.boardDivision == '공지사항'}">
+    공지사항
+    <a th:href = "@{/board/noticeList}">+</a>
+    <thead>
+        <td>글 번호</td>
+        <td>제목</td>
+        <td>작성자</td>
+        <td>등록날짜</td>
+        <td>조회수</td>
+    </thead>
+    <tbody>
+        <tr th:each="board : ${boardList}">
+            <td th:text="${board.boardNum}"></td>
+            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
+            <td th:text="${board.boardWriter}"></td>
+            <td th:text="${board.boardRegDate}"></td>
+            <td th:text="${board.boardHit}"></td>
+        </tr>
+    </tbody>
+</table>
+<a th:href = "@{/board/boardwriteform}">글쓰기</a></td>
+
+<!--<table border="1" th:if="${boardList.boardDivision == '자유게시판'}">-->
+<!--    공지사항-->
+<!--    <a th:href = "@{/board/noticeList}">+</a>-->
+<!--    <thead>-->
+<!--    <td>글 번호</td>-->
+<!--    <td>제목</td>-->
+<!--    <td>작성자</td>-->
+<!--    <td>등록날짜</td>-->
+<!--    <td>조회수</td>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="board : ${boardList}">-->
+<!--        <td th:text="${board.boardNum}"></td>-->
+<!--        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>-->
+<!--        <td th:text="${board.boardWriter}"></td>-->
+<!--        <td th:text="${board.boardRegDate}"></td>-->
+<!--        <td th:text="${board.boardHit}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--<a th:href = "@{/board/boardwriteform}">글쓰기</a></td>-->
+
+<!--<table border="1" th:if="${boardList.boardDivision == 'Q&A'}">-->
+<!--    공지사항-->
+<!--    <a th:href = "@{/board/noticeList}">+</a>-->
+<!--    <thead>-->
+<!--    <td>글 번호</td>-->
+<!--    <td>제목</td>-->
+<!--    <td>작성자</td>-->
+<!--    <td>등록날짜</td>-->
+<!--    <td>조회수</td>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="board : ${boardList}">-->
+<!--        <td th:text="${board.boardNum}"></td>-->
+<!--        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>-->
+<!--        <td th:text="${board.boardWriter}"></td>-->
+<!--        <td th:text="${board.boardRegDate}"></td>-->
+<!--        <td th:text="${board.boardHit}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--<a th:href = "@{/board/boardwriteform}">글쓰기</a></td>-->
+</body>
+</html>
