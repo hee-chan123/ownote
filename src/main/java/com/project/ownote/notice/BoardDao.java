@@ -52,12 +52,17 @@ public class BoardDao {
     }
 
     public void update(Board board){
-        String sql = "update board set boardtitle = ?, boardcontent = ?, boarddivision = ?, boardregdate = now(), boardhit = ? where boardnum = ?";
-        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardContent(), board.getBoardDivision(), board.getBoardHit(), board.getBoardNum());
+        String sql = "update board set boardtitle = ?, boardcontent = ?, boarddivision = ?, boardregdate = now() where boardnum = ?";
+        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardContent(), board.getBoardDivision(), board.getBoardNum());
     }
 
     public void delete(Long boardNum){
         String sql = "delete from board where boardnum = ?";
+        jdbcTemplate.update(sql, boardNum);
+    }
+
+    public void hitPlus(Long boardNum){
+        String sql = "update board set boardhit = boardhit + 1 where boardnum = ?";
         jdbcTemplate.update(sql, boardNum);
     }
 }

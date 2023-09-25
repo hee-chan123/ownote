@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>공지사항 게시판</title>
+    <title>자유 게시판</title>
 </head>
 <body>
 <table border="1">
@@ -14,7 +14,7 @@
     <th>조회수</th>
     </thead>
     <tr th:each="board : ${boardList}">
-    <th:block th:if="${board.boardDivision == '공지사항'}">
+    <th:block th:if="${board.boardDivision == '자유게시판'}">
         <td th:text="${board.boardNum}"></td>
         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
         <td th:text="${board.boardWriter}"></td>
