@@ -5,6 +5,10 @@
     <title>Q&A 게시판</title>
 </head>
 <body>
+<form th:action="@{/board/findLike}">
+    <input type="text" name="find" />
+    <button type="submit">검색</button>
+</form>
 <table border="1">
     <thead>
     <th>글 번호</th>

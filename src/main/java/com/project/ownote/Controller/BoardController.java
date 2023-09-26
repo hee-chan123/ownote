@@ -50,7 +50,7 @@ public class BoardController {
     }
 
     @PostMapping("/board/boardupdate/{boardNum}") //게시판 업데이트
-    public String noticeUpdate(@PathVariable Long boardNum, @ModelAttribute("board") Board board){
+    public String noticeUpdate(@ModelAttribute("board") Board board){
         boardDao.update(board);
         return "redirect:/board/boardmain";
     }
@@ -80,5 +80,12 @@ public class BoardController {
         List<Board> boardList = boardDao.selectAll();
         model.addAttribute("boardList", boardList);
         return "board/qaList";
+    }
+
+    @GetMapping("/board/findLike")
+    public String findLike(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model){
+        List<Board> boardList = boardDao.findLike(boardDivision, find);
+        model.addAttribute("boardList", boardList);
+        return "board/findLike";
     }
 }

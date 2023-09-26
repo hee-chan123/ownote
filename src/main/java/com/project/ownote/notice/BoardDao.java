@@ -72,7 +72,7 @@ public class BoardDao {
 
     public void update(Board board){
         String sql = "update board set boardtitle = ?, boardcontent = ?, boarddivision = ?, boardregdate = now(), boardImportant = ? where boardnum = ?";
-        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardContent(), board.getBoardDivision(), board.getBoardNum(), board.getBoardImportant());
+        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardContent(), board.getBoardDivision(), board.getBoardImportant(), board.getBoardNum());
     }
 
     public void delete(Long boardNum){
@@ -83,5 +83,47 @@ public class BoardDao {
     public void hitPlus(Long boardNum){
         String sql = "update board set boardhit = boardhit + 1 where boardnum = ?";
         jdbcTemplate.update(sql, boardNum);
+    }
+
+    public List<Board> findLike(String boardDivision, String find){
+        String sql ="";
+        String param ="";
+        switch (boardDivision) {
+            case "전체": {
+                sql = "select * from board where boardtitle like ? order by boardnum desc";
+                param = "%" + find + "%";
+                break;
+            }
+            case "공지사항": {
+                sql = "select * from board where boarddivision = '공지사항' and  boardtitle like ? order by boardnum desc";
+                param = "%" + find + "%";
+                break;
+            }
+            case "자유게시판": {
+                sql = "select * from board where boarddivision = '자유게시판' and  boardtitle like ? order by boardnum desc";
+                param = "%" + find + "%";
+                break;
+            }
+            case "Q&A": {
+                sql = "select * from board where boarddivision = 'Q&A' and  boardtitle like ? order by boardnum desc";
+                param = "%" + find + "%";
+                break;
+            }
+        }
+
+        List<Board> boards = jdbcTemplate.query(sql, (rs, n) -> {
+            Board board = new Board(
+                    rs.getLong("boardNum"),
+                    rs.getString("boardTitle"),
+                    rs.getString("boardContent"),
+                    rs.getString("boardWriter"),
+                    rs.getString("boardDivision"),
+                    rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardImportant"),
+                    rs.getInt("boardHit"));
+            return board;
+
+        }, param);
+        return boards.isEmpty() ? null : boards;
     }
 }
