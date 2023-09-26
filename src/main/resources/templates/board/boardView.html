@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>페이지</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>제목</td>
+        <td th:text="${board.boardTitle}"></td>
+    </tr>
+    <tr>
+        <td>작성자</td>
+        <td th:text="${board.boardWriter}"></td>
+    </tr>
+    <tr>
+        <td>등록날짜</td>
+        <td th:text="${board.boardRegDate}"></td>
+        <td>조회수</td>
+        <td th:text="${board.boardHit}"></td>
+    </tr>
+    <tr>
+        <td>내용</td>
+        <td th:text="${board.boardContent}"></td>
+    </tr>
+</table>
+<a th:href = "@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}">수정하기</a>
+<a th:href = "@{/board/boarddelete/{boardNum}(boardNum=${board.boardNum})}">삭제하기</a>
+<a th:href = "@{/board/boardmain}">뒤로가기</a>
+</body>
+</html>

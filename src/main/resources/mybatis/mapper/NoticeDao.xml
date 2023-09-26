@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ownote.notice.NoticeDaoT">
+
+    <select id="selectAll" resultType="com.project.ownote.notice.Board">
+        select * from notice order by noticenum desc
+    </select>
+
+    <select id="view" resultType="com.project.ownote.notice.Board">
+        select * from notice where noticenum = #{param1}
+    </select>
+
+    <insert id="write">
+        insert into notice (noticeTitle, noticeWriter, noticeDivision, noticeContent, noticeRegDate, noticeHit)
+             values ( #{param1}, #{param2}, #{param3}, #{param4}, now(), 0)
+    </insert>
+
+    <delete id="delete">
+        delete from notice where noticenum = #{param1}
+    </delete>
+
+</mapper>

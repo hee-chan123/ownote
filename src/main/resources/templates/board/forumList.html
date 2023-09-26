@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>자유 게시판</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <th>글 번호</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>등록날짜</th>
+    <th>조회수</th>
+    </thead>
+    <tr th:each="board : ${boardList}">
+    <th:block th:if="${board.boardDivision == '자유게시판'}">
+        <td th:text="${board.boardNum}"></td>
+        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
+        <td th:text="${board.boardWriter}"></td>
+        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${board.boardHit}"></td>
+    </th:block>>
+    </tr>
+    <tr>
+        <td class="main" colspan="5">
+        <a th:href = "@{/board/boardwriteform}">글쓰기</a></td>
+    </tr>
+</table>
+</body>
+</html>
