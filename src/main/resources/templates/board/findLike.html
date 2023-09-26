@@ -5,7 +5,18 @@
     <title>Title</title>
 </head>
 <body>
+<form th:action="@{/board/findLike}">
+    <select id="boardDivision" name="boardDivision" >
+        <option value="전체">전체</option>
+        <option value="공지사항">공지사항</option>
+        <option value="자유게시판">자유게시판</option>
+        <option value="Q&A">Q&A</option>
+    </select>
+    <input type="text" name="find" />
+    <button type="submit">검색</button>
+</form>
 <table border="1">
+    검색 후 게시판
     <thead>
     <th>글 번호</th>
     <th>제목</th>
