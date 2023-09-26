@@ -25,7 +25,7 @@
             <td th:text="${board.boardNum}"></td>
             <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
             <td th:text="${board.boardWriter}"></td>
-            <td th:text="${board.boardRegDate}"></td>
+            <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
             <td th:text="${board.boardHit}"></td>
         </tr>
     </div>
@@ -48,7 +48,7 @@
         <td th:text="${board.boardNum}"></td>
         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
         <td th:text="${board.boardWriter}"></td>
-        <td th:text="${board.boardRegDate}"></td>
+        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
         <td th:text="${board.boardHit}"></td>
         </tr>
     </div>
@@ -71,7 +71,7 @@
         <td th:text="${board.boardNum}"></td>
         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
         <td th:text="${board.boardWriter}"></td>
-        <td th:text="${board.boardRegDate}"></td>
+        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
         <td th:text="${board.boardHit}"></td>
         </tr>
     </div>

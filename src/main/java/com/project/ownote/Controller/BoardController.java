@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Controller
@@ -62,7 +63,7 @@ public class BoardController {
 
     @GetMapping("/board/noticeList") //공지사항 이동
     public String notice(Model model){
-        List<Board> boardList = boardDao.selectAll();
+        List<Board> boardList = boardDao.selectAllOrder();
         model.addAttribute("boardList", boardList);
         return "board/noticeList";
     }
