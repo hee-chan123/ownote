@@ -37,8 +37,9 @@ public class BoardController {
     }
 
     @PostMapping("/board/boardwrite") //게시판 글 쓰기
-    public String noticeWrite(Model model, @ModelAttribute("board") Board board){
+    public String noticeWrite(@ModelAttribute("board") Board board){
         boardDao.write(board);
+        boardDao.parentNumUpdate(boardDao.maxBoardNum());
         return "redirect:/board/boardmain";
     }
 
@@ -77,15 +78,29 @@ public class BoardController {
 
     @GetMapping("/board/qaList") //Q&A 이동
     public String qa(Model model){
-        List<Board> boardList = boardDao.selectAll();
+        List<Board> boardList = boardDao.selectReply();
         model.addAttribute("boardList", boardList);
         return "board/qaList";
     }
 
-    @GetMapping("/board/findLike")
+    @GetMapping("/board/findLike") //검색 게시판
     public String findLike(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model){
         List<Board> boardList = boardDao.findLike(boardDivision, find);
         model.addAttribute("boardList", boardList);
         return "board/findLike";
+    }
+
+    @GetMapping("/board/replywrite/{boardNum}") //Q&A답변 폼
+    public String reply(@PathVariable Long boardNum, Model model){
+        Board board = boardDao.selectByNum(boardNum);
+        model.addAttribute("board", board);
+        return "board/replyWrite";
+    }
+
+    @PostMapping("/board/replywrite/{boardNum}") //Q&A답변 저장
+    public String replywrite(@PathVariable Long boardNum, @ModelAttribute("board") Board board){
+        Board pBoard = boardDao.selectByNum(boardNum);
+        boardDao.replywrite(pBoard, board);
+        return "redirect:/board/qaList";
     }
 }

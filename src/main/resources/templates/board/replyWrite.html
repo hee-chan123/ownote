@@ -5,11 +5,11 @@
     <title>Title</title >
 </head>
 <body>
-<form th:action="@{/board/boardwrite}" method="post">
+<form th:action="@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}" method="post">
     <table>
         <tr>
             <td>제목</td>
-            <td><input type="text" name="boardTitle" /></td>
+            <td><input type="text" name="boardTitle" th:value="'re :' + ${board.boardTitle}" /></td>
         </tr>
         <tr>
             <td>작성자</td>
@@ -19,12 +19,9 @@
             <td>작성할 게시판</td>
             <td>
                 <select id="boardDivision" name="boardDivision" >
-                    <option value="공지사항">공지사항</option>
-                    <option value="자유게시판">자유게시판</option>
                     <option value="Q&A">Q&A</option>
                 </select>
             </td>
-            <td><input type="checkbox" name="boardImportant" value="1">공지사항 중요!</td>
         </tr>
         <tr>
             <td>내용</td>

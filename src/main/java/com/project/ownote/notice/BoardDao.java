@@ -23,6 +23,8 @@ public class BoardDao {
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
                     rs.getInt("boardImportant"),
+                    rs.getInt("parentNum"),
+                    rs.getInt("hierarchyNum"),
                     rs.getInt("boardHit"));
             return board;
         });
@@ -40,6 +42,27 @@ public class BoardDao {
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
                     rs.getInt("boardImportant"),
+                    rs.getInt("parentNum"),
+                    rs.getInt("hierarchyNum"),
+                    rs.getInt("boardHit"));
+            return board;
+        });
+        return list;
+    }
+
+    public List<Board> selectReply(){
+        String sql = "select * from board where boarddivision = 'Q&A' order by parentnum desc, hierarchynum ";
+        List<Board> list = jdbcTemplate.query(sql, (rs, n) ->{
+            Board board = new Board(
+                    rs.getLong("boardNum"),
+                    rs.getString("boardTitle"),
+                    rs.getString("boardContent"),
+                    rs.getString("boardWriter"),
+                    rs.getString("boardDivision"),
+                    rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardImportant"),
+                    rs.getInt("parentNum"),
+                    rs.getInt("hierarchyNum"),
                     rs.getInt("boardHit"));
             return board;
         });
@@ -57,6 +80,8 @@ public class BoardDao {
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
                     rs.getInt("boardImportant"),
+                    rs.getInt("parentNum"),
+                    rs.getInt("hierarchyNum"),
                     rs.getInt("boardHit"));
             return board;
 
@@ -64,8 +89,8 @@ public class BoardDao {
         return boards.isEmpty() ? null : boards.get(0);
     }
     public void write(Board board){
-        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardImportant, boardHit) " +
-                " values (?, ?, ?, ?, now(), ?, 0)";
+        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardImportant, parentNum, hierarchyNum, boardHit) " +
+                " values (?, ?, ?, ?, now(), ?, 0, 0, 0)";
         jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant());
 
     }
@@ -120,10 +145,28 @@ public class BoardDao {
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
                     rs.getInt("boardImportant"),
+                    rs.getInt("parentNum"),
+                    rs.getInt("hierarchyNum"),
                     rs.getInt("boardHit"));
             return board;
 
         }, param);
         return boards.isEmpty() ? null : boards;
+    }
+
+    public Long maxBoardNum(){
+        String sql = "select max(boardnum) from board";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
+    public void parentNumUpdate(Long boardNum){
+        String sql = "update board set parentnum = ? where boardnum = ?";
+        jdbcTemplate.update(sql, boardNum, boardNum);
+    }
+
+    public void replywrite(Board pBoard, Board board){
+        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardImportant, parentNum, hierarchyNum, boardHit) " +
+                " values (?, ?, ?, ?, now(), ?, ?, ?, 0)";
+        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1);
     }
 }
