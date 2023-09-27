@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -169,4 +171,28 @@ public class BoardDao {
                 " values (?, ?, ?, ?, now(), ?, ?, ?, 0)";
         jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1);
     }
+
+    public int selectCount(){
+        String sql = "select count(*) from article";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+    public List<Board> select(int startRow, int size){
+        String sql = "select * from article order by article_no desc limit ?, ?";
+        return jdbcTemplate.query(sql, (rs, n) -> {
+            Board board = new Board(
+                    rs.getLong("boardNum"),
+                    rs.getString("boardTitle"),
+                    rs.getString("boardContent"),
+                    rs.getString("boardWriter"),
+                    rs.getString("boardDivision"),
+                    rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardImportant"),
+                    rs.getInt("parentNum"),
+                    rs.getInt("hierarchyNum"),
+                    rs.getInt("boardHit"));
+            return board;
+        },startRow, size);
+    }
+
 }

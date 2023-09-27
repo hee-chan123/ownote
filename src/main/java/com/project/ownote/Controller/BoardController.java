@@ -2,6 +2,8 @@ package com.project.ownote.Controller;
 
 import com.project.ownote.notice.Board;
 import com.project.ownote.notice.BoardDao;
+import com.project.ownote.notice.BoardPage;
+import com.project.ownote.notice.ListBoard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,9 @@ public class BoardController {
 
     @Autowired
     BoardDao boardDao;
+
+    @Autowired
+    ListBoard listBoard;
 
     @GetMapping("/board/boardmain") //게시판 메인
     public String boardMain(Model model){
@@ -63,9 +68,16 @@ public class BoardController {
     }
 
     @GetMapping("/board/noticeList") //공지사항 이동
-    public String notice(Model model){
+    public String notice(Model model, @RequestParam(value = "pageNo") String pageNoVal){
+        int pageNo = 1;
+        if(pageNoVal != null){
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo);
+
         List<Board> boardList = boardDao.selectAllOrder();
         model.addAttribute("boardList", boardList);
+        model.addAttribute("boardPage", boardPage);
         return "board/noticeList";
     }
 

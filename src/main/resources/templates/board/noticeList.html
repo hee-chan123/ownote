@@ -17,6 +17,12 @@
     <th>등록날짜</th>
     <th>조회수</th>
     </thead>
+    <tbody>
+    <th:block th:if="${boardPage.hasNoArticles()}">
+        <tr>
+            <td colspan="5">게시글이 없습니다.</td>
+        </tr>
+    </th:block>
     <tr th:each="board : ${boardList}">
     <th:block th:if="${board.boardDivision == '공지사항'}">
         <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
@@ -27,6 +33,19 @@
         <td th:text="${board.boardHit}"></td>
     </th:block>>
     </tr>
+    <th:block th:if="${boardPage.hasArticles()}">
+        <tr>
+            <td colspan="5">
+                <th:block th:if="${boardPage.startPage > 5}">
+                    <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage - 5})}">[이전]</a>
+                </th:block>
+                <th:block th:each="pNo : ${boardPage.startPage}" >
+
+                </th:block>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
     <tr>
         <td class="main" colspan="5">
         <a th:href = "@{/board/boardwriteform}">글쓰기</a></td>
