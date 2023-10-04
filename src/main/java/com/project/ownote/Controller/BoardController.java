@@ -24,6 +24,7 @@ public class BoardController {
     @GetMapping("/board/boardmain") //게시판 메인
     public String boardMain(Model model){
         List<Board> boardList = boardDao.selectAll();
+
         model.addAttribute("boardList", boardList);
         return "board/boardMain";
     }
@@ -32,6 +33,7 @@ public class BoardController {
     public String View(@PathVariable Long boardNum, Model model){
         Board board = boardDao.selectByNum(boardNum);
         boardDao.hitPlus(boardNum);
+
         model.addAttribute("board", board);
         return "board/boardView";
     }
@@ -51,6 +53,7 @@ public class BoardController {
     @GetMapping("/board/boardupdate/{boardNum}") //게시판 업데이트 폼
     public String noticeUpdateForm(@PathVariable Long boardNum, Model model){
         Board board = boardDao.selectByNum(boardNum);
+
         model.addAttribute("board", board);
         return "board/boardUpdate";
     }
@@ -68,43 +71,69 @@ public class BoardController {
     }
 
     @GetMapping("/board/noticeList") //공지사항 이동
-    public String notice(Model model, @RequestParam(value = "pageNo") String pageNoVal){
+    public String notice(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
-        BoardPage boardPage = listBoard.getBoardPage((long) pageNo);
 
-        List<Board> boardList = boardDao.selectAllOrder();
+        List<Board> boardList = boardDao.select((pageNo - 1) * 10, 10, "공지사항");
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "공지사항");
+
         model.addAttribute("boardList", boardList);
         model.addAttribute("boardPage", boardPage);
         return "board/noticeList";
     }
 
     @GetMapping("/board/forumList") //자유게시판 이동
-    public String forum(Model model){
-        List<Board> boardList = boardDao.selectAll();
+    public String forum(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal){
+        int pageNo = 1;
+        if(pageNoVal != null){
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        List<Board> boardList = boardDao.select((pageNo - 1) * 10, 10, "자유게시판");
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "자유게시판");
+
         model.addAttribute("boardList", boardList);
+        model.addAttribute("boardPage", boardPage);
         return "board/forumList";
     }
 
     @GetMapping("/board/qaList") //Q&A 이동
-    public String qa(Model model){
-        List<Board> boardList = boardDao.selectReply();
+    public String qa(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal){
+        int pageNo = 1;
+        if(pageNoVal != null){
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        List<Board> boardList = boardDao.select((pageNo - 1) * 10, 10, "Q&A");
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "Q&A");
+
         model.addAttribute("boardList", boardList);
+        model.addAttribute("boardPage", boardPage);
         return "board/qaList";
     }
 
     @GetMapping("/board/findLike") //검색 게시판
     public String findLike(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model){
+//        int pageNo = 1;
+//        if(pageNoVal != null){
+//            pageNo = Integer.parseInt(pageNoVal);
+//        }
+
+//        BoardPage boardPage = listBoard.getBoardPage((long) pageNo);
         List<Board> boardList = boardDao.findLike(boardDivision, find);
+
         model.addAttribute("boardList", boardList);
+//        model.addAttribute("boardPage", boardPage);
         return "board/findLike";
     }
 
     @GetMapping("/board/replywrite/{boardNum}") //Q&A답변 폼
     public String reply(@PathVariable Long boardNum, Model model){
         Board board = boardDao.selectByNum(boardNum);
+
         model.addAttribute("board", board);
         return "board/replyWrite";
     }

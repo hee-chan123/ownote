@@ -6,32 +6,35 @@
 </head>
 <body>
 <form th:action="@{/board/findLike}">
+    <select id="boardDivision" name="boardDivision" >
+        <option value="공지사항">공지사항</option>
+    </select>
     <input type="text" name="find" />
     <button type="submit">검색</button>
 </form>
 <table border="1">
     <thead>
-    <th>글 번호</th>
-    <th>제목</th>
-    <th>작성자</th>
-    <th>등록날짜</th>
-    <th>조회수</th>
+    <tr>
+        <th>글 번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>등록날짜</th>
+        <th>조회수</th>
+    </tr>
     </thead>
     <tbody>
-    <th:block th:if="${boardPage.hasNoArticles()}">
+    <th:block th:if="${boardList == null or boardList.isEmpty()}">
         <tr>
             <td colspan="5">게시글이 없습니다.</td>
         </tr>
     </th:block>
     <tr th:each="board : ${boardList}">
-    <th:block th:if="${board.boardDivision == '공지사항'}">
         <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
         <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
         <td th:text="${board.boardWriter}"></td>
         <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
         <td th:text="${board.boardHit}"></td>
-    </th:block>>
     </tr>
     <th:block th:if="${boardPage.hasArticles()}">
         <tr>
@@ -39,8 +42,11 @@
                 <th:block th:if="${boardPage.startPage > 5}">
                     <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage - 5})}">[이전]</a>
                 </th:block>
-                <th:block th:each="pNo : ${boardPage.startPage}" >
-
+                <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
+                    <a th:href="@{/board/noticeList(pageNo=${pNo})}" th:text="${pNo}"></a>
+                </th:block>
+                <th:block th:if="${boardPage.endPage < boardPage.totalPages}">
+                    <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage + 5})}">[다음]</a>
                 </th:block>
             </td>
         </tr>
@@ -48,7 +54,8 @@
     </tbody>
     <tr>
         <td class="main" colspan="5">
-        <a th:href = "@{/board/boardwriteform}">글쓰기</a></td>
+            <a th:href = "@{/board/boardwriteform}">글쓰기</a>
+        </td>
     </tr>
 </table>
 </body>
