@@ -5,7 +5,7 @@
     <title>Q&A 게시판</title>
 </head>
 <body>
-<form th:action="@{/board/findLike}">
+<form th:action="@{/board/findLike}" method="post">
     <select id="boardDivision" name="boardDivision" >
         <option value="Q&A">Q&A</option>
     </select>

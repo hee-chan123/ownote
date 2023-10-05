@@ -116,17 +116,38 @@ public class BoardController {
     }
 
     @GetMapping("/board/findLike") //검색 게시판
-    public String findLike(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model){
-//        int pageNo = 1;
-//        if(pageNoVal != null){
-//            pageNo = Integer.parseInt(pageNoVal);
-//        }
+    public String findLikePage(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model,
+                           @RequestParam(value = "pageNo", required = false) String pageNoVal){
+        int pageNo = 1;
+        if(pageNoVal != null){
+            pageNo = Integer.parseInt(pageNoVal);
+        }
 
-//        BoardPage boardPage = listBoard.getBoardPage((long) pageNo);
-        List<Board> boardList = boardDao.findLike(boardDivision, find);
+        List<Board> boardList = boardDao.select((pageNo - 1) * 10, 10, boardDivision, find);
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, boardDivision, find);
 
         model.addAttribute("boardList", boardList);
-//        model.addAttribute("boardPage", boardPage);
+        model.addAttribute("boardPage", boardPage);
+        model.addAttribute("boardDivision", boardDivision);
+        model.addAttribute("find", find);
+        return "board/findLike";
+    }
+
+    @PostMapping("/board/findLike") //검색 게시판
+    public String findLike(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model,
+                           @RequestParam(value = "pageNo", required = false) String pageNoVal){
+        int pageNo = 1;
+        if(pageNoVal != null){
+            pageNo = Integer.parseInt(pageNoVal);
+        }
+
+        List<Board> boardList = boardDao.select((pageNo - 1) * 10, 10, boardDivision, find);
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, boardDivision, find);
+
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("boardPage", boardPage);
+        model.addAttribute("boardDivision", boardDivision);
+        model.addAttribute("find", find);
         return "board/findLike";
     }
 

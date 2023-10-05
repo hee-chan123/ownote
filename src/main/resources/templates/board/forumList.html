@@ -5,7 +5,7 @@
     <title>자유 게시판</title>
 </head>
 <body>
-<form th:action="@{/board/findLike}">
+<form th:action="@{/board/findLike}" method="post">
     <select id="boardDivision" name="boardDivision" >
         <option value="자유게시판">자유게시판</option>
     </select>
@@ -23,11 +23,6 @@
     </tr>
     </thead>
     <tbody>
-    <th:block th:if="${boardList == null or boardList.isEmpty()}">
-        <tr>
-            <td colspan="5" th:text="게시글이 없습니다."></td>
-        </tr>
-    </th:block>
     <tr th:each="board : ${boardList}">
         <td th:text="${board.boardNum}"></td>
         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
@@ -36,19 +31,26 @@
         <td th:text="${board.boardHit}"></td>
     </tr>
     <th:block th:if="${boardPage.hasArticles()}">
+    <th:block th:if="${boardList.size() == 0}">
         <tr>
-            <td colspan="5">
-                <th:block th:if="${boardPage.startPage > 5}">
-                    <a th:href = "@{/board/forumList(pageNo=${boardPage.startPage - 5})}">[이전]</a>
-                </th:block>
-                <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}" >
-                    <a th:href="@{/board/forumList(pageNo=${pNo})}" th:text="${pNo}"></a>
-                </th:block>
-                <th:block th:if="${boardPage.endPage < boardPage.totalPages}">
-                    <a th:href = "@{/board/forumList(pageNo=${boardPage.startPage + 5})}">[다음]</a>
-                </th:block>
-            </td>
+            <td colspan="5" th:text="게시글이 없습니다."></td>
         </tr>
+    </th:block>
+    <th:block th:if="${boardList != null or !boardList.isEmpty()}">
+            <tr>
+                <td colspan="5">
+                    <th:block th:if="${boardPage.startPage > 5}">
+                        <a th:href = "@{/board/forumList(pageNo=${boardPage.startPage - 5})}">[이전]</a>
+                    </th:block>
+                    <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}" >
+                        <a th:href="@{/board/forumList(pageNo=${pNo})}" th:text="${pNo}"></a>
+                    </th:block>
+                    <th:block th:if="${boardPage.endPage < boardPage.totalPages}">
+                        <a th:href = "@{/board/forumList(pageNo=${boardPage.startPage + 5})}">[다음]</a>
+                    </th:block>
+                </td>
+            </tr>
+        </th:block>
     </th:block>
     </tbody>
     <tr>

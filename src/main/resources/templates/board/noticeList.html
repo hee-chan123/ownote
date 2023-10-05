@@ -5,7 +5,7 @@
     <title>공지사항 게시판</title>
 </head>
 <body>
-<form th:action="@{/board/findLike}">
+<form th:action="@{/board/findLike}" method="post">
     <select id="boardDivision" name="boardDivision" >
         <option value="공지사항">공지사항</option>
     </select>

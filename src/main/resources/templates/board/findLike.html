@@ -5,9 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/board/findLike}">
+<form th:action="@{/board/findLike}" method="post">
     <select id="boardDivision" name="boardDivision" >
-        <option value="전체">전체</option>
         <option value="공지사항">공지사항</option>
         <option value="자유게시판">자유게시판</option>
         <option value="Q&A">Q&A</option>
@@ -16,14 +15,21 @@
     <button type="submit">검색</button>
 </form>
 <table border="1">
-    검색 후 게시판
     <thead>
-    <th>글 번호</th>
-    <th>제목</th>
-    <th>작성자</th>
-    <th>등록날짜</th>
-    <th>조회수</th>
+    <tr>
+        <th>글 번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>등록날짜</th>
+        <th>조회수</th>
+    </tr>
     </thead>
+    <tbody>
+    <th:block th:if="${boardList == null or boardList.isEmpty()}">
+        <tr>
+            <td colspan="5">게시글이 없습니다.</td>
+        </tr>
+    </th:block>
     <tr th:each="board : ${boardList}">
         <td th:text="${board.boardNum}"></td>
         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
@@ -31,6 +37,22 @@
         <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
         <td th:text="${board.boardHit}"></td>
     </tr>
+    <th:block th:if="${boardPage.hasArticles()}">
+        <tr>
+            <td colspan="5">
+                <th:block th:if="${boardPage.startPage > 5}">
+                    <a th:href = "@{/board/findLike(pageNo=${boardPage.startPage - 5})}">[이전]</a>
+                </th:block>
+                <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
+                    <a th:href="@{/board/findLike(pageNo=${pNo},boardDivision=${boardDivision},find=${find})}" th:text="${pNo}"></a>
+                </th:block>
+                <th:block th:if="${boardPage.endPage < boardPage.totalPages}">
+                    <a th:href = "@{/board/findLike(pageNo=${boardPage.startPage + 5})}">[다음]</a>
+                </th:block>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
 </table>
 </body>
 </html>
