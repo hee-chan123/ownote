@@ -1,5 +1,8 @@
-package com.project.ownote.notice;
+package com.project.ownote.notice.page;
 
+import com.project.ownote.notice.dao.BoardDao;
+import com.project.ownote.notice.dto.Board;
+import com.project.ownote.notice.page.BoardPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

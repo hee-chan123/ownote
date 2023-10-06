@@ -1,5 +1,6 @@
 package com.project.ownote.notice;
 
+import com.project.ownote.notice.dto.Board;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

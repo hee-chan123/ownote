@@ -5,11 +5,11 @@
 
 <mapper namespace="com.project.ownote.notice.NoticeDaoT">
 
-    <select id="selectAll" resultType="com.project.ownote.notice.Board">
+    <select id="selectAll" resultType="com.project.ownote.notice.dto.Board">
         select * from notice order by noticenum desc
     </select>
 
-    <select id="view" resultType="com.project.ownote.notice.Board">
+    <select id="view" resultType="com.project.ownote.notice.dto.Board">
         select * from notice where noticenum = #{param1}
     </select>
 

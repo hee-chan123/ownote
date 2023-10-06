@@ -1,15 +1,14 @@
-package com.project.ownote.Controller;
+package com.project.ownote.notice.Controller;
 
-import com.project.ownote.notice.Board;
-import com.project.ownote.notice.BoardDao;
-import com.project.ownote.notice.BoardPage;
-import com.project.ownote.notice.ListBoard;
+import com.project.ownote.notice.dto.Board;
+import com.project.ownote.notice.dao.BoardDao;
+import com.project.ownote.notice.page.BoardPage;
+import com.project.ownote.notice.page.ListBoard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Controller

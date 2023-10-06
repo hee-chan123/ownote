@@ -1,11 +1,10 @@
-package com.project.ownote.notice;
+package com.project.ownote.notice.dao;
 
+import com.project.ownote.notice.dto.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -32,63 +31,6 @@ public class BoardDao {
         });
         return list;
     }
-
-//    public List<Board> selectAllOrder(){ //공지사항 중요게시물
-//        String sql = "select * from board where boarddivision = '공지사항' order by boardimportant desc, boardnum desc";
-//        List<Board> list = jdbcTemplate.query(sql, (rs, n) ->{
-//            Board board = new Board(
-//                    rs.getLong("boardNum"),
-//                    rs.getString("boardTitle"),
-//                    rs.getString("boardContent"),
-//                    rs.getString("boardWriter"),
-//                    rs.getString("boardDivision"),
-//                    rs.getTimestamp("boardRegDate").toLocalDateTime(),
-//                    rs.getInt("boardImportant"),
-//                    rs.getInt("parentNum"),
-//                    rs.getInt("hierarchyNum"),
-//                    rs.getInt("boardHit"));
-//            return board;
-//        });
-//        return list;
-//    }
-
-//    public List<Board> selectReply(){ //Q&A 계층형 게시물
-//        String sql = "select * from board where boarddivision = 'Q&A' order by parentnum desc, hierarchynum";
-//        List<Board> list = jdbcTemplate.query(sql, (rs, n) ->{
-//            Board board = new Board(
-//                    rs.getLong("boardNum"),
-//                    rs.getString("boardTitle"),
-//                    rs.getString("boardContent"),
-//                    rs.getString("boardWriter"),
-//                    rs.getString("boardDivision"),
-//                    rs.getTimestamp("boardRegDate").toLocalDateTime(),
-//                    rs.getInt("boardImportant"),
-//                    rs.getInt("parentNum"),
-//                    rs.getInt("hierarchyNum"),
-//                    rs.getInt("boardHit"));
-//            return board;
-//        });
-//        return list;
-//    }
-
-//    public List<Board> selectForum(){ //자유게시판 게시물
-//        String sql = "select * from board where boarddivision = '자유게시판' order by boardnum desc";
-//        List<Board> list = jdbcTemplate.query(sql, (rs, n) ->{
-//            Board board = new Board(
-//                    rs.getLong("boardNum"),
-//                    rs.getString("boardTitle"),
-//                    rs.getString("boardContent"),
-//                    rs.getString("boardWriter"),
-//                    rs.getString("boardDivision"),
-//                    rs.getTimestamp("boardRegDate").toLocalDateTime(),
-//                    rs.getInt("boardImportant"),
-//                    rs.getInt("parentNum"),
-//                    rs.getInt("hierarchyNum"),
-//                    rs.getInt("boardHit"));
-//            return board;
-//        });
-//        return list;
-//    }
 
     public Board selectByNum(Long boardNum){ //게시물 번호로 한 개 게시물 가져오기
         String sql = "select * from board where boardNum = ?";
@@ -190,11 +132,6 @@ public class BoardDao {
                 " values (?, ?, ?, ?, now(), ?, ?, ?, 0)";
         jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1);
     }
-
-//    public int selectCount(){ //게시물 갯수
-//        String sql = "select count(*) from board where boarddivision = ?";
-//        return jdbcTemplate.queryForObject(sql, Integer.class);
-//    }
 
     public int selectCount(String boardDivision){ //게시물 갯수
         String sql = "select count(*) from board where boarddivision = ?";

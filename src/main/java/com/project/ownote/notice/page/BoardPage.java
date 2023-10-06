@@ -1,4 +1,5 @@
-package com.project.ownote.notice;
+package com.project.ownote.notice.page;
+import com.project.ownote.notice.dto.Board;
 import lombok.Getter;
 
 import java.util.List;
