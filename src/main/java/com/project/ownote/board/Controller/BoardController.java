@@ -1,9 +1,9 @@
-package com.project.ownote.notice.Controller;
+package com.project.ownote.board.Controller;
 
-import com.project.ownote.notice.dto.Board;
-import com.project.ownote.notice.dao.BoardDao;
-import com.project.ownote.notice.page.BoardPage;
-import com.project.ownote.notice.page.ListBoard;
+import com.project.ownote.board.dto.Board;
+import com.project.ownote.board.dao.BoardDao;
+import com.project.ownote.board.page.BoardPage;
+import com.project.ownote.board.page.ListBoard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

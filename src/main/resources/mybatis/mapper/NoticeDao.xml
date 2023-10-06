@@ -3,13 +3,13 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.ownote.notice.NoticeDaoT">
+<mapper namespace="com.project.ownote.board.NoticeDaoT">
 
-    <select id="selectAll" resultType="com.project.ownote.notice.dto.Board">
+    <select id="selectAll" resultType="com.project.ownote.board.dto.Board">
         select * from notice order by noticenum desc
     </select>
 
-    <select id="view" resultType="com.project.ownote.notice.dto.Board">
+    <select id="view" resultType="com.project.ownote.board.dto.Board">
         select * from notice where noticenum = #{param1}
     </select>
 

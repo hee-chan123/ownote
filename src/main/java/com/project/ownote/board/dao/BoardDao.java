@@ -1,6 +1,6 @@
-package com.project.ownote.notice.dao;
+package com.project.ownote.board.dao;
 
-import com.project.ownote.notice.dto.Board;
+import com.project.ownote.board.dto.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
