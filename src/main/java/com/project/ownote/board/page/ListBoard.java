@@ -23,13 +23,13 @@ public class ListBoard {
 
     public BoardPage getBoardPage(Long boardNum, String boardDivision){
         int total = boardDao.selectCount(boardDivision);
-        List<Board> content = boardDao.select(((boardNum.intValue()) - 1) * size, size);
+        List<Board> content = boardDao.select(((boardNum.intValue()) - 1) * size, size, boardDivision);
         return new BoardPage(total,boardNum.intValue(), size, content);
     }
 
     public BoardPage getBoardPage(Long boardNum, String boardDivision, String find){
         int total = boardDao.selectCount(boardDivision, find);
-        List<Board> content = boardDao.select(((boardNum.intValue()) - 1) * size, size);
+        List<Board> content = boardDao.select(((boardNum.intValue()) - 1) * size, size, boardDivision, find);
         return new BoardPage(total,boardNum.intValue(), size, content);
     }
 }

@@ -1,6 +1,7 @@
 package com.project.ownote.board.dao;
 
 import com.project.ownote.board.dto.Board;
+import com.project.ownote.emp.login.dto.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,10 +24,11 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("empId"));
             return board;
         });
         return list;
@@ -42,19 +44,20 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("empId"));
             return board;
 
         }, boardNum) ;
         return boards.isEmpty() ? null : boards.get(0);
     }
-    public void write(Board board){ //게시글 작성
-        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardImportant, parentNum, hierarchyNum, boardHit) " +
-                " values (?, ?, ?, ?, now(), ?, 0, 0, 0)";
-        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant());
+    public void write(Board board, int empId){ //게시글 작성
+        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardHit, boardImportant, parentNum, hierarchyNum, empId) " +
+                " values (?, ?, ?, ?, now(), 0, ?, 0, 0, ?)";
+        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), empId);
 
     }
 
@@ -107,10 +110,11 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("empId"));
             return board;
 
         }, param);
@@ -128,9 +132,9 @@ public class BoardDao {
     }
 
     public void replywrite(Board pBoard, Board board){ //Q&A 답변
-        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardImportant, parentNum, hierarchyNum, boardHit) " +
-                " values (?, ?, ?, ?, now(), ?, ?, ?, 0)";
-        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1);
+        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardHit, boardImportant, parentNum, hierarchyNum, empId) " +
+                " values (?, ?, ?, ?, now(), 0, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1, board.getEmpId());
     }
 
     public int selectCount(String boardDivision){ //게시물 갯수
@@ -154,10 +158,11 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("empId"));
             return board;
         },startRow, size);
     }
@@ -187,10 +192,11 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("empId"));
             return board;
         },startRow, size);
     }
@@ -221,11 +227,32 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("empId"));
             return board;
         }, f, startRow, size);
+    }
+
+    public Emp selectEmp(int empId){ //사원 번호로 사원 정보 가져오기
+        String sql = "select * from emp where emp_id = ?";
+
+        List<Emp> emps = jdbcTemplate.query(sql, (rs, n) -> {
+            Emp emp = new Emp(
+                    rs.getInt("emp_id"),
+                    rs.getInt("emp_num"),
+                    rs.getString("emp_password"),
+                    rs.getString("emp_name"),
+                    rs.getString("emp_birth"),
+                    rs.getString("emp_email"),
+                    rs.getString("emp_phone"),
+                    rs.getDate("emp_date"),
+                    rs.getInt("grade_num"),
+                    rs.getInt("dept_num"));
+            return emp;
+        }, empId);
+        return emps.isEmpty() ? null : emps.get(0);
     }
 }

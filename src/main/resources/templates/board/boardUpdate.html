@@ -13,18 +13,19 @@
         </tr>
         <tr>
             <td>작성자</td>
-            <td><input type="text" name="boardWriter" th:value="${board.boardWriter}" /></td>
+            <td><input type="text" name="boardWriter" th:value="${emp.emp_name}" readonly="readonly" /></td>
         </tr>
         <tr>
             <td>작성할 게시판</td>
             <td>
                 <select id="boardDivision" name="boardDivision" >
+<!--                    <th:block th:if="${board.boardDivision == '공지사항'}">-->
+<!--                    </th:block>-->
                     <option value="공지사항">공지사항</option>
                     <option value="자유게시판">자유게시판</option>
                     <option value="Q&A">Q&A</option>
                 </select>
             </td>
-            <td><input type="checkbox" name="boardImportant" value="1">공지사항 중요!</td>
         </tr>
         <tr>
             <td>내용</td>

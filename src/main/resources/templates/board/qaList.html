@@ -23,12 +23,12 @@
     </tr>
     </thead>
     <tbody>
-    <th:block th:if="${boardList == null or boardList.isEmpty()}">
+    <th:block th:if="${boardPage.content == null or boardPage.content.isEmpty()}">
         <tr>
             <td colspan="5">게시글이 없습니다.</td>
         </tr>
     </th:block>
-    <tr th:each="board : ${boardList}">
+    <tr th:each="board : ${boardPage.content}">
         <td th:text="${board.boardNum}"></td>
         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
         <td th:text="${board.boardWriter}"></td>
@@ -53,7 +53,7 @@
     </tbody>
     <tr>
         <td class="main" colspan="5">
-        <a th:href = "@{/board/boardwriteform}">글쓰기</a></td>
+            <a th:href = "@{/board/boardwriteform}">글쓰기</a></td>
     </tr>
 </table>
 </body>

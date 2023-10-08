@@ -14,8 +14,6 @@
     <tr>
         <td>작성자</td>
         <td th:text="${board.boardWriter}"></td>
-        <td>게시판</td>
-        <td th:text="${board.boardDivision}"></td>
     </tr>
     <tr>
         <td>등록날짜</td>
@@ -28,11 +26,16 @@
         <td th:text="${board.boardContent}"></td>
     </tr>
 </table>
-<a th:href = "@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}">수정하기</a>
-<a th:href = "@{/board/boarddelete/{boardNum}(boardNum=${board.boardNum})}">삭제하기</a>
-<a th:href = "@{/board/boardmain}">뒤로가기</a>
-<th:block th:if="${board.boardDivision == 'Q&A'}">
-    <a th:href = "@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}">답변달기</a>
+<th:block th:if="${emp.emp_id == board.empId}">
+    <a th:href = "@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}">수정하기</a>
 </th:block>
+<th:block th:if="${emp.emp_id == board.empId or emp.dept_num >= 40}">
+    <a th:href = "@{/board/boarddelete/{boardNum}(boardNum=${board.boardNum})}">삭제하기</a>
+    <th:block th:if="${board.boardDivision == 'Q&A'}">
+        <a th:href = "@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}">답변달기</a>
+    </th:block>
+</th:block>
+</th:block>
+<a th:href = "@{/board/boardmain}">뒤로가기</a>
 </body>
 </html>
