@@ -52,12 +52,14 @@
         </tr>
     </th:block>
     </tbody>
-    <th:block th:if="${emp.grade_num >= 3}">
+    <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
         <tr>
             <td class="main" colspan="5">
-                <a th:href = "@{/board/boardwriteform}">글쓰기</a></td>
+                <button type="button" th:onclick="|location.href='@{/board/boardwriteform}'|">글쓰기</button>
+            </td>
         </tr>
     </th:block>
 </table>
+<button type="button" onclick="location.href='/' ">뒤로가기</button>
 </body>
 </html>

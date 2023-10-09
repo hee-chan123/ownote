@@ -28,6 +28,7 @@ public class BoardDao {
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
+                    rs.getInt("pEmpId"),
                     rs.getInt("empId"));
             return board;
         });
@@ -48,6 +49,7 @@ public class BoardDao {
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
+                    rs.getInt("pEmpId"),
                     rs.getInt("empId"));
             return board;
 
@@ -55,9 +57,9 @@ public class BoardDao {
         return boards.isEmpty() ? null : boards.get(0);
     }
     public void write(Board board, int empId){ //게시글 작성
-        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardHit, boardImportant, parentNum, hierarchyNum, empId) " +
-                " values (?, ?, ?, ?, now(), 0, ?, 0, 0, ?)";
-        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), empId);
+        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardHit, boardImportant, parentNum, hierarchyNum, pEmpId, empId) " +
+                " values (?, ?, ?, ?, now(), 0, ?, 0, 0, ?, ?)";
+        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), empId, empId);
 
     }
 
@@ -114,6 +116,7 @@ public class BoardDao {
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
+                    rs.getInt("pEmpId"),
                     rs.getInt("empId"));
             return board;
 
@@ -131,10 +134,10 @@ public class BoardDao {
         jdbcTemplate.update(sql, boardNum, boardNum);
     }
 
-    public void replywrite(Board pBoard, Board board){ //Q&A 답변
-        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardHit, boardImportant, parentNum, hierarchyNum, empId) " +
-                " values (?, ?, ?, ?, now(), 0, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1, board.getEmpId());
+    public void replywrite(Board pBoard, Board board, int empId){ //Q&A 답변
+        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardHit, boardImportant, parentNum, hierarchyNum, pEmpId, empId) " +
+                " values (?, ?, ?, ?, now(), 0, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1, pBoard.getPEmpId(), empId);
     }
 
     public int selectCount(String boardDivision){ //게시물 갯수
@@ -162,6 +165,7 @@ public class BoardDao {
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
+                    rs.getInt("pEmpId"),
                     rs.getInt("empId"));
             return board;
         },startRow, size);
@@ -196,6 +200,7 @@ public class BoardDao {
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
+                    rs.getInt("pEmpId"),
                     rs.getInt("empId"));
             return board;
         },startRow, size);
@@ -231,6 +236,7 @@ public class BoardDao {
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
+                    rs.getInt("pEmpId"),
                     rs.getInt("empId"));
             return board;
         }, f, startRow, size);

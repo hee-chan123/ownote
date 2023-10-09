@@ -19,20 +19,24 @@
             <td>작성할 게시판</td>
             <td>
                 <select id="boardDivision" name="boardDivision" >
-<!--                    <th:block th:if="${board.boardDivision == '공지사항'}">-->
-<!--                    </th:block>-->
-                    <option value="공지사항">공지사항</option>
-                    <option value="자유게시판">자유게시판</option>
-                    <option value="Q&A">Q&A</option>
+                    <th:block th:switch="${board.boardDivision}">
+                        <option th:case="공지사항" value="공지사항">공지사항</option>
+                        <option th:case="자유게시판" value="자유게시판">자유게시판</option>
+                        <option th:case="'Q&A'" value="Q&A">Q&A</option>
+                    </th:block>
                 </select>
             </td>
+            <th:block th:if="${board.boardDivision == '공지사항'}">
+                <td><input type="checkbox" name="boardImportant" value="1">공지사항 중요!</td>
+            </th:block>
         </tr>
         <tr>
             <td>내용</td>
             <td><textarea type="text" name="boardContent"  cols="20" rows="5" th:text="${board.boardContent}"></textarea></td>
         </tr>
     </table>
-    <input type="submit"/>
+    <input type="submit" value="글 등록"/>
 </form>
+<button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
 </body>
 </html>

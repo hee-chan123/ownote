@@ -66,7 +66,17 @@ public class BoardController {
 
         boardDao.write(board, empId);
         boardDao.parentNumUpdate(boardDao.maxBoardNum());
-        return "redirect:/board/boardmain";
+
+        switch (board.getBoardDivision()) {
+            case "공지사항":
+                return "redirect:/board/noticeList";
+            case "자유게시판":
+                return "redirect:/board/forumList";
+            case "Q&A":
+                return "redirect:/board/qaList";
+            default:
+                return "redirect:/board/boardmain";
+        }
     }
 
     @GetMapping("/board/boardupdate/{boardNum}") //게시판 업데이트 폼
@@ -84,13 +94,34 @@ public class BoardController {
     @PostMapping("/board/boardupdate/{boardNum}") //게시판 업데이트
     public String noticeUpdate(@ModelAttribute("board") Board board){
         boardDao.update(board);
-        return "redirect:/board/boardmain";
+
+        switch (board.getBoardDivision()) {
+            case "공지사항":
+                return "redirect:/board/noticeList";
+            case "자유게시판":
+                return "redirect:/board/forumList";
+            case "Q&A":
+                return "redirect:/board/qaList";
+            default:
+                return "redirect:/board/boardmain";
+        }
     }
 
     @GetMapping("/board/boarddelete/{boardNum}") //게시판 삭제
     public String noticeDelete(@PathVariable Long boardNum){
+        String boardDivision = boardDao.selectByNum(boardNum).getBoardDivision();
         boardDao.delete(boardNum);
-        return "redirect:/board/boardmain";
+
+        switch (boardDivision) {
+            case "공지사항":
+                return "redirect:/board/noticeList";
+            case "자유게시판":
+                return "redirect:/board/forumList";
+            case "Q&A":
+                return "redirect:/board/qaList";
+            default:
+                return "redirect:/board/boardmain";
+        }
     }
 
     @GetMapping("/board/noticeList") //공지사항
@@ -190,9 +221,11 @@ public class BoardController {
     }
 
     @PostMapping("/board/replywrite/{boardNum}") //Q&A답변 저장
-    public String replywrite(@PathVariable Long boardNum, @ModelAttribute("board") Board board){
+    public String replywrite(@PathVariable Long boardNum, @ModelAttribute("board") Board board, HttpSession session){
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+        int empId = authInfo.getEmp_id();
         Board pBoard = boardDao.selectByNum(boardNum);
-        boardDao.replywrite(pBoard, board);
+        boardDao.replywrite(pBoard, board, empId);
         return "redirect:/board/qaList";
     }
 }
