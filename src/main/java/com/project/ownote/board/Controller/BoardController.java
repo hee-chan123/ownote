@@ -1,9 +1,9 @@
 package com.project.ownote.board.Controller;
 
-import com.project.ownote.board.dao.BoardDao;
 import com.project.ownote.board.dto.Board;
 import com.project.ownote.board.page.BoardPage;
 import com.project.ownote.board.page.ListBoard;
+import com.project.ownote.board.service.BoardService;
 import com.project.ownote.emp.login.dto.AuthInfo;
 import com.project.ownote.emp.login.dto.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +18,16 @@ import java.util.List;
 public class BoardController {
 
     @Autowired
-    BoardDao boardDao;
+    BoardService boardService;
 
     @Autowired
     ListBoard listBoard;
 
     @GetMapping("/board/boardmain") //게시판 메인
     public String boardMain(Model model){
-        List<Board> boardNotice = boardDao.select(0, 5, "공지사항");
-        List<Board> boardForum = boardDao.select(0, 5, "자유게시판");
-        List<Board> boardQa = boardDao.select(0, 5, "Q&A");
+        List<Board> boardNotice = boardService.select(0, 5, "공지사항");
+        List<Board> boardForum = boardService.select(0, 5, "자유게시판");
+        List<Board> boardQa = boardService.select(0, 5, "Q&A");
 
         model.addAttribute("boardNotice", boardNotice);
         model.addAttribute("boardForum", boardForum);
@@ -40,9 +40,9 @@ public class BoardController {
     public String View(@PathVariable Long boardNum, Model model, HttpSession session){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
-        Emp emp = boardDao.selectEmp(empId);
-        Board board = boardDao.selectByNum(boardNum);
-        boardDao.hitPlus(boardNum);
+        Emp emp = boardService.selectEmp(empId);
+        Board board = boardService.selectByNum(boardNum);
+        boardService.hitPlus(boardNum);
 
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
@@ -53,7 +53,7 @@ public class BoardController {
     public String noticeWriteForm(Model model, HttpSession session){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
-        Emp emp = boardDao.selectEmp(empId);
+        Emp emp = boardService.selectEmp(empId);
 
         model.addAttribute("emp", emp);
         return "board/boardWrite";
@@ -77,8 +77,8 @@ public class BoardController {
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
 
-        boardDao.write(board, empId);
-        boardDao.parentNumUpdate(boardDao.maxBoardNum());
+        boardService.write(board, empId);
+        boardService.parentNumUpdate(boardService.maxBoardNum());
 
         switch (board.getBoardDivision()) {
             case "공지사항":
@@ -96,8 +96,8 @@ public class BoardController {
     public String noticeUpdateForm(@PathVariable Long boardNum, Model model, HttpSession session){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
-        Emp emp = boardDao.selectEmp(empId);
-        Board board = boardDao.selectByNum(boardNum);
+        Emp emp = boardService.selectEmp(empId);
+        Board board = boardService.selectByNum(boardNum);
 
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
@@ -119,7 +119,7 @@ public class BoardController {
             }
         }
 
-        boardDao.update(board);
+        boardService.update(board);
 
         switch (board.getBoardDivision()) {
             case "공지사항":
@@ -135,8 +135,8 @@ public class BoardController {
 
     @GetMapping("/board/boarddelete/{boardNum}") //게시판 삭제
     public String noticeDelete(@PathVariable Long boardNum){
-        String boardDivision = boardDao.selectByNum(boardNum).getBoardDivision();
-        boardDao.delete(boardNum);
+        String boardDivision = boardService.selectByNum(boardNum).getBoardDivision();
+        boardService.delete(boardNum);
 
         switch (boardDivision) {
             case "공지사항":
@@ -159,7 +159,7 @@ public class BoardController {
 
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
-        Emp emp = boardDao.selectEmp(empId);
+        Emp emp = boardService.selectEmp(empId);
         BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "공지사항");
 
         model.addAttribute("emp", emp);
@@ -176,7 +176,7 @@ public class BoardController {
 
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
-        Emp emp = boardDao.selectEmp(empId);
+        Emp emp = boardService.selectEmp(empId);
         BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "자유게시판");
 
         model.addAttribute("emp", emp);
@@ -194,7 +194,7 @@ public class BoardController {
 
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
-        Emp emp = boardDao.selectEmp(empId);
+        Emp emp = boardService.selectEmp(empId);
         BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "Q&A");
 
         model.addAttribute("emp", emp);
@@ -238,8 +238,8 @@ public class BoardController {
     public String reply(@PathVariable Long boardNum, Model model, HttpSession session){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
-        Emp emp = boardDao.selectEmp(empId);
-        Board board = boardDao.selectByNum(boardNum);
+        Emp emp = boardService.selectEmp(empId);
+        Board board = boardService.selectByNum(boardNum);
 
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
@@ -263,8 +263,8 @@ public class BoardController {
 
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
-        Board pBoard = boardDao.selectByNum(boardNum);
-        boardDao.replywrite(pBoard, board, empId);
+        Board pBoard = boardService.selectByNum(boardNum);
+        boardService.replywrite(pBoard, board, empId);
         return "redirect:/board/qaList";
     }
 }

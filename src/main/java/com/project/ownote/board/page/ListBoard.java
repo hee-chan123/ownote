@@ -1,7 +1,7 @@
 package com.project.ownote.board.page;
 
-import com.project.ownote.board.dao.BoardDao;
 import com.project.ownote.board.dto.Board;
+import com.project.ownote.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class ListBoard {
 
     @Autowired
-    private BoardDao boardDao;
+    private BoardService boardService;
 
     private int size = 10;
 
@@ -22,14 +22,14 @@ public class ListBoard {
 //    }
 
     public BoardPage getBoardPage(Long boardNum, String boardDivision){
-        int total = boardDao.selectCount(boardDivision);
-        List<Board> content = boardDao.select(((boardNum.intValue()) - 1) * size, size, boardDivision);
+        int total = boardService.selectCount(boardDivision);
+        List<Board> content = boardService.select(((boardNum.intValue()) - 1) * size, size, boardDivision);
         return new BoardPage(total,boardNum.intValue(), size, content);
     }
 
     public BoardPage getBoardPage(Long boardNum, String boardDivision, String find){
-        int total = boardDao.selectCount(boardDivision, find);
-        List<Board> content = boardDao.select(((boardNum.intValue()) - 1) * size, size, boardDivision, find);
+        int total = boardService.selectCount(boardDivision, find);
+        List<Board> content = boardService.select(((boardNum.intValue()) - 1) * size, size, boardDivision, find);
         return new BoardPage(total,boardNum.intValue(), size, content);
     }
 }

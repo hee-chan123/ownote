@@ -78,32 +78,7 @@ public class BoardDao {
         jdbcTemplate.update(sql, boardNum);
     }
 
-    public List<Board> findLike(String boardDivision, String find){ //게시물 제목으로 검색
-        String sql ="";
-        String param ="";
-        switch (boardDivision) {
-            case "전체": {
-                sql = "select * from board where boardtitle like ? order by boardnum desc";
-                param = "%" + find + "%";
-                break;
-            }
-            case "공지사항": {
-                sql = "select * from board where boarddivision = '공지사항' and  boardtitle like ? order by boardnum desc";
-                param = "%" + find + "%";
-                break;
-            }
-            case "자유게시판": {
-                sql = "select * from board where boarddivision = '자유게시판' and  boardtitle like ? order by boardnum desc";
-                param = "%" + find + "%";
-                break;
-            }
-            case "Q&A": {
-                sql = "select * from board where boarddivision = 'Q&A' and  boardtitle like ? order by boardnum desc";
-                param = "%" + find + "%";
-                break;
-            }
-        }
-
+    public List<Board> findLike(String sql, String param){ //게시물 제목으로 검색
         List<Board> boards = jdbcTemplate.query(sql, (rs, n) -> {
             Board board = new Board(
                     rs.getLong("boardNum"),
@@ -140,12 +115,12 @@ public class BoardDao {
         jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1, pBoard.getPEmpId(), empId);
     }
 
-    public int selectCount(String boardDivision){ //게시물 갯수
+    public int selectCount(String boardDivision){ //게시물 개수
         String sql = "select count(*) from board where boarddivision = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, boardDivision);
     }
 
-    public int selectCount(String boardDivision, String find){ //게시물 갯수
+    public int selectCount(String boardDivision, String find){ //게시물 개수
         String sql = "select count(*) from board where boardDivision = ? and boardtitle like ? order by boardnum desc";
         String f = "%" + find + "%";
         return jdbcTemplate.queryForObject(sql, Integer.class, boardDivision, f);
@@ -171,23 +146,7 @@ public class BoardDao {
         },startRow, size);
     }
 
-    public List<Board> select(int startRow, int size, String boardDivision){ //게시물 페이징
-        String sql = "";
-        switch (boardDivision) {
-            case "공지사항": {
-                sql = "select * from board where boarddivision = '공지사항' order by boardimportant desc, boardnum desc limit ?, ?";
-                break;
-            }
-            case "자유게시판": {
-                sql = "select * from board where boarddivision = '자유게시판' order by boardnum desc limit ?, ?";
-                break;
-            }
-            case "Q&A": {
-                sql = "select * from board where boarddivision = 'Q&A' order by parentnum desc, hierarchynum limit ?, ?";
-                break;
-            }
-        }
-
+    public List<Board> select(int startRow, int size, String sql){ //게시물 페이징
         return jdbcTemplate.query(sql, (rs, n) -> {
             Board board = new Board(
                     rs.getLong("boardNum"),
@@ -206,24 +165,7 @@ public class BoardDao {
         },startRow, size);
     }
 
-    public List<Board> select(int startRow, int size, String boardDivision, String find){ //검색 게시물 페이징
-        String sql = "";
-        String f = "%" + find + "%";
-        switch (boardDivision) {
-            case "공지사항": {
-                sql = "select * from board where boarddivision = '공지사항' and boardtitle like ? order by boardimportant desc, boardnum desc limit ?, ?";
-                break;
-            }
-            case "자유게시판": {
-                sql = "select * from board where boarddivision = '자유게시판' and boardtitle like ? order by boardnum desc limit ?, ?";
-                break;
-            }
-            case "Q&A": {
-                sql = "select * from board where boarddivision = 'Q&A' and boardtitle like ? order by parentnum desc, hierarchynum limit ?, ?";
-                break;
-            }
-        }
-
+    public List<Board> select(int startRow, int size, String sql, String find){ //검색 게시물 페이징
         return jdbcTemplate.query(sql, (rs, n) -> {
             Board board = new Board(
                     rs.getLong("boardNum"),
@@ -239,7 +181,7 @@ public class BoardDao {
                     rs.getInt("pEmpId"),
                     rs.getInt("empId"));
             return board;
-        }, f, startRow, size);
+        }, find, startRow, size);
     }
 
     public Emp selectEmp(int empId){ //사원 번호로 사원 정보 가져오기
