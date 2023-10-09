@@ -23,7 +23,9 @@
     </tr>
     <tr>
         <td>내용</td>
-        <td th:text="${board.boardContent}"></td>
+        <td>
+            <textarea th:text="${board.boardContent}" readonly="readonly" cols="100" rows="50"></textarea>
+        </td>
     </tr>
 </table>
 <th:block th:if="${emp.emp_id == board.empId}">

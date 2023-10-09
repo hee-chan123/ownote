@@ -9,7 +9,7 @@
     <table>
         <tr>
             <td>제목</td>
-            <td><input type="text" name="boardTitle" /></td>
+            <td><input type="text" id="boardTitle" name="boardTitle" /></td>
         </tr>
         <tr>
             <td>작성자</td>
@@ -32,11 +32,12 @@
         </tr>
         <tr>
             <td>내용</td>
-            <td><textarea type="text" name="boardContent"  cols="20" rows="5"></textarea></td>
+            <td><textarea type="text" id="boardContent" name="boardContent"  cols="100" rows="50"></textarea></td>
         </tr>
     </table>
-    <input type="submit" value="글 등록"/>
+    <input type="submit" value="글 등록" id="submit" >
 </form>
 <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+<script src="/js/boardCheck.js"></script>
 </body>
 </html>

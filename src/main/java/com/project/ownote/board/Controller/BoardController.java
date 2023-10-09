@@ -61,6 +61,19 @@ public class BoardController {
 
     @PostMapping("/board/boardwrite") //게시판 글 쓰기
     public String noticeWrite(@ModelAttribute("board") Board board, HttpSession session){
+        if(board.getBoardTitle().trim().isEmpty() || board.getBoardContent().trim().isEmpty()){
+            switch (board.getBoardDivision()) {
+                case "공지사항":
+                    return "redirect:/board/noticeList";
+                case "자유게시판":
+                    return "redirect:/board/forumList";
+                case "Q&A":
+                    return "redirect:/board/qaList";
+                default:
+                    return "redirect:/board/boardmain";
+            }
+        }
+
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
 
@@ -93,6 +106,19 @@ public class BoardController {
 
     @PostMapping("/board/boardupdate/{boardNum}") //게시판 업데이트
     public String noticeUpdate(@ModelAttribute("board") Board board){
+        if(board.getBoardTitle().trim().isEmpty() || board.getBoardContent().trim().isEmpty()){
+            switch (board.getBoardDivision()) {
+                case "공지사항":
+                    return "redirect:/board/noticeList";
+                case "자유게시판":
+                    return "redirect:/board/forumList";
+                case "Q&A":
+                    return "redirect:/board/qaList";
+                default:
+                    return "redirect:/board/boardmain";
+            }
+        }
+
         boardDao.update(board);
 
         switch (board.getBoardDivision()) {
@@ -222,6 +248,19 @@ public class BoardController {
 
     @PostMapping("/board/replywrite/{boardNum}") //Q&A답변 저장
     public String replywrite(@PathVariable Long boardNum, @ModelAttribute("board") Board board, HttpSession session){
+        if(board.getBoardTitle().trim().isEmpty() || board.getBoardContent().trim().isEmpty()){
+            switch (board.getBoardDivision()) {
+                case "공지사항":
+                    return "redirect:/board/noticeList";
+                case "자유게시판":
+                    return "redirect:/board/forumList";
+                case "Q&A":
+                    return "redirect:/board/qaList";
+                default:
+                    return "redirect:/board/boardmain";
+            }
+        }
+
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
         Board pBoard = boardDao.selectByNum(boardNum);
