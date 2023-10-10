@@ -2,18 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title >
+    <title>Q&A</title >
 </head>
 <body>
 <form th:action="@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}" method="post">
+    <input type="hidden" id="boardNum" name="boardNum" th:value="${board.boardNum}" />
     <table>
         <tr>
             <td>제목</td>
-            <td><input type="text" name="boardTitle" th:value="'re :' + ${board.boardTitle}" /></td>
+            <td><input type="text" name="boardTitle" th:value="'re :' + ${board.boardTitle}" readonly="readonly"/></td>
         </tr>
         <tr>
             <td>작성자</td>
-            <td><input type="text" name="boardWriter" /></td>
+            <td><input type="text" name="boardWriter" th:value="${emp.emp_name}" readonly="readonly"/></td>
         </tr>
         <tr>
             <td>작성할 게시판</td>
@@ -25,10 +26,13 @@
         </tr>
         <tr>
             <td>내용</td>
-            <td><textarea type="text" name="boardContent"  cols="20" rows="5"></textarea></td>
+            <td><textarea type="textarea" name="boardContent" cols="100" rows="50"></textarea></td>
         </tr>
     </table>
-    <input type="submit"/>
+    <input type="submit" value="글 등록" id="submit3"/>
 </form>
+<button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/js/boardCheck.js"></script>
 </body>
 </html>

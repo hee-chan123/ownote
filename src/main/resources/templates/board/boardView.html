@@ -14,8 +14,6 @@
     <tr>
         <td>작성자</td>
         <td th:text="${board.boardWriter}"></td>
-        <td>게시판</td>
-        <td th:text="${board.boardDivision}"></td>
     </tr>
     <tr>
         <td>등록날짜</td>
@@ -25,14 +23,23 @@
     </tr>
     <tr>
         <td>내용</td>
-        <td th:text="${board.boardContent}"></td>
+        <td>
+            <textarea th:text="${board.boardContent}" readonly="readonly" cols="100" rows="50"></textarea>
+        </td>
     </tr>
 </table>
-<a th:href = "@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}">수정하기</a>
-<a th:href = "@{/board/boarddelete/{boardNum}(boardNum=${board.boardNum})}">삭제하기</a>
-<a th:href = "@{/board/boardmain}">뒤로가기</a>
-<th:block th:if="${board.boardDivision == 'Q&A'}">
-    <a th:href = "@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}">답변달기</a>
+<th:block th:if="${emp.emp_id == board.empId}">
+    <button type="button" th:onclick="|location.href='@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}'|">수정하기</button>
 </th:block>
+<th:block th:if="${emp.emp_id == board.empId or emp.dept_num >= 40}">
+    <button type="button" th:onclick="|location.href='@{/board/boarddelete/{boardNum}(boardNum=${board.boardNum})}'|">삭제하기</button>
+</th:block>
+<th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 0) and emp.dept_num == 40}">
+    <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">답변하기</button>
+</th:block>
+<th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId}">
+    <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">질문하기</button>
+</th:block>
+<button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
 </body>
 </html>

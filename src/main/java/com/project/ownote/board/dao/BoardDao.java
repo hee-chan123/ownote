@@ -1,6 +1,7 @@
 package com.project.ownote.board.dao;
 
 import com.project.ownote.board.dto.Board;
+import com.project.ownote.emp.login.dto.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,10 +24,12 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("pEmpId"),
+                    rs.getInt("empId"));
             return board;
         });
         return list;
@@ -42,19 +45,21 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("pEmpId"),
+                    rs.getInt("empId"));
             return board;
 
         }, boardNum) ;
         return boards.isEmpty() ? null : boards.get(0);
     }
-    public void write(Board board){ //게시글 작성
-        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardImportant, parentNum, hierarchyNum, boardHit) " +
-                " values (?, ?, ?, ?, now(), ?, 0, 0, 0)";
-        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant());
+    public void write(Board board, int empId){ //게시글 작성
+        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardHit, boardImportant, parentNum, hierarchyNum, pEmpId, empId) " +
+                " values (?, ?, ?, ?, now(), 0, ?, 0, 0, ?, ?)";
+        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), empId, empId);
 
     }
 
@@ -73,32 +78,7 @@ public class BoardDao {
         jdbcTemplate.update(sql, boardNum);
     }
 
-    public List<Board> findLike(String boardDivision, String find){ //게시물 제목으로 검색
-        String sql ="";
-        String param ="";
-        switch (boardDivision) {
-            case "전체": {
-                sql = "select * from board where boardtitle like ? order by boardnum desc";
-                param = "%" + find + "%";
-                break;
-            }
-            case "공지사항": {
-                sql = "select * from board where boarddivision = '공지사항' and  boardtitle like ? order by boardnum desc";
-                param = "%" + find + "%";
-                break;
-            }
-            case "자유게시판": {
-                sql = "select * from board where boarddivision = '자유게시판' and  boardtitle like ? order by boardnum desc";
-                param = "%" + find + "%";
-                break;
-            }
-            case "Q&A": {
-                sql = "select * from board where boarddivision = 'Q&A' and  boardtitle like ? order by boardnum desc";
-                param = "%" + find + "%";
-                break;
-            }
-        }
-
+    public List<Board> findLike(String sql, String param){ //게시물 제목으로 검색
         List<Board> boards = jdbcTemplate.query(sql, (rs, n) -> {
             Board board = new Board(
                     rs.getLong("boardNum"),
@@ -107,10 +87,12 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("pEmpId"),
+                    rs.getInt("empId"));
             return board;
 
         }, param);
@@ -127,18 +109,18 @@ public class BoardDao {
         jdbcTemplate.update(sql, boardNum, boardNum);
     }
 
-    public void replywrite(Board pBoard, Board board){ //Q&A 답변
-        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardImportant, parentNum, hierarchyNum, boardHit) " +
-                " values (?, ?, ?, ?, now(), ?, ?, ?, 0)";
-        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1);
+    public void replywrite(Board pBoard, Board board, int empId){ //Q&A 답변
+        String sql = "insert into board (boardTitle, boardWriter, boardDivision, boardContent, boardRegDate, boardHit, boardImportant, parentNum, hierarchyNum, pEmpId, empId) " +
+                " values (?, ?, ?, ?, now(), 0, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardWriter(), board.getBoardDivision(), board.getBoardContent(), board.getBoardImportant(), pBoard.getParentNum(), pBoard.getHierarchyNum()+1, pBoard.getPEmpId(), empId);
     }
 
-    public int selectCount(String boardDivision){ //게시물 갯수
+    public int selectCount(String boardDivision){ //게시물 개수
         String sql = "select count(*) from board where boarddivision = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, boardDivision);
     }
 
-    public int selectCount(String boardDivision, String find){ //게시물 갯수
+    public int selectCount(String boardDivision, String find){ //게시물 개수
         String sql = "select count(*) from board where boardDivision = ? and boardtitle like ? order by boardnum desc";
         String f = "%" + find + "%";
         return jdbcTemplate.queryForObject(sql, Integer.class, boardDivision, f);
@@ -154,31 +136,17 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("pEmpId"),
+                    rs.getInt("empId"));
             return board;
         },startRow, size);
     }
 
-    public List<Board> select(int startRow, int size, String boardDivision){ //게시물 페이징
-        String sql = "";
-        switch (boardDivision) {
-            case "공지사항": {
-                sql = "select * from board where boarddivision = '공지사항' order by boardimportant desc, boardnum desc limit ?, ?";
-                break;
-            }
-            case "자유게시판": {
-                sql = "select * from board where boarddivision = '자유게시판' order by boardnum desc limit ?, ?";
-                break;
-            }
-            case "Q&A": {
-                sql = "select * from board where boarddivision = 'Q&A' order by parentnum desc, hierarchynum limit ?, ?";
-                break;
-            }
-        }
-
+    public List<Board> select(int startRow, int size, String sql){ //게시물 페이징
         return jdbcTemplate.query(sql, (rs, n) -> {
             Board board = new Board(
                     rs.getLong("boardNum"),
@@ -187,32 +155,17 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("pEmpId"),
+                    rs.getInt("empId"));
             return board;
         },startRow, size);
     }
 
-    public List<Board> select(int startRow, int size, String boardDivision, String find){ //검색 게시물 페이징
-        String sql = "";
-        String f = "%" + find + "%";
-        switch (boardDivision) {
-            case "공지사항": {
-                sql = "select * from board where boarddivision = '공지사항' and boardtitle like ? order by boardimportant desc, boardnum desc limit ?, ?";
-                break;
-            }
-            case "자유게시판": {
-                sql = "select * from board where boarddivision = '자유게시판' and boardtitle like ? order by boardnum desc limit ?, ?";
-                break;
-            }
-            case "Q&A": {
-                sql = "select * from board where boarddivision = 'Q&A' and boardtitle like ? order by parentnum desc, hierarchynum limit ?, ?";
-                break;
-            }
-        }
-
+    public List<Board> select(int startRow, int size, String sql, String find){ //검색 게시물 페이징
         return jdbcTemplate.query(sql, (rs, n) -> {
             Board board = new Board(
                     rs.getLong("boardNum"),
@@ -221,11 +174,33 @@ public class BoardDao {
                     rs.getString("boardWriter"),
                     rs.getString("boardDivision"),
                     rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                    rs.getInt("boardHit"),
                     rs.getInt("boardImportant"),
                     rs.getInt("parentNum"),
                     rs.getInt("hierarchyNum"),
-                    rs.getInt("boardHit"));
+                    rs.getInt("pEmpId"),
+                    rs.getInt("empId"));
             return board;
-        }, f, startRow, size);
+        }, find, startRow, size);
+    }
+
+    public Emp selectEmp(int empId){ //사원 번호로 사원 정보 가져오기
+        String sql = "select * from emp where emp_id = ?";
+
+        List<Emp> emps = jdbcTemplate.query(sql, (rs, n) -> {
+            Emp emp = new Emp(
+                    rs.getInt("emp_id"),
+                    rs.getInt("emp_num"),
+                    rs.getString("emp_password"),
+                    rs.getString("emp_name"),
+                    rs.getString("emp_birth"),
+                    rs.getString("emp_email"),
+                    rs.getString("emp_phone"),
+                    rs.getDate("emp_date"),
+                    rs.getInt("grade_num"),
+                    rs.getInt("dept_num"));
+            return emp;
+        }, empId);
+        return emps.isEmpty() ? null : emps.get(0);
     }
 }

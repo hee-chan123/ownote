@@ -2,36 +2,43 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title >
+    <title>글쓰기</title >
 </head>
 <body>
 <form th:action="@{/board/boardwrite}" method="post">
     <table>
         <tr>
             <td>제목</td>
-            <td><input type="text" name="boardTitle" /></td>
+            <td><input type="text" id="boardTitle" name="boardTitle" /></td>
         </tr>
         <tr>
             <td>작성자</td>
-            <td><input type="text" name="boardWriter" /></td>
+            <td><input type="text" name="boardWriter" th:value="${emp.emp_name}" readonly="readonly"/></td>
         </tr>
         <tr>
             <td>작성할 게시판</td>
             <td>
                 <select id="boardDivision" name="boardDivision" >
-                    <option value="공지사항">공지사항</option>
+                    <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
+                        <option value="공지사항">공지사항</option>
+                    </th:block>
                     <option value="자유게시판">자유게시판</option>
                     <option value="Q&A">Q&A</option>
                 </select>
             </td>
-            <td><input type="checkbox" name="boardImportant" value="1">공지사항 중요!</td>
+            <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
+                <td><input type="checkbox" name="boardImportant" id="boardImportant">공지사항 중요!</td>
+            </th:block>
         </tr>
         <tr>
             <td>내용</td>
-            <td><textarea type="text" name="boardContent"  cols="20" rows="5"></textarea></td>
+            <td><textarea type="text" id="boardContent" name="boardContent"  cols="100" rows="50"></textarea></td>
         </tr>
     </table>
-    <input type="submit"/>
+    <input type="submit" value="글 등록" id="submit1" >
 </form>
+<button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/js/boardCheck.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>검색 게시판</title>
 </head>
 <body>
 <form th:action="@{/board/findLike}" method="post">
@@ -25,12 +25,12 @@
     </tr>
     </thead>
     <tbody>
-    <th:block th:if="${boardList == null or boardList.isEmpty()}">
+    <th:block th:if="${boardPage.content == null or boardPage.content.isEmpty()}">
         <tr>
             <td colspan="5">게시글이 없습니다.</td>
         </tr>
     </th:block>
-    <tr th:each="board : ${boardList}">
+    <tr th:each="board : ${boardPage.content}">
         <td th:text="${board.boardNum}"></td>
         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
         <td th:text="${board.boardWriter}"></td>
@@ -54,5 +54,6 @@
     </th:block>
     </tbody>
 </table>
+<button type="button" onclick="location.href='/' ">뒤로가기</button>
 </body>
 </html>
