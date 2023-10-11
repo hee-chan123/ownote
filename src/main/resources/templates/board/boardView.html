@@ -31,13 +31,13 @@
 <th:block th:if="${emp.emp_id == board.empId}">
     <button type="button" th:onclick="|location.href='@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}'|">수정하기</button>
 </th:block>
-<th:block th:if="${emp.emp_id == board.empId or emp.dept_num >= 40}">
+<th:block th:if="${emp.emp_id == board.empId or emp.dept_num == 40}">
     <button type="button" th:onclick="|location.href='@{/board/boarddelete/{boardNum}(boardNum=${board.boardNum})}'|">삭제하기</button>
 </th:block>
-<th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 0) and emp.dept_num == 40}">
+<th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 0) and emp.dept_num == 40 and (board.hierarchyNum == maxHierarchynum)}">
     <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">답변하기</button>
 </th:block>
-<th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId}">
+<th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId and (board.hierarchyNum == maxHierarchynum)}">
     <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">질문하기</button>
 </th:block>
 <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>

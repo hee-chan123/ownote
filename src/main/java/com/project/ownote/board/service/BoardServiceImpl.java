@@ -149,4 +149,9 @@ public class BoardServiceImpl implements BoardService{
     public Emp selectEmp(int empId) { //사원 번호로 사원 정보 가져오기
         return boardDao.selectEmp(empId);
     }
+
+    @Override
+    public int maxHierarchynum(int parentNum) {
+        return boardDao.maxHierarchynum(parentNum);
+    }
 }

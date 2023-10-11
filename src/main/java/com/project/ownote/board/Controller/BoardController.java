@@ -43,9 +43,11 @@ public class BoardController {
         Emp emp = boardService.selectEmp(empId);
         Board board = boardService.selectByNum(boardNum);
         boardService.hitPlus(boardNum);
+        int maxHierarchynum = boardService.maxHierarchynum(board.getParentNum());
 
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
+        model.addAttribute("maxHierarchynum", maxHierarchynum);
         return "board/boardView";
     }
 

@@ -38,4 +38,6 @@ public interface BoardService {
     public List<Board> select(int startRow, int size, String boardDivision, String find); //검색 게시물 페이징
 
     public Emp selectEmp(int empId); //사원 번호로 사원 정보 가져오기
+
+    public int maxHierarchynum (int parentNum); //maxHierarchynum
 }

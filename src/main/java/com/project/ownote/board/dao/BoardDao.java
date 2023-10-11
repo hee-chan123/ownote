@@ -203,4 +203,9 @@ public class BoardDao {
         }, empId);
         return emps.isEmpty() ? null : emps.get(0);
     }
+
+    public int maxHierarchynum (int parentNum){ //maxHierarchynum
+        String sql = "select max(hierarchynum) from board where parentnum = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, parentNum);
+    }
 }
