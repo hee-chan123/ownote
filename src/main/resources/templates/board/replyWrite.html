@@ -2,10 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title >
+    <title>Q&A</title >
 </head>
 <body>
 <form th:action="@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}" method="post">
+    <input type="hidden" id="boardNum" name="boardNum" th:value="${board.boardNum}" />
     <table>
         <tr>
             <td>제목</td>
@@ -28,8 +29,10 @@
             <td><textarea type="textarea" name="boardContent" cols="100" rows="50"></textarea></td>
         </tr>
     </table>
-    <input type="submit" value="글 등록"/>
+    <input type="submit" value="글 등록" id="submit3"/>
 </form>
 <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/js/boardCheck.js"></script>
 </body>
 </html>

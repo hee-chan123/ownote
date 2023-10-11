@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title >
+    <title>글쓰기</title >
 </head>
 <body>
 <form th:action="@{/board/boardwrite}" method="post">
@@ -27,7 +27,7 @@
                 </select>
             </td>
             <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
-                <td><input type="checkbox" name="boardImportant" value="1">공지사항 중요!</td>
+                <td><input type="checkbox" name="boardImportant" id="boardImportant">공지사항 중요!</td>
             </th:block>
         </tr>
         <tr>
@@ -35,9 +35,10 @@
             <td><textarea type="text" id="boardContent" name="boardContent"  cols="100" rows="50"></textarea></td>
         </tr>
     </table>
-    <input type="submit" value="글 등록" id="submit" >
+    <input type="submit" value="글 등록" id="submit1" >
 </form>
 <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="/js/boardCheck.js"></script>
 </body>
 </html>

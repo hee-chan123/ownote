@@ -2,10 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>글 수정</title>
 </head>
 <body>
 <form th:action="@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}" method="post">
+    <input type="hidden" id="boardNum" name="boardNum" th:value="${board.boardNum}" />
     <table>
         <tr>
             <td>제목</td>
@@ -27,7 +28,7 @@
                 </select>
             </td>
             <th:block th:if="${board.boardDivision == '공지사항'}">
-                <td><input type="checkbox" name="boardImportant" value="1">공지사항 중요!</td>
+                <td><input type="checkbox" name="boardImportant" id="boardImportant">공지사항 중요!</td>
             </th:block>
         </tr>
         <tr>
@@ -35,8 +36,10 @@
             <td><textarea type="textarea" name="boardContent"  cols="100" rows="50" th:text="${board.boardContent}"></textarea></td>
         </tr>
     </table>
-    <input type="submit" value="글 등록"/>
+    <input type="submit" value="글 등록" id="submit2"/>
 </form>
 <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/js/boardCheck.js"></script>
 </body>
 </html>
