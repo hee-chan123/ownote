@@ -28,7 +28,8 @@
     </thead>
     <tbody th:each="board : ${boardNotice}">
         <tr>
-            <td th:text="${board.boardNum}"></td>
+            <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
+            <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
             <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
             <td th:text="${board.boardWriter}"></td>
             <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
@@ -70,7 +71,13 @@
     </thead>
     <tbody th:each="board : ${boardQa}">
         <tr>
-            <td th:text="${board.boardNum}"></td>
+            <th:block th:if="${board.hierarchyNum > 0}">
+                <th:block th:if="${board.hierarchyNum % 2 == 1}"><td th:text="답변" /></th:block>
+                <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" /></th:block>
+            </th:block>
+            <th:block th:if="${board.hierarchyNum == 0}">
+                <td th:text="${board.boardNum}"></td>
+            </th:block>
             <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
             <td th:text="${board.boardWriter}"></td>
             <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
