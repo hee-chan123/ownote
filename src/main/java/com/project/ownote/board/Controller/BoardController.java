@@ -37,13 +37,17 @@ public class BoardController {
     }
 
     @GetMapping("/board/boardView/{boardNum}") //게시판 뷰
-    public String View(@PathVariable Long boardNum, Model model, HttpSession session){
+    public String View(@PathVariable Long boardNum, Model model, HttpSession session, @RequestParam(value = "mainCheck", required = false) String mainCheck){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
         Emp emp = boardService.selectEmp(empId);
         Board board = boardService.selectByNum(boardNum);
         boardService.hitPlus(boardNum);
         int maxHierarchynum = boardService.maxHierarchynum(board.getParentNum());
+
+        if(mainCheck != null){
+            model.addAttribute("mainCheck", mainCheck);
+        }
 
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);

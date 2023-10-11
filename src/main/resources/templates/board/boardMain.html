@@ -30,7 +30,7 @@
         <tr>
             <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
             <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
-            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
+            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
             <td th:text="${board.boardWriter}"></td>
             <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
             <td th:text="${board.boardHit}"></td>
@@ -51,7 +51,7 @@
     <tbody th:each="board : ${boardForum}">
         <tr>
             <td th:text="${board.boardNum}"></td>
-            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
+            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
             <td th:text="${board.boardWriter}"></td>
             <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
             <td th:text="${board.boardHit}"></td>
@@ -78,7 +78,7 @@
             <th:block th:if="${board.hierarchyNum == 0}">
                 <td th:text="${board.boardNum}"></td>
             </th:block>
-            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
+            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
             <td th:text="${board.boardWriter}"></td>
             <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
             <td th:text="${board.boardHit}"></td>
