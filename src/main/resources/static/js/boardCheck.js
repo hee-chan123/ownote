@@ -25,6 +25,7 @@ $(document).ready(function () {
                         boardContent: boardContent
                     },
                     success: function (data) {
+                        alert("글 등록이 완료되었습니다.");
                         switch (boardDivision) {
                             case "공지사항":
                                 window.location.href = "/board/noticeList";
@@ -46,7 +47,9 @@ $(document).ready(function () {
                 });
             }
     });
+});
 
+$(document).ready(function () {
     $('#submit2').click(function (e) { //update
         e.preventDefault();
         let boardNum = $('#boardNum').val();
@@ -59,10 +62,10 @@ $(document).ready(function () {
 
         if (!boardTitle || !boardContent) {
             alert("제목과 내용을 입력해 주세요.");
-            error=true;
+            error = true;
         }
 
-        if(!error){
+        if (!error) {
             $.ajax({
                 type: 'POST',
                 url: '/board/boardupdate/' + boardNum,
@@ -74,6 +77,7 @@ $(document).ready(function () {
                     boardContent: boardContent
                 },
                 success: function (data) {
+                    alert("글 수정이 완료되었습니다.")
                     switch (boardDivision) {
                         case "공지사항":
                             window.location.href = "/board/noticeList";
@@ -95,7 +99,9 @@ $(document).ready(function () {
             });
         }
     });
+});
 
+$(document).ready(function () {
     $('#submit3').click(function (e) { //reply
         e.preventDefault();
         let boardNum = $('#boardNum').val();
@@ -121,6 +127,7 @@ $(document).ready(function () {
                     boardContent: boardContent
                 },
                 success: function (data) {
+                    alert("글 등록이 완료되었습니다.")
                     switch (boardDivision) {
                         case "공지사항":
                             window.location.href = "/board/noticeList";
@@ -142,4 +149,31 @@ $(document).ready(function () {
             });
         }
     });
+});
+
+$(document).ready(function () {
+        $('#delete').click(function (e) {
+            e.preventDefault();
+
+            var boardNum = $(this).data('boardNum');
+            var confirmResult = confirm('게시글을 삭제하시겠습니까?');
+
+            if (confirmResult) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/board/boarddelete/' + boardNum,
+                    data: {
+                        boardNum: boardNum
+                    },
+
+                    success: function (data) {
+                        alert('삭제가 완료되었습니다.');
+                        window.location.href = "'javascript:history.back();'";
+                    },
+                    error: function () {
+                        alert('오류가 발생했습니다.');
+                    }
+                });
+            }
+        });
 });

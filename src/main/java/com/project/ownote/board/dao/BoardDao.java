@@ -69,7 +69,7 @@ public class BoardDao {
     }
 
     public void delete(Long boardNum){ //게시글 삭제
-        String sql = "delete from board where boardnum = ?";
+        String sql = "delete from board where parentnum = ?";
         jdbcTemplate.update(sql, boardNum);
     }
 

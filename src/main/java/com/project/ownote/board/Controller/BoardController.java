@@ -25,9 +25,9 @@ public class BoardController {
 
     @GetMapping("/board/boardmain") //게시판 메인
     public String boardMain(Model model){
-        List<Board> boardNotice = boardService.select(0, 5, "공지사항");
-        List<Board> boardForum = boardService.select(0, 5, "자유게시판");
-        List<Board> boardQa = boardService.select(0, 5, "Q&A");
+        List<Board> boardNotice = boardService.select(0, 7, "공지사항");
+        List<Board> boardForum = boardService.select(0, 7, "자유게시판");
+        List<Board> boardQa = boardService.select(0, 7, "Q&A");
 
         model.addAttribute("boardNotice", boardNotice);
         model.addAttribute("boardForum", boardForum);
