@@ -41,7 +41,8 @@ th, td {
 .board_wrap_mainBoard.title_board {
     text-align: left;
     margin-bottom: 30px;
-=======
+}
+
 .board_wrap_mainBoard {
     width: 1500px;
     margin: 300px auto;
@@ -65,7 +66,6 @@ th, td {
     margin-bottom: 30px;
     display: flex;
     align-items: center;
->>>>>>> origin/master
 }
 
 .board_wrap_mainBoard.title_board strong {
@@ -79,7 +79,6 @@ th, td {
     text-overflow: ellipsis;
 }
 
-<<<<<<< HEAD
 .board_list {
     width: 100%;
     border-top: 2px solid #61adf6;
@@ -96,19 +95,7 @@ th, td {
 }
 
 .board_wrap td {
-    white-space:nowrap;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
-}
-
-tfoot {
-    background-color: #f2f2f2; /* 풋터 배경색 설정 */
-    text-align: center;
-}
-
-tbody tr:hover {
-    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
-=======
->>>>>>> origin/master
 }
