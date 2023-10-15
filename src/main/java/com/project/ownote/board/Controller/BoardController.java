@@ -25,9 +25,9 @@ public class BoardController {
 
     @GetMapping("/board/boardmain") //게시판 메인
     public String boardMain(Model model){
-        List<Board> boardNotice = boardService.select(0, 7, "회사뉴스및공지");
-        List<Board> boardForum = boardService.select(0, 7, "자유게시판");
-        List<Board> boardQa = boardService.select(0, 7, "사내시스템/F&Q");
+        List<Board> boardNotice = boardService.select(0, 5, "공지사항");
+        List<Board> boardForum = boardService.select(0, 5, "자유게시판");
+        List<Board> boardQa = boardService.select(0, 5, "Q&A");
 
         model.addAttribute("boardNotice", boardNotice);
         model.addAttribute("boardForum", boardForum);
@@ -37,26 +37,20 @@ public class BoardController {
     }
 
     @GetMapping("/board/boardView/{boardNum}") //게시판 뷰
-    public String View(@PathVariable Long boardNum, Model model, HttpSession session, @RequestParam(value = "mainCheck", required = false) String mainCheck){
+    public String View(@PathVariable Long boardNum, Model model, HttpSession session){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
         Emp emp = boardService.selectEmp(empId);
         Board board = boardService.selectByNum(boardNum);
         boardService.hitPlus(boardNum);
-        int maxHierarchynum = boardService.maxHierarchynum(board.getParentNum());
-
-        if(mainCheck != null){
-            model.addAttribute("mainCheck", mainCheck);
-        }
 
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
-        model.addAttribute("maxHierarchynum", maxHierarchynum);
         return "board/boardView";
     }
 
     @GetMapping("/board/boardwriteform") //게시판 글 쓰기 폼
-    public String WriteForm(Model model, HttpSession session){
+    public String noticeWriteForm(Model model, HttpSession session){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
         Emp emp = boardService.selectEmp(empId);
@@ -66,7 +60,20 @@ public class BoardController {
     }
 
     @PostMapping("/board/boardwrite") //게시판 글 쓰기
-    public String Write(@ModelAttribute("board") Board board, HttpSession session){
+    public String noticeWrite(@ModelAttribute("board") Board board, HttpSession session){
+        if(board.getBoardTitle().trim().isEmpty() || board.getBoardContent().trim().isEmpty()){
+            switch (board.getBoardDivision()) {
+                case "공지사항":
+                    return "redirect:/board/noticeList";
+                case "자유게시판":
+                    return "redirect:/board/forumList";
+                case "Q&A":
+                    return "redirect:/board/qaList";
+                default:
+                    return "redirect:/board/boardmain";
+            }
+        }
+
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
 
@@ -74,11 +81,11 @@ public class BoardController {
         boardService.parentNumUpdate(boardService.maxBoardNum());
 
         switch (board.getBoardDivision()) {
-            case "회사뉴스및공지":
+            case "공지사항":
                 return "redirect:/board/noticeList";
             case "자유게시판":
                 return "redirect:/board/forumList";
-            case "사내시스템/F&Q":
+            case "Q&A":
                 return "redirect:/board/qaList";
             default:
                 return "redirect:/board/boardmain";
@@ -99,14 +106,27 @@ public class BoardController {
 
     @PostMapping("/board/boardupdate/{boardNum}") //게시판 업데이트
     public String noticeUpdate(@ModelAttribute("board") Board board){
+        if(board.getBoardTitle().trim().isEmpty() || board.getBoardContent().trim().isEmpty()){
+            switch (board.getBoardDivision()) {
+                case "공지사항":
+                    return "redirect:/board/noticeList";
+                case "자유게시판":
+                    return "redirect:/board/forumList";
+                case "Q&A":
+                    return "redirect:/board/qaList";
+                default:
+                    return "redirect:/board/boardmain";
+            }
+        }
+
         boardService.update(board);
 
         switch (board.getBoardDivision()) {
-            case "회사뉴스및공지":
+            case "공지사항":
                 return "redirect:/board/noticeList";
             case "자유게시판":
                 return "redirect:/board/forumList";
-            case "사내시스템/F&Q":
+            case "Q&A":
                 return "redirect:/board/qaList";
             default:
                 return "redirect:/board/boardmain";
@@ -119,18 +139,18 @@ public class BoardController {
         boardService.delete(boardNum);
 
         switch (boardDivision) {
-            case "회사뉴스및공지":
+            case "공지사항":
                 return "redirect:/board/noticeList";
             case "자유게시판":
                 return "redirect:/board/forumList";
-            case "사내시스템/F&Q":
+            case "Q&A":
                 return "redirect:/board/qaList";
             default:
                 return "redirect:/board/boardmain";
         }
     }
 
-    @GetMapping("/board/noticeList") //회사뉴스 및 공지
+    @GetMapping("/board/noticeList") //공지사항
     public String notice(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
@@ -140,7 +160,7 @@ public class BoardController {
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
         Emp emp = boardService.selectEmp(empId);
-        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "회사뉴스및공지");
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "공지사항");
 
         model.addAttribute("emp", emp);
         model.addAttribute("boardPage", boardPage);
@@ -148,25 +168,36 @@ public class BoardController {
     }
 
     @GetMapping("/board/forumList") //자유게시판
-    public String forum(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal){
+    public String forum(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
+
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+        int empId = authInfo.getEmp_id();
+        Emp emp = boardService.selectEmp(empId);
         BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "자유게시판");
 
+        model.addAttribute("emp", emp);
         model.addAttribute("boardPage", boardPage);
         return "board/forumList";
     }
 
-    @GetMapping("/board/qaList") //사내시스템/F&Q
-    public String qa(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal){
+    @GetMapping("/board/qaList") //Q&A
+    public String qa(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
-        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "사내시스템/F&Q");
 
+
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+        int empId = authInfo.getEmp_id();
+        Emp emp = boardService.selectEmp(empId);
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "Q&A");
+
+        model.addAttribute("emp", emp);
         model.addAttribute("boardPage", boardPage);
         return "board/qaList";
     }
@@ -217,6 +248,19 @@ public class BoardController {
 
     @PostMapping("/board/replywrite/{boardNum}") //Q&A답변 저장
     public String replywrite(@PathVariable Long boardNum, @ModelAttribute("board") Board board, HttpSession session){
+        if(board.getBoardTitle().trim().isEmpty() || board.getBoardContent().trim().isEmpty()){
+            switch (board.getBoardDivision()) {
+                case "공지사항":
+                    return "redirect:/board/noticeList";
+                case "자유게시판":
+                    return "redirect:/board/forumList";
+                case "Q&A":
+                    return "redirect:/board/qaList";
+                default:
+                    return "redirect:/board/boardmain";
+            }
+        }
+
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
         Board pBoard = boardService.selectByNum(boardNum);

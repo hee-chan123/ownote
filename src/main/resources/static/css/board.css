@@ -1,11 +1,11 @@
-/**{*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/
+*{
+    margin: 0;
+    padding: 0;
+}
 
-/*html{*/
-/*    font-size: 15px;*/
-/*}*/
+html{
+    font-size: 15px;
+}
 
 a {
     text-decoration: none;
@@ -41,6 +41,31 @@ th, td {
 .board_wrap_mainBoard.title_board {
     text-align: left;
     margin-bottom: 30px;
+=======
+.board_wrap_mainBoard {
+    width: 1500px;
+    margin: 300px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.board_wrap_mainBoard table {
+    border: 1px solid #000;
+    margin-right: 10px;
+}
+
+.board_wrap_mainBoard.title-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board_wrap_mainBoard.title_board {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+>>>>>>> origin/master
 }
 
 .board_wrap_mainBoard.title_board strong {
@@ -54,6 +79,7 @@ th, td {
     text-overflow: ellipsis;
 }
 
+<<<<<<< HEAD
 .board_list {
     width: 100%;
     border-top: 2px solid #61adf6;
@@ -73,6 +99,7 @@ th, td {
     white-space:nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
 }
 
 tfoot {
@@ -82,4 +109,6 @@ tfoot {
 
 tbody tr:hover {
     background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+=======
+>>>>>>> origin/master
 }
