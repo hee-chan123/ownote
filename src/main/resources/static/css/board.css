@@ -1,0 +1,85 @@
+/**{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*html{*/
+/*    font-size: 15px;*/
+/*}*/
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+form {
+    text-align: center;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 8px;
+}
+
+.board_wrap_mainBoard {
+    width: 1500px;
+    margin: 300px auto;
+}
+
+.mainBoard_table {
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.mainBoard_table table{
+    flex: 0 0 30%;
+    padding: 10px;
+}
+
+.board_wrap_mainBoard.title_board {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.board_wrap_mainBoard.title_board strong {
+    margin-right: 10px;
+    font-size: 1rem;
+}
+
+.board_wrap_mainBoard td {
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+}
+
+.board_list > table > thead {
+    border-bottom: 10px solid #999999;
+}
+
+.board_wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+
+.board_wrap td {
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+tfoot {
+    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    text-align: center;
+}
+
+tbody tr:hover {
+    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+}

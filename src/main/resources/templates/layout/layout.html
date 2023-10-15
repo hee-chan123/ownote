@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="setContent(content)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+
+<header>
+    <nav id="nav2" style="display: flex;padding: 30px 15px;">
+        <h1 style="font-family: 'Malgun Gothic', sans-serif; font-size: 24px; font-weight: bold; color: #000000; margin-top: 0; margin-bottom: 0;" >Ownote</h1>
+        <ul class="navbar-menu">
+            <li ><a th:if ="${authInfo == null}" th:href="@{/emp/logIn}">로그인</a></li>
+        </ul>
+        <ul class="navbar-menu">
+            <li><a th:if ="${authInfo != null}" th:href="@{/emp/myPage}">[[${authInfo.emp_name}]]</a></li>
+            <li><a th:if ="${authInfo != null}" th:href="@{/logout}">로그아웃</a></li>
+        </ul>
+    </nav>
+</header>
+  <aside class="side-bar">
+    <ul>
+        <li>
+          <a th:href="@{#}"></i>인사</a>
+          <ul>
+            <li><a th:href="@{/emp/signUp}">사원등록</a></li>
+            <li><a th:href="@{#}">text2</a></li>
+            <li><a th:href="@{#}">text3</a></li>
+            <li><a th:href="@{#}">text4</a></li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{#}">연차</a>
+          <ul>
+            <li><a th:href="@{#}">연차 신청 </a></li>
+            <li><a th:href="@{#}">연차 확인</a></li>
+            <li><a th:href="@{#}">연차 승인</a></li>
+            <li><a th:href="@{#}">연차 수량</a></li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{/board/boardmain}">게시판</a>
+          <ul>
+            <li><a th:href="@{/board/noticeList}">회사뉴스 및 공지</a></li>
+            <li><a th:href="@{/board/forumList}">자유게시판</a></li>
+            <li><a th:href="@{/board/qaList}">사내시스템 / F&Q</a></li>
+          </ul>
+        </li>
+        <li>
+          <a th:href="@{#}">동아리</a>
+          <ul>
+            <li><a th:href="@{/clubinfo/list}">동아리 소개</a></li>
+            <li><a th:href="@{/club/list}">홍보 게시판</a></li>
+            <li><a th:href="@{#}">text3</a></li>
+            <li><a th:href="@{#}">text4</a></li>
+          </ul>
+        </li>
+        <li><a th:href="@{/emp/adress}">주소록</a></li>
+      </ul>
+  </aside>
+<script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
+
+<div class="content">
+<th:block th:replace="${content}">
+    <!-- 실제 컨텐츠 위치 -->
+</th:block>
+</div>
+</body>
+</th:block>
+</html>

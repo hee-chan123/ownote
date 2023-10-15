@@ -69,7 +69,7 @@ public class BoardDao {
     }
 
     public void delete(Long boardNum){ //게시글 삭제
-        String sql = "delete from board where boardnum = ?";
+        String sql = "delete from board where parentnum = ?";
         jdbcTemplate.update(sql, boardNum);
     }
 
@@ -202,5 +202,10 @@ public class BoardDao {
             return emp;
         }, empId);
         return emps.isEmpty() ? null : emps.get(0);
+    }
+
+    public int maxHierarchynum (int parentNum){ //maxHierarchynum
+        String sql = "select max(hierarchynum) from board where parentnum = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, parentNum);
     }
 }

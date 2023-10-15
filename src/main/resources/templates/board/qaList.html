@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
 <head>
     <meta charset="UTF-8">
     <title>Q&A 게시판</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/board.css">
 </head>
 <body>
+
+<div class="board_wrap">
 <form th:action="@{/board/findLike}" method="post">
     <select id="boardDivision" name="boardDivision" >
-        <option value="Q&A">Q&A</option>
+        <option value="사내시스템/F&Q">사내시스템 / F&Q</option>
     </select>
     <input type="text" name="find" />
     <button type="submit">검색</button>
@@ -29,7 +35,13 @@
         </tr>
     </th:block>
     <tr th:each="board : ${boardPage.content}">
-        <td th:text="${board.boardNum}"></td>
+        <th:block th:if="${board.hierarchyNum > 0}">
+            <th:block th:if="${board.hierarchyNum % 2 == 1}"><td th:text="답변" /></th:block>
+            <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" /></th:block>
+        </th:block>
+        <th:block th:if="${board.hierarchyNum == 0}">
+            <td th:text="${board.boardNum}"></td>
+        </th:block>
         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
         <td th:text="${board.boardWriter}"></td>
         <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
@@ -56,6 +68,10 @@
             <button type="button" th:onclick="|location.href='@{/board/boardwriteform}'|">글쓰기</button>
     </tr>
 </table>
+</div>
 <button type="button" onclick="location.href='/' ">뒤로가기</button>
+<script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
 </body>
+    </th:block>
+</th:block>
 </html>

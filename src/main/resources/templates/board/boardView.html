@@ -4,8 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <title>페이지</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<!--<header>-->
+<!--    <nav id="nav2">-->
+<!--        <h1>Ownote</h1>-->
+<!--        <ul class="navbar-menu">-->
+<!--            <li> <a th:href="@{emp/logIn}" >로그인</a> </li>-->
+<!--            <li> <a href="/logout">로그아웃</a> </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--</header>-->
+<!--<aside class="side-bar">-->
+<!--    <ul>-->
+<!--        <li>-->
+<!--            <a th:href="@{#}"></i>인사</a>-->
+<!--            <ul>-->
+<!--                <li><a th:href="@{/emp/signUp}">사원등록</a></li>-->
+<!--                <li><a th:href="@{#}">text2</a></li>-->
+<!--                <li><a th:href="@{#}">text3</a></li>-->
+<!--                <li><a th:href="@{#}">text4</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a th:href="@{#}">연차</a>-->
+<!--            <ul>-->
+<!--                <li><a th:href="@{#}">연차 신청 </a></li>-->
+<!--                <li><a th:href="@{#}">연차 확인</a></li>-->
+<!--                <li><a th:href="@{#}">연차 승인</a></li>-->
+<!--                <li><a th:href="@{#}">연차 수량</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a th:href="@{/board/boardmain}">게시판</a>-->
+<!--           <ul>-->
+<!--                <li><a th:href="@{/board/noticeList}">회사뉴스 및 공지</a></li>-->
+<!--                <li><a th:href="@{/board/forumList}">자유게시판</a></li>-->
+<!--                <li><a th:href="@{/board/qaList}">사내시스템 / F&Q</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a th:href="@{#}">자유</a>-->
+<!--            <ul>-->
+<!--                <li><a th:href="@{#}">text1</a></li>-->
+<!--                <li><a th:href="@{#}">text2</a></li>-->
+<!--                <li><a th:href="@{#}">text3</a></li>-->
+<!--                <li><a th:href="@{#}">text4</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li><a th:href="@{/emp/adress}">주소록</a></li>-->
+<!--    </ul>-->
+<!--</aside>-->
+
 <table border="1">
     <tr>
         <td>제목</td>
@@ -28,18 +79,23 @@
         </td>
     </tr>
 </table>
-<th:block th:if="${emp.emp_id == board.empId}">
-    <button type="button" th:onclick="|location.href='@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}'|">수정하기</button>
-</th:block>
-<th:block th:if="${emp.emp_id == board.empId or emp.dept_num >= 40}">
-    <button type="button" th:onclick="|location.href='@{/board/boarddelete/{boardNum}(boardNum=${board.boardNum})}'|">삭제하기</button>
-</th:block>
-<th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 0) and emp.dept_num == 40}">
-    <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">답변하기</button>
-</th:block>
-<th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId}">
-    <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">질문하기</button>
+<th:block th:if="${mainCheck != '1'}">
+    <th:block th:if="${emp.emp_id == board.empId}">
+        <button type="button" th:onclick="|location.href='@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}'|">수정하기</button>
+    </th:block>
+    <th:block th:if="${emp.emp_id == board.empId or emp.dept_num == 40}">
+        <button type="button" th:class="deleteBoard" th:data-boardNum="${board.boardNum}" th:data-boardDivision="${board.boardDivision}">삭제하기</button>
+    </th:block>
+    <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 0) and (emp.dept_num == 30 or emp.dept_num == 40) and (board.hierarchyNum == maxHierarchynum)}">
+        <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">답변하기</button>
+    </th:block>
+    <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId and (board.hierarchyNum == maxHierarchynum)}">
+        <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">질문하기</button>
+    </th:block>
 </th:block>
 <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+<script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/js/boardCheck.js"></script>
 </body>
 </html>

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
 <head>
     <meta charset="UTF-8">
     <title>자유 게시판</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/board.css">
 </head>
 <body>
+
+<div class="board_wrap">
 <form th:action="@{/board/findLike}" method="post">
     <select id="boardDivision" name="boardDivision" >
         <option value="자유게시판">자유게시판</option>
@@ -56,6 +62,10 @@
             <button type="button" th:onclick="|location.href='@{/board/boardwriteform}'|">글쓰기</button>
     </tr>
 </table>
+</div>
 <button type="button" onclick="location.href='/' ">뒤로가기</button>
+<script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
 </body>
+    </th:block>
+</th:block>
 </html>

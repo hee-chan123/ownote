@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>검색 게시판</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/board.css">
 </head>
 <body>
+
+<div class="board_wrap">
 <form th:action="@{/board/findLike}" method="post">
     <select id="boardDivision" name="boardDivision" >
-        <option value="공지사항">공지사항</option>
+        <option value="회사뉴스및공지">회사뉴스 및 공지</option>
         <option value="자유게시판">자유게시판</option>
-        <option value="Q&A">Q&A</option>
+        <option value="사내시스템/F&Q">사내시스템 / F&Q</option>
     </select>
     <input type="text" name="find" />
     <button type="submit">검색</button>
@@ -54,6 +60,10 @@
     </th:block>
     </tbody>
 </table>
+</div>
 <button type="button" onclick="location.href='/' ">뒤로가기</button>
+<script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
 </body>
+    </th:block>
+</th:block>
 </html>
