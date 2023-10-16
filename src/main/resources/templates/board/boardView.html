@@ -38,10 +38,10 @@
 <!--        </li>-->
 <!--        <li>-->
 <!--            <a th:href="@{/board/boardmain}">게시판</a>-->
-<!--            <ul>-->
-<!--                <li><a th:href="@{/board/noticeList}">공지사항</a></li>-->
+<!--           <ul>-->
+<!--                <li><a th:href="@{/board/noticeList}">회사뉴스 및 공지</a></li>-->
 <!--                <li><a th:href="@{/board/forumList}">자유게시판</a></li>-->
-<!--                <li><a th:href="@{/board/qaList}">Q&A</a></li>-->
+<!--                <li><a th:href="@{/board/qaList}">사내시스템 / F&Q</a></li>-->
 <!--            </ul>-->
 <!--        </li>-->
 <!--        <li>-->
@@ -84,12 +84,12 @@
         <button type="button" th:onclick="|location.href='@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}'|">수정하기</button>
     </th:block>
     <th:block th:if="${emp.emp_id == board.empId or emp.dept_num == 40}">
-        <button type="button" id="delete" th:onclick="|location.href='@{/board/boarddelete/{boardNum}(boardNum=${board.boardNum})}'|">삭제하기</button>
+        <button type="button" th:class="deleteBoard" th:data-boardNum="${board.boardNum}" th:data-boardDivision="${board.boardDivision}">삭제하기</button>
     </th:block>
-    <th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 0) and (emp.dept_num == 30 or emp.dept_num == 40) and (board.hierarchyNum == maxHierarchynum)}">
+    <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 0) and (emp.dept_num == 30 or emp.dept_num == 40) and (board.hierarchyNum == maxHierarchynum)}">
         <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">답변하기</button>
     </th:block>
-    <th:block th:if="${board.boardDivision == 'Q&A' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId and (board.hierarchyNum == maxHierarchynum)}">
+    <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId and (board.hierarchyNum == maxHierarchynum)}">
         <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">질문하기</button>
     </th:block>
 </th:block>

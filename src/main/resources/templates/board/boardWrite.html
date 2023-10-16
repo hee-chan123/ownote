@@ -6,55 +6,55 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<header>
-    <nav id="nav2">
-        <h1>Ownote</h1>
-        <ul class="navbar-menu">
-            <li> <a th:href="@{emp/logIn}" >로그인</a> </li>
-            <li> <a href="/logout">로그아웃</a> </li>
-        </ul>
-    </nav>
-</header>
-<aside class="side-bar">
-    <ul>
-        <li>
-            <a th:href="@{#}"></i>인사</a>
-            <ul>
-                <li><a th:href="@{/emp/signUp}">사원등록</a></li>
-                <li><a th:href="@{#}">text2</a></li>
-                <li><a th:href="@{#}">text3</a></li>
-                <li><a th:href="@{#}">text4</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{#}">연차</a>
-            <ul>
-                <li><a th:href="@{#}">연차 신청 </a></li>
-                <li><a th:href="@{#}">연차 확인</a></li>
-                <li><a th:href="@{#}">연차 승인</a></li>
-                <li><a th:href="@{#}">연차 수량</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{/board/boardmain}">게시판</a>
-            <ul>
-                <li><a th:href="@{/board/noticeList}">공지사항</a></li>
-                <li><a th:href="@{/board/forumList}">자유게시판</a></li>
-                <li><a th:href="@{/board/qaList}">Q&A</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{#}">자유</a>
-            <ul>
-                <li><a th:href="@{#}">text1</a></li>
-                <li><a th:href="@{#}">text2</a></li>
-                <li><a th:href="@{#}">text3</a></li>
-                <li><a th:href="@{#}">text4</a></li>
-            </ul>
-        </li>
-        <li><a th:href="@{/emp/adress}">주소록</a></li>
-    </ul>
-</aside>
+<!--<header>-->
+<!--    <nav id="nav2">-->
+<!--        <h1>Ownote</h1>-->
+<!--        <ul class="navbar-menu">-->
+<!--            <li> <a th:href="@{emp/logIn}" >로그인</a> </li>-->
+<!--            <li> <a href="/logout">로그아웃</a> </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--</header>-->
+<!--<aside class="side-bar">-->
+<!--    <ul>-->
+<!--        <li>-->
+<!--            <a th:href="@{#}"></i>인사</a>-->
+<!--            <ul>-->
+<!--                <li><a th:href="@{/emp/signUp}">사원등록</a></li>-->
+<!--                <li><a th:href="@{#}">text2</a></li>-->
+<!--                <li><a th:href="@{#}">text3</a></li>-->
+<!--                <li><a th:href="@{#}">text4</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a th:href="@{#}">연차</a>-->
+<!--            <ul>-->
+<!--                <li><a th:href="@{#}">연차 신청 </a></li>-->
+<!--                <li><a th:href="@{#}">연차 확인</a></li>-->
+<!--                <li><a th:href="@{#}">연차 승인</a></li>-->
+<!--                <li><a th:href="@{#}">연차 수량</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a th:href="@{/board/boardmain}">게시판</a>-->
+<!--            <ul>-->
+<!--                <li><a th:href="@{/board/noticeList}">공지사항</a></li>-->
+<!--                <li><a th:href="@{/board/forumList}">자유게시판</a></li>-->
+<!--                <li><a th:href="@{/board/qaList}">Q&A</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a th:href="@{#}">자유</a>-->
+<!--            <ul>-->
+<!--                <li><a th:href="@{#}">text1</a></li>-->
+<!--                <li><a th:href="@{#}">text2</a></li>-->
+<!--                <li><a th:href="@{#}">text3</a></li>-->
+<!--                <li><a th:href="@{#}">text4</a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li><a th:href="@{/emp/adress}">주소록</a></li>-->
+<!--    </ul>-->
+<!--</aside>-->
 
 <form th:action="@{/board/boardwrite}" method="post">
     <table>
@@ -71,14 +71,14 @@
             <td>
                 <select id="boardDivision" name="boardDivision" >
                     <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
-                        <option value="공지사항">공지사항</option>
+                        <option value="회사뉴스및공지">회사뉴스 및 공지</option>
                     </th:block>
                     <option value="자유게시판">자유게시판</option>
-                    <option value="Q&A">Q&A</option>
+                    <option value="사내시스템/F&Q">사내시스템 / F&Q</option>
                 </select>
             </td>
             <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
-                <td><input type="checkbox" name="boardImportant" id="boardImportant">공지사항 중요!</td>
+                <td><input type="checkbox" name="boardImportant" id="boardImportant">회사뉴스 및 공지 중요!</td>
             </th:block>
         </tr>
         <tr>

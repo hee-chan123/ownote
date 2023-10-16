@@ -1,162 +1,140 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>메인 게시판</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/board.css">
-</head>
-<body>
-<header>
-    <nav id="nav2">
-        <h1>Ownote</h1>
-        <ul class="navbar-menu">
-            <li> <a th:href="@{emp/logIn}" >로그인</a> </li>
-            <li> <a href="/logout">로그아웃</a> </li>
-        </ul>
-    </nav>
-</header>
-<aside class="side-bar">
-    <ul>
-        <li>
-            <a th:href="@{#}"></i>인사</a>
-            <ul>
-                <li><a th:href="@{/emp/signUp}">사원등록</a></li>
-                <li><a th:href="@{#}">text2</a></li>
-                <li><a th:href="@{#}">text3</a></li>
-                <li><a th:href="@{#}">text4</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{#}">연차</a>
-            <ul>
-                <li><a th:href="@{#}">연차 신청 </a></li>
-                <li><a th:href="@{#}">연차 확인</a></li>
-                <li><a th:href="@{#}">연차 승인</a></li>
-                <li><a th:href="@{#}">연차 수량</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{/board/boardmain}">게시판</a>
-            <ul>
-                <li><a th:href="@{/board/noticeList}">회사뉴스 및 공지</a></li>
-                <li><a th:href="@{/board/forumList}">자유게시판</a></li>
-                <li><a th:href="@{/board/qaList}">사내시스템 / F&Q</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{#}">자유</a>
-            <ul>
-                <li><a th:href="@{#}">text1</a></li>
-                <li><a th:href="@{#}">text2</a></li>
-                <li><a th:href="@{#}">text3</a></li>
-                <li><a th:href="@{#}">text4</a></li>
-            </ul>
-        </li>
-        <li><a th:href="@{/emp/adress}">주소록</a></li>
-    </ul>
-</aside>
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <head>
+            <meta charset="UTF-8">
+            <title>메인 게시판</title>
+            <link rel="stylesheet" href="/css/style.css">
+            <link rel="stylesheet" href="/css/board.css">
+        </head>
+        <body>
 
-<form th:action="@{/board/findLike}" method="post">
-    <select id="boardDivision" name="boardDivision">
-        <option value="공지사항">회사뉴스 및 공지</option>
-        <option value="자유게시판">자유게시판</option>
-        <option value="Q&A">사내시스템 / F&Q</option>
-    </select>
-    <input type="text" name="find" placeholder="검색 할 제목을 입력해 주세요.">
-    <button type="submit">검색</button>
-</form>
+        <div class="board_wrap_mainBoard">
+            <form th:action="@{/board/findLike}" method="post">
+                <select id="boardDivision" name="boardDivision">
+                    <option value="회사뉴스및공지">회사뉴스 및 공지</option>
+                    <option value="자유게시판">자유게시판</option>
+                    <option value="사내시스템/F&Q">사내시스템 / F&Q</option>
+                </select>
+                <input type="text" name="find" placeholder="검색 할 제목을 입력해 주세요.">
+                <button type="submit">검색</button>
+            </form>
 
-<div class="board_wrap_mainBoard">
-    <table border="1" >
-        <div class="title-text">
-            <div class="title_board">
-                <strong>회사뉴스 및 공지</strong>
-                <a th:href = "@{/board/noticeList}">+</a>
+            <div class="mainBoard_table">
+                <div class="title-text">
+                    <div class="title_board">
+                        <strong>회사뉴스 및 공지</strong>
+                        <a th:href = "@{/board/noticeList}">+</a>
+                    </div>
+                </div>
+                <div class="board_list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>글 번호</td>
+                            <td>제목</td>
+                            <td>작성자</td>
+                            <td>등록날짜</td>
+                            <td>조회수</td>
+                        </tr>
+                        </thead>
+                        <th:block th:if="${boardNotice == null or boardNotice.isEmpty()}">
+                            <tr>
+                                <td colspan="5">게시글이 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        <tbody th:each="board : ${boardNotice}">
+                        <tr>
+                            <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
+                            <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
+                            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
+                            <td th:text="${board.boardWriter}"></td>
+                            <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${board.boardHit}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="title-text">
+                    <div class="title_board">
+                        <strong>자유게시판</strong>
+                        <a th:href = "@{/board/forumList}">+</a>
+                    </div>
+                </div>
+                <div class="board_list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>글 번호</td>
+                            <td>제목</td>
+                            <td>작성자</td>
+                            <td>등록날짜</td>
+                            <td>조회수</td>
+                        </tr>
+                        </thead>
+                        <th:block th:if="${boardForum == null or boardForum.isEmpty()}">
+                            <tr>
+                                <td colspan="5">게시글이 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        <tbody th:each="board : ${boardForum}">
+                        <tr>
+                            <td th:text="${board.boardNum}"></td>
+                            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
+                            <td th:text="${board.boardWriter}"></td>
+                            <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${board.boardHit}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="title-text">
+                    <div class="title_board">
+                        <strong>사내시스템 / F&Q</strong>
+                        <a th:href = "@{/board/qaList}">+</a>
+                    </div>
+                </div>
+                <div class="board_list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>글 번호</td>
+                            <td>제목</td>
+                            <td>작성자</td>
+                            <td>등록날짜</td>
+                            <td>조회수</td>
+                        </tr>
+                        </thead>
+                        <th:block th:if="${boardQa == null or boardQa.isEmpty()}">
+                            <tr>
+                                <td colspan="5">게시글이 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        <tbody th:each="board : ${boardQa}">
+                        <tr>
+                            <th:block th:if="${board.hierarchyNum > 0}">
+                                <th:block th:if="${board.hierarchyNum % 2 == 1}"><td th:text="답변" /></th:block>
+                                <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" /></th:block>
+                            </th:block>
+                            <th:block th:if="${board.hierarchyNum == 0}">
+                                <td th:text="${board.boardNum}"></td>
+                            </th:block>
+                            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
+                            <td th:text="${board.boardWriter}"></td>
+                            <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${board.boardHit}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <thead>
-            <tr>
-                <td>글 번호</td>
-                <td>제목</td>
-                <td>작성자</td>
-                <td>등록날짜</td>
-                <td>조회수</td>
-            </tr>
-        </thead>
-        <tbody th:each="board : ${boardNotice}">
-            <tr>
-                <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
-                <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
-                <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
-                <td th:text="${board.boardWriter}"></td>
-                <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-                <td th:text="${board.boardHit}"></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table border="1" >
-        <div class="title-text">
-            <div class="title_board">
-                <strong>자유게시판</strong>
-                <a th:href = "@{/board/forumList}">+</a>
-            </div>
-        </div>
-        <thead>
-        <tr>
-            <td>글 번호</td>
-            <td>제목</td>
-            <td>작성자</td>
-            <td>등록날짜</td>
-            <td>조회수</td>
-        </tr>
-        </thead>
-        <tbody th:each="board : ${boardForum}">
-            <tr>
-                <td th:text="${board.boardNum}"></td>
-                <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
-                <td th:text="${board.boardWriter}"></td>
-                <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-                <td th:text="${board.boardHit}"></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table border="1" >
-        <div class="title-text">
-            <div class="title_board">
-                <strong>사내시스템 / F&Q</strong>
-                <a th:href = "@{/board/qaList}">+</a>
-            </div>
-        </div>
-        <thead>
-        <tr>
-            <td>글 번호</td>
-            <td>제목</td>
-            <td>작성자</td>
-            <td>등록날짜</td>
-            <td>조회수</td>
-        </tr>
-        </thead>
-        <tbody th:each="board : ${boardQa}">
-            <tr>
-                <th:block th:if="${board.hierarchyNum > 0}">
-                    <th:block th:if="${board.hierarchyNum % 2 == 1}"><td th:text="답변" /></th:block>
-                    <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" /></th:block>
-                </th:block>
-                <th:block th:if="${board.hierarchyNum == 0}">
-                    <td th:text="${board.boardNum}"></td>
-                </th:block>
-                <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
-                <td th:text="${board.boardWriter}"></td>
-                <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-                <td th:text="${board.boardHit}"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
-<script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
-</body>
+        <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+        <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
+        </body>
+    </th:block>
+</th:block>
 </html>

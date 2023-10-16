@@ -54,8 +54,8 @@ public class BoardServiceImpl implements BoardService{
                 param = "%" + find + "%";
                 break;
             }
-            case "공지사항": {
-                sql = "select * from board where boarddivision = '공지사항' and  boardtitle like ? order by boardnum desc";
+            case "회사뉴스및공지": {
+                sql = "select * from board where boarddivision = '회사뉴스및공지' and  boardtitle like ? order by boardnum desc";
                 param = "%" + find + "%";
                 break;
             }
@@ -64,8 +64,8 @@ public class BoardServiceImpl implements BoardService{
                 param = "%" + find + "%";
                 break;
             }
-            case "Q&A": {
-                sql = "select * from board where boarddivision = 'Q&A' and  boardtitle like ? order by boardnum desc";
+            case "사내시스템/F&Q": {
+                sql = "select * from board where boarddivision = '사내시스템/F&Q' and  boardtitle like ? order by boardnum desc";
                 param = "%" + find + "%";
                 break;
             }
@@ -108,16 +108,16 @@ public class BoardServiceImpl implements BoardService{
     public List<Board> select(int startRow, int size, String boardDivision) { //게시물 페이징
         String sql = "";
         switch (boardDivision) {
-            case "공지사항": {
-                sql = "select * from board where boarddivision = '공지사항' order by boardimportant desc, boardnum desc limit ?, ?";
+            case "회사뉴스및공지": {
+                sql = "select * from board where boarddivision = '회사뉴스및공지' order by boardimportant desc, boardnum desc limit ?, ?";
                 break;
             }
             case "자유게시판": {
                 sql = "select * from board where boarddivision = '자유게시판' order by boardnum desc limit ?, ?";
                 break;
             }
-            case "Q&A": {
-                sql = "select * from board where boarddivision = 'Q&A' order by parentnum desc, hierarchynum limit ?, ?";
+            case "사내시스템/F&Q": {
+                sql = "select * from board where boarddivision = '사내시스템/F&Q' order by parentnum desc, hierarchynum limit ?, ?";
                 break;
             }
         }
@@ -129,16 +129,16 @@ public class BoardServiceImpl implements BoardService{
         String sql = "";
         String f = "%" + find + "%";
         switch (boardDivision) {
-            case "공지사항": {
-                sql = "select * from board where boarddivision = '공지사항' and boardtitle like ? order by boardimportant desc, boardnum desc limit ?, ?";
+            case "회사뉴스및공지": {
+                sql = "select * from board where boarddivision = '회사뉴스및공지' and boardtitle like ? order by boardimportant desc, boardnum desc limit ?, ?";
                 break;
             }
             case "자유게시판": {
                 sql = "select * from board where boarddivision = '자유게시판' and boardtitle like ? order by boardnum desc limit ?, ?";
                 break;
             }
-            case "Q&A": {
-                sql = "select * from board where boarddivision = 'Q&A' and boardtitle like ? order by parentnum desc, hierarchynum limit ?, ?";
+            case "사내시스템/F&Q": {
+                sql = "select * from board where boarddivision = '사내시스템/F&Q' and boardtitle like ? order by parentnum desc, hierarchynum limit ?, ?";
                 break;
             }
         }

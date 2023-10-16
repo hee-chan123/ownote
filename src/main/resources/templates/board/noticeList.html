@@ -1,121 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>공지사항 게시판</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/board.css">
-</head>
-<body>
-<header>
-    <nav id="nav2">
-        <h1>Ownote</h1>
-        <ul class="navbar-menu">
-            <li> <a th:href="@{emp/logIn}" >로그인</a> </li>
-            <li> <a href="/logout">로그아웃</a> </li>
-        </ul>
-    </nav>
-</header>
-<aside class="side-bar">
-    <ul>
-        <li>
-            <a th:href="@{#}"></i>인사</a>
-            <ul>
-                <li><a th:href="@{/emp/signUp}">사원등록</a></li>
-                <li><a th:href="@{#}">text2</a></li>
-                <li><a th:href="@{#}">text3</a></li>
-                <li><a th:href="@{#}">text4</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{#}">연차</a>
-            <ul>
-                <li><a th:href="@{#}">연차 신청 </a></li>
-                <li><a th:href="@{#}">연차 확인</a></li>
-                <li><a th:href="@{#}">연차 승인</a></li>
-                <li><a th:href="@{#}">연차 수량</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{/board/boardmain}">게시판</a>
-            <ul>
-                <li><a th:href="@{/board/noticeList}">회사뉴스 및 공지</a></li>
-                <li><a th:href="@{/board/forumList}">자유게시판</a></li>
-                <li><a th:href="@{/board/qaList}">사내시스템 / F&Q</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{#}">자유</a>
-            <ul>
-                <li><a th:href="@{#}">text1</a></li>
-                <li><a th:href="@{#}">text2</a></li>
-                <li><a th:href="@{#}">text3</a></li>
-                <li><a th:href="@{#}">text4</a></li>
-            </ul>
-        </li>
-        <li><a th:href="@{/emp/adress}">주소록</a></li>
-    </ul>
-</aside>
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <head>
+            <meta charset="UTF-8">
+            <title>공지사항 게시판</title>
+            <link rel="stylesheet" href="/css/style.css">
+            <link rel="stylesheet" href="/css/board.css">
+        </head>
+        <body>
 
-<div class="board_wrap">
-<form th:action="@{/board/findLike}" method="post">
-    <select id="boardDivision" name="boardDivision" >
-        <option value="공지사항">회사뉴스 및 공지</option>
-    </select>
-    <input type="text" name="find" />
-    <button type="submit">검색</button>
-</form>
+        <div class="board_wrap">
+            <form th:action="@{/board/findLike}" method="post">
+                <select id="boardDivision" name="boardDivision" >
+                    <option value="회사뉴스및공지">회사뉴스 및 공지</option>
+                </select>
+                <input type="text" name="find" />
+                <button type="submit">검색</button>
+            </form>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>글 번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>등록날짜</th>
-        <th>조회수</th>
-    </tr>
-    </thead>
-    <tbody>
-    <th:block th:if="${boardPage.content == null or boardPage.content.isEmpty()}">
-        <tr>
-            <td colspan="5">게시글이 없습니다.</td>
-        </tr>
-    </th:block>
-    <tr th:each="board : ${boardPage.content}">
-        <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
-        <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
-        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
-        <td th:text="${board.boardWriter}"></td>
-        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-        <td th:text="${board.boardHit}"></td>
-    </tr>
-    <th:block th:if="${boardPage.hasArticles()}">
-        <tr>
-            <td colspan="5">
-                <th:block th:if="${boardPage.startPage > 5}">
-                    <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage - 5})}">[이전]</a>
+            <table border="1">
+                <thead>
+                <tr>
+                    <th>글 번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>등록날짜</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:if="${boardPage.content == null or boardPage.content.isEmpty()}">
+                    <tr>
+                        <td colspan="5">게시글이 없습니다.</td>
+                    </tr>
                 </th:block>
-                <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
-                    <a th:href="@{/board/noticeList(pageNo=${pNo})}" th:text="${pNo}"></a>
+                <tr th:each="board : ${boardPage.content}">
+                    <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
+                    <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
+                    <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
+                    <td th:text="${board.boardWriter}"></td>
+                    <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${board.boardHit}"></td>
+                </tr>
+                <th:block th:if="${boardPage.hasArticles()}">
+                    <tr>
+                        <td colspan="5">
+                            <th:block th:if="${boardPage.startPage > 5}">
+                                <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage - 5})}">[이전]</a>
+                            </th:block>
+                            <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
+                                <a th:href="@{/board/noticeList(pageNo=${pNo})}" th:text="${pNo}"></a>
+                            </th:block>
+                            <th:block th:if="${boardPage.endPage < boardPage.totalPages}">
+                                <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage + 5})}">[다음]</a>
+                            </th:block>
+                        </td>
+                    </tr>
                 </th:block>
-                <th:block th:if="${boardPage.endPage < boardPage.totalPages}">
-                    <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage + 5})}">[다음]</a>
+                </tbody>
+                <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
+                    <tr>
+                        <td class="main" colspan="5">
+                            <button type="button" th:onclick="|location.href='@{/board/boardwriteform}'|">글쓰기</button>
+                        </td>
+                    </tr>
                 </th:block>
-            </td>
-        </tr>
+            </table>
+        </div>
+        <button type="button" onclick="location.href='/' ">뒤로가기</button>
+        <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
+        </body>
     </th:block>
-    </tbody>
-    <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
-        <tr>
-            <td class="main" colspan="5">
-                <button type="button" th:onclick="|location.href='@{/board/boardwriteform}'|">글쓰기</button>
-            </td>
-        </tr>
-    </th:block>
-</table>
-</div>
-<button type="button" onclick="location.href='/' ">뒤로가기</button>
-<script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
-</body>
+</th:block>
 </html>

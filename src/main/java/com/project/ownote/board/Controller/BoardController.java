@@ -25,9 +25,9 @@ public class BoardController {
 
     @GetMapping("/board/boardmain") //게시판 메인
     public String boardMain(Model model){
-        List<Board> boardNotice = boardService.select(0, 7, "공지사항");
+        List<Board> boardNotice = boardService.select(0, 7, "회사뉴스및공지");
         List<Board> boardForum = boardService.select(0, 7, "자유게시판");
-        List<Board> boardQa = boardService.select(0, 7, "Q&A");
+        List<Board> boardQa = boardService.select(0, 7, "사내시스템/F&Q");
 
         model.addAttribute("boardNotice", boardNotice);
         model.addAttribute("boardForum", boardForum);
@@ -74,11 +74,11 @@ public class BoardController {
         boardService.parentNumUpdate(boardService.maxBoardNum());
 
         switch (board.getBoardDivision()) {
-            case "공지사항":
+            case "회사뉴스및공지":
                 return "redirect:/board/noticeList";
             case "자유게시판":
                 return "redirect:/board/forumList";
-            case "Q&A":
+            case "사내시스템/F&Q":
                 return "redirect:/board/qaList";
             default:
                 return "redirect:/board/boardmain";
@@ -102,11 +102,11 @@ public class BoardController {
         boardService.update(board);
 
         switch (board.getBoardDivision()) {
-            case "공지사항":
+            case "회사뉴스및공지":
                 return "redirect:/board/noticeList";
             case "자유게시판":
                 return "redirect:/board/forumList";
-            case "Q&A":
+            case "사내시스템/F&Q":
                 return "redirect:/board/qaList";
             default:
                 return "redirect:/board/boardmain";
@@ -119,18 +119,18 @@ public class BoardController {
         boardService.delete(boardNum);
 
         switch (boardDivision) {
-            case "공지사항":
+            case "회사뉴스및공지":
                 return "redirect:/board/noticeList";
             case "자유게시판":
                 return "redirect:/board/forumList";
-            case "Q&A":
+            case "사내시스템/F&Q":
                 return "redirect:/board/qaList";
             default:
                 return "redirect:/board/boardmain";
         }
     }
 
-    @GetMapping("/board/noticeList") //공지사항
+    @GetMapping("/board/noticeList") //회사뉴스 및 공지
     public String notice(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
@@ -140,7 +140,7 @@ public class BoardController {
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
         Emp emp = boardService.selectEmp(empId);
-        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "공지사항");
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "회사뉴스및공지");
 
         model.addAttribute("emp", emp);
         model.addAttribute("boardPage", boardPage);
@@ -159,13 +159,13 @@ public class BoardController {
         return "board/forumList";
     }
 
-    @GetMapping("/board/qaList") //Q&A
+    @GetMapping("/board/qaList") //사내시스템/F&Q
     public String qa(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
-        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "Q&A");
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "사내시스템/F&Q");
 
         model.addAttribute("boardPage", boardPage);
         return "board/qaList";
@@ -173,7 +173,7 @@ public class BoardController {
 
     @GetMapping("/board/findLike") //검색 게시판
     public String findLikePage(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model,
-                           @RequestParam(value = "pageNo", required = false) String pageNoVal){
+                               @RequestParam(value = "pageNo", required = false) String pageNoVal){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
