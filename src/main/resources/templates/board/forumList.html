@@ -1,61 +1,91 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>자유 게시판</title>
-</head>
-<body>
-<form th:action="@{/board/findLike}" method="post">
-    <select id="boardDivision" name="boardDivision" >
-        <option value="자유게시판">자유게시판</option>
-    </select>
-    <input type="text" name="find" />
-    <button type="submit">검색</button>
-</form>
-<table border="1">
-    <thead>
-    <tr>
-        <th>글 번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>등록날짜</th>
-        <th>조회수</th>
-    </tr>
-    </thead>
-    <tbody>
-    <th:block th:if="${boardPage.content == null or boardPage.content.isEmpty()}">
-        <tr>
-            <td colspan="5">게시글이 없습니다.</td>
-        </tr>
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <head>
+            <meta charset="UTF-8">
+            <title>자유 게시판</title>
+            <link rel="stylesheet" href="/css/style.css">
+            <link rel="stylesheet" href="/css/board.css">
+        </head>
+        <body>
+
+        <div id="board-search">
+            <div class="container">
+                <div class="search-window">
+                    <form th:action="@{/board/findLike}" method="post">
+                        <div class="search-wrap">
+                            <div class="select">
+                                <select id="boardDivision" name="boardDivision">
+                                    <option value="자유게시판">자유게시판</option>
+                                </select>
+                            </div>
+                            <label for="search" class="blind">제목 검색</label>
+                            <input id="search" type="search" name="find" placeholder="검색어를 입력해주세요."/>
+                            <button type="submit" class="btn btn-dark">검색</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="board_wrap">
+            <div class="title-text">
+                <div class="title_board">
+                    <strong>자유게시판</strong>
+                </div>
+            </div>
+            <div class="board_list">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>글 번호</th>
+                        <th>작성자</th>
+                        <th>제목</th>
+                        <th>등록날짜</th>
+                        <th>조회수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:if="${boardPage.content == null or boardPage.content.isEmpty()}">
+                        <tr>
+                            <td colspan="5">게시글이 없습니다.</td>
+                        </tr>
+                    </th:block>
+                    <tr th:each="board : ${boardPage.content}">
+                        <td th:text="${board.boardNum}"></td>
+                        <td th:text="${board.boardWriter}"></td>
+                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
+                        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${board.boardHit}"></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                         <th:block th:if="${boardPage.hasArticles()}">
+                            <tr>
+                                <td colspan="5">
+                                    <th:block th:if="${boardPage.currentPage > 1}">
+                                        <a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage - 1})}">[이전]</a>
+                                    </th:block>
+                                    <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
+                                        <a th:href="@{/board/forumList(pageNo=${pNo})}" th:text="${pNo}"></a>
+                                    </th:block>
+                                    <th:block th:if="${boardPage.currentPage < boardPage.totalPages}">
+                                        <a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage + 1})}">[다음]</a>
+                                    </th:block>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="buttons">
+                <button type="button" th:onclick="|location.href='@{/board/boardwriteform}'|">글쓰기</button>
+            </div>
+        </div>
+        <button type="button" onclick="location.href='/' ">뒤로가기</button>
+        <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
+        </body>
     </th:block>
-    <tr th:each="board : ${boardPage.content}">
-        <td th:text="${board.boardNum}"></td>
-        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
-        <td th:text="${board.boardWriter}"></td>
-        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-        <td th:text="${board.boardHit}"></td>
-    </tr>
-    <th:block th:if="${boardPage.hasArticles()}">
-        <tr>
-            <td colspan="5">
-                <th:block th:if="${boardPage.startPage > 5}">
-                    <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage - 5})}">[이전]</a>
-                </th:block>
-                <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
-                    <a th:href="@{/board/noticeList(pageNo=${pNo})}" th:text="${pNo}"></a>
-                </th:block>
-                <th:block th:if="${boardPage.endPage < boardPage.totalPages}">
-                    <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage + 5})}">[다음]</a>
-                </th:block>
-            </td>
-        </tr>
-    </th:block>
-    </tbody>
-    <tr>
-        <td class="main" colspan="5">
-            <button type="button" th:onclick="|location.href='@{/board/boardwriteform}'|">글쓰기</button>
-    </tr>
-</table>
-<button type="button" onclick="location.href='/' ">뒤로가기</button>
-</body>
+</th:block>
 </html>
