@@ -44,14 +44,14 @@
                 <th:block th:if="${boardPage.hasArticles()}">
                     <tr>
                         <td colspan="5">
-                            <th:block th:if="${boardPage.startPage > 5}">
-                                <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage - 5})}">[이전]</a>
+                            <th:block th:if="${boardPage.currentPage > 1}">
+                                <a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage - 1})}">[이전]</a>
                             </th:block>
                             <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
-                                <a th:href="@{/board/noticeList(pageNo=${pNo})}" th:text="${pNo}"></a>
+                                <a th:href="@{/board/forumList(pageNo=${pNo})}" th:text="${pNo}"></a>
                             </th:block>
-                            <th:block th:if="${boardPage.endPage < boardPage.totalPages}">
-                                <a th:href = "@{/board/noticeList(pageNo=${boardPage.startPage + 5})}">[다음]</a>
+                            <th:block th:if="${boardPage.currentPage < boardPage.totalPages}">
+                                <a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage + 1})}">[다음]</a>
                             </th:block>
                         </td>
                     </tr>

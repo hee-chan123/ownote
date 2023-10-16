@@ -37,7 +37,24 @@
                     </tr>
                 </th:block>
                 <tr th:each="board : ${boardPage.content}">
-                    <td th:text="${board.boardNum}"></td>
+
+                    <th:block th:if="${board.boardDivision == '회사뉴스및공지'}">
+                        <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
+                        <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
+                    </th:block>
+                    <th:block th:if="${board.boardDivision == '자유게시판'}">
+                        <td th:text="${board.boardNum}"></td>
+                    </th:block>
+                    <th:block th:if="${board.boardDivision == '사내시스템/F&Q'}">
+                        <th:block th:if="${board.hierarchyNum > 0}">
+                            <th:block th:if="${board.hierarchyNum % 2 == 1}"><td th:text="답변" /></th:block>
+                            <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" /></th:block>
+                        </th:block>
+                        <th:block th:if="${board.hierarchyNum == 0}">
+                            <td th:text="${board.boardNum}"></td>
+                        </th:block>
+                    </th:block>
+
                     <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
                     <td th:text="${board.boardWriter}"></td>
                     <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
@@ -46,14 +63,14 @@
                 <th:block th:if="${boardPage.hasArticles()}">
                     <tr>
                         <td colspan="5">
-                            <th:block th:if="${boardPage.startPage > 5}">
-                                <a th:href = "@{/board/findLike(pageNo=${boardPage.startPage - 5})}">[이전]</a>
+                            <th:block th:if="${boardPage.currentPage > 1}">
+                                <a th:href = "@{/board/findLike(pageNo=${boardPage.currentPage - 1})}">[이전]</a>
                             </th:block>
                             <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
                                 <a th:href="@{/board/findLike(pageNo=${pNo},boardDivision=${boardDivision},find=${find})}" th:text="${pNo}"></a>
                             </th:block>
-                            <th:block th:if="${boardPage.endPage < boardPage.totalPages}">
-                                <a th:href = "@{/board/findLike(pageNo=${boardPage.startPage + 5})}">[다음]</a>
+                            <th:block th:if="${boardPage.currentPage < boardPage.totalPages}">
+                                <a th:href = "@{/board/findLike(pageNo=${boardPage.currentPage + 1})}">[다음]</a>
                             </th:block>
                         </td>
                     </tr>

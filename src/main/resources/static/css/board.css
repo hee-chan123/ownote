@@ -14,54 +14,72 @@ a {
 
 form {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 100px;
 }
 
 th, td {
     padding: 8px;
 }
 
-.board_wrap_mainBoard {
+.boardMain_wrap {
     width: 1500px;
-    margin: 300px auto;
-}
-.mainBoard_table {
-    margin-right: 10px;
+    margin: 100px auto;
+    align-items: center;
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-.mainBoard_table table{
-    flex: 0 0 30%;
-    padding: 10px;
-}
-.board_wrap_mainBoard.title_board {
-    text-align: left;
-    margin-bottom: 30px;
+    flex-direction: row;
 }
 
-.board_wrap_mainBoard.title_board strong {
-    margin-right: 10px;
+.boardMain-title-text {
+    text-align: left;
+    margin-top: 40px;
+    margin-bottom: -50px;
+    margin-left: 270px;
+    display: flex;
+}
+
+.boardMain-title-board {
+    margin-right: 380px;
+}
+
+.boardMain-title-board2 {
+    margin-left: 40px;
+}
+
+.boardMain-title-board strong {
     font-size: 1rem;
 }
-.board_wrap_mainBoard td {
+.boardMain-title-board2 strong {
+    font-size: 1rem;
+}
+
+.boardMain_list table {
+    width: 450px;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+    padding: 10px;
+    margin-top: -30px;
+    margin-right: 10px;
+    margin-left: 50px;
+    justify-content: space-between;
+    text-align: center;
+    table-layout: fixed;
+}
+
+.boardMain_wrap td {
     white-space:nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.board_list {
-    width: 100%;
-    border-top: 2px solid #61adf6;
-    border-bottom: 2px solid #61adf6;
-}
-.board_list > table > thead {
+.boardMain_list > table > thead {
     border-bottom: 10px solid #999999;
 }
+
 .board_wrap{
     width: 1000px;
     margin: 100px auto;
 }
+
 .board_wrap td {
     white-space:nowrap;
     overflow: hidden;
@@ -69,10 +87,114 @@ th, td {
 }
 
 tfoot {
-    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    background-color: #f2f2f2;
     text-align: center;
 }
 
 tbody tr:hover {
-    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+    background-color: #61adf6;
 }
+
+#board-search .search-window {
+    padding: 15px 0;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#board-search .search-window .search-wrap {
+    position: relative;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 564px;
+}
+
+#board-search .search-window .search-wrap input {
+    height: 60px;
+    width: 100%;
+    font-size: 14px;
+    padding: 7px 14px;
+    border: 1px solid #ccc;
+}
+
+#board-search .search-window .search-wrap input:focus {
+    border-color: #333;
+    outline: 0;
+    border-width: 1px;
+}
+
+#board-search .search-window .search-wrap .select {
+    position: absolute;
+    left: -140px;
+    width: 150px;
+    font-size: 16px;
+}
+
+#board-search .search-window .search-wrap .btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    padding: 0;
+    font-size: 16px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0 30px;
+    font-size: 15px;
+    font-weight: 400;
+    background: transparent;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.btn-dark {
+    background: #61adf6;
+    color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+    background: #61adf6;
+    border-color: #61adf6;
+    color: #fff;
+}
+
+.btn-dark {
+    background: #61adf6;
+    color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+    background: #61adf6;
+    border-color: #61adf6;
+    color: #fff;
+}
+
+.blind {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    width: 1px;
+    height: 1px;
+}
+
