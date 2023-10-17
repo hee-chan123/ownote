@@ -24,7 +24,7 @@ public class BoardController {
     ListBoard listBoard;
 
     @GetMapping("/board/boardmain") //게시판 메인
-    public String boardMain(Model model){
+    public String boardMain(Model model, HttpSession session){
         List<Board> boardNotice = boardService.select(0, 7, "회사뉴스및공지");
         List<Board> boardForum = boardService.select(0, 7, "자유게시판");
         List<Board> boardQa = boardService.select(0, 7, "사내시스템/F&Q");
@@ -52,6 +52,7 @@ public class BoardController {
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
         model.addAttribute("maxHierarchynum", maxHierarchynum);
+        model.addAttribute("authInfo", authInfo);
         return "board/boardView";
     }
 
@@ -62,16 +63,19 @@ public class BoardController {
         Emp emp = boardService.selectEmp(empId);
 
         model.addAttribute("emp", emp);
+        model.addAttribute("authInfo", authInfo);
         return "board/boardWrite";
     }
 
     @PostMapping("/board/boardwrite") //게시판 글 쓰기
-    public String Write(@ModelAttribute("board") Board board, HttpSession session){
+    public String Write(@ModelAttribute("board") Board board, Model model, HttpSession session){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
 
         boardService.write(board, empId);
         boardService.parentNumUpdate(boardService.maxBoardNum());
+
+        model.addAttribute("authInfo", authInfo);
 
         switch (board.getBoardDivision()) {
             case "회사뉴스및공지":
@@ -94,12 +98,16 @@ public class BoardController {
 
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
+        model.addAttribute("authInfo", authInfo);
         return "board/boardUpdate";
     }
 
     @PostMapping("/board/boardupdate/{boardNum}") //게시판 업데이트
-    public String noticeUpdate(@ModelAttribute("board") Board board){
+    public String noticeUpdate(@ModelAttribute("board") Board board, Model model, HttpSession session){
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         boardService.update(board);
+
+        model.addAttribute("authInfo", authInfo);
 
         switch (board.getBoardDivision()) {
             case "회사뉴스및공지":
@@ -114,9 +122,12 @@ public class BoardController {
     }
 
     @GetMapping("/board/boarddelete/{boardNum}") //게시판 삭제
-    public String noticeDelete(@PathVariable Long boardNum){
+    public String noticeDelete(@PathVariable Long boardNum, Model model, HttpSession session){
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         String boardDivision = boardService.selectByNum(boardNum).getBoardDivision();
         boardService.delete(boardNum);
+
+        model.addAttribute("authInfo", authInfo);
 
         switch (boardDivision) {
             case "회사뉴스및공지":
@@ -144,62 +155,71 @@ public class BoardController {
 
         model.addAttribute("emp", emp);
         model.addAttribute("boardPage", boardPage);
+        model.addAttribute("authInfo", authInfo);
         return "board/noticeList";
     }
 
     @GetMapping("/board/forumList") //자유게시판
-    public String forum(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal){
+    public String forum(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
         BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "자유게시판");
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
         model.addAttribute("boardPage", boardPage);
+        model.addAttribute("authInfo", authInfo);
         return "board/forumList";
     }
 
     @GetMapping("/board/qaList") //사내시스템/F&Q
-    public String qa(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal){
+    public String qa(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
         BoardPage boardPage = listBoard.getBoardPage((long) pageNo, "사내시스템/F&Q");
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
         model.addAttribute("boardPage", boardPage);
+        model.addAttribute("authInfo", authInfo);
         return "board/qaList";
     }
 
     @GetMapping("/board/findLike") //검색 게시판
     public String findLikePage(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model,
-                               @RequestParam(value = "pageNo", required = false) String pageNoVal){
+                               @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
 
         BoardPage boardPage = listBoard.getBoardPage((long) pageNo, boardDivision, find);
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
         model.addAttribute("boardPage", boardPage);
         model.addAttribute("boardDivision", boardDivision);
         model.addAttribute("find", find);
+        model.addAttribute("authInfo", authInfo);
         return "board/findLike";
     }
 
     @PostMapping("/board/findLike") //검색 게시판
     public String findLike(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model,
-                           @RequestParam(value = "pageNo", required = false) String pageNoVal){
+                           @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
 
         BoardPage boardPage = listBoard.getBoardPage((long) pageNo, boardDivision, find);
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
         model.addAttribute("boardPage", boardPage);
         model.addAttribute("boardDivision", boardDivision);
         model.addAttribute("find", find);
+        model.addAttribute("authInfo", authInfo);
         return "board/findLike";
     }
 
@@ -212,15 +232,17 @@ public class BoardController {
 
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
+        model.addAttribute("authInfo", authInfo);
         return "board/replyWrite";
     }
 
     @PostMapping("/board/replywrite/{boardNum}") //Q&A답변 저장
-    public String replywrite(@PathVariable Long boardNum, @ModelAttribute("board") Board board, HttpSession session){
+    public String replywrite(@PathVariable Long boardNum, @ModelAttribute("board") Board board, Model model, HttpSession session){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empId = authInfo.getEmp_id();
         Board pBoard = boardService.selectByNum(boardNum);
         boardService.replywrite(pBoard, board, empId);
+        model.addAttribute("authInfo", authInfo);
         return "redirect:/board/qaList";
     }
 }
