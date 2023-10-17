@@ -1,52 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
 
 <head>
     <meta charset="UTF-8">
     <title>페이지</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/boardview.css">
 </head>
 <body>
 
-<table border="1">
-    <tr>
-        <td>제목</td>
-        <td th:text="${board.boardTitle}"></td>
-    </tr>
-    <tr>
-        <td>작성자</td>
-        <td th:text="${board.boardWriter}"></td>
-    </tr>
-    <tr>
-        <td>등록날짜</td>
-        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-        <td>조회수</td>
-        <td th:text="${board.boardHit}"></td>
-    </tr>
-    <tr>
-        <td>내용</td>
-        <td>
-            <textarea th:text="${board.boardContent}" readonly="readonly" cols="100" rows="50"></textarea>
-        </td>
-    </tr>
-</table>
-<th:block th:if="${mainCheck != '1'}">
-    <th:block th:if="${emp.emp_id == board.empId}">
-        <button type="button" th:onclick="|location.href='@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}'|">수정하기</button>
-    </th:block>
-    <th:block th:if="${emp.emp_id == board.empId or emp.dept_num == 40}">
-        <button type="button" th:class="deleteBoard" th:data-boardNum="${board.boardNum}" th:data-boardDivision="${board.boardDivision}">삭제하기</button>
-    </th:block>
-    <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 0) and (emp.dept_num == 30 or emp.dept_num == 40) and (board.hierarchyNum == maxHierarchynum)}">
-        <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">답변하기</button>
-    </th:block>
-    <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId and (board.hierarchyNum == maxHierarchynum)}">
-        <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">질문하기</button>
-    </th:block>
-</th:block>
-<button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+<div class="view_wrap">
+        <div class="board_name" style="text-align: left;">
+            <strong>제목 : </strong>
+            <th:block th:text="${board.boardTitle}"></th:block>
+        </div>
+        <hr>
+        <div class="board_write">
+            <strong>작성자 : </strong>
+            <th:block th:text="${board.boardWriter}"></th:block>
+        </div>
+        <hr>
+        <div class="board_dateHit">
+            <strong>등록날짜 : </strong>
+            <th:block th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></th:block>
+            <strong class="hit">조회수 : </strong>
+            <th:block th:text="${board.boardHit}"></th:block>
+        </div>
+        <hr>
+        <div class="board_content">
+            <strong>내용</strong><br>
+            <label>
+                <textarea class="textarea" th:text="${board.boardContent}" readonly="readonly" cols="123" rows="30" style="resize: none;"></textarea>
+            </label>
+        </div>
+    <div class="buttons">
+        <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+        <th:block th:if="${mainCheck != '1'}">
+            <th:block th:if="${emp.emp_id == board.empId}">
+                <button type="button" th:onclick="|location.href='@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}'|">수정하기</button>
+            </th:block>
+            <th:block th:if="${emp.emp_id == board.empId or emp.dept_num == 40}">
+                <button type="button" th:class="deleteBoard" th:data-boardNum="${board.boardNum}" th:data-boardDivision="${board.boardDivision}">삭제하기</button>
+            </th:block>
+            <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 0) and (emp.dept_num == 30 or emp.dept_num == 40) and (board.hierarchyNum == maxHierarchynum)}">
+                <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">답변하기</button>
+            </th:block>
+            <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId and (board.hierarchyNum == maxHierarchynum)}">
+                <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">질문하기</button>
+            </th:block>
+        </th:block>
+    </div>
+</div>
 <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="/js/boardCheck.js"></script>
 </body>
+    </th:block>
+</th:block>
 </html>

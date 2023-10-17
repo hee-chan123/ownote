@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+select{
+    margin-right: 400px;
+}
+
+.write_wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+
+.title_view{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.title_view strong {
+    font-size: 1.4rem;
+}
+
+.boardTitle{
+    margin-bottom: 10px;
+}
+
+.boardDivision {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.boardContent {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.buttons {
+    margin-top: 30px;
+    align-items: center;
+    font-size: 0;
+
+}
+
+.buttons:nth-child(1) {
+    margin-right: 670px; /* 오른쪽으로 이동 */
+}
+
+.buttons button{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    margin-right: 330px;
+    background: black;
+    color: white;
+}
+
+.input_css {
+    width: 1000px;
+    height: 50px;
+    font-size: 1.5rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.textarea {
+    font-size: 1rem;
+}

@@ -1,0 +1,78 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.view_wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+
+.view_wrap .hit {
+    margin-left: 650px;
+}
+
+.view_wrap strong {
+    font-size: 1.4rem;
+}
+
+.board_name{
+    margin-bottom: 15px;
+}
+
+.board_write{
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.board_dateHit {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.board_content {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.button {
+    margin-top: 30px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    font-size: 0;
+
+}
+
+.buttons {
+    margin-right: 5px;
+}
+
+.buttons:nth-child(1) {
+    margin-right: 630px; /* 오른쪽으로 이동 */
+}
+
+.buttons button{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+
+    background: black;
+    color: white;
+}
+
+.textarea {
+    font-size: 1rem;
+}

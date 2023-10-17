@@ -1,48 +1,66 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
 <head>
     <meta charset="UTF-8">
     <title>글 수정</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/boardwrite.css">
 </head>
 <body>
 
+<div class="write_wrap">
 <form th:action="@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}" method="post">
     <input type="hidden" id="boardNum" name="boardNum" th:value="${board.boardNum}" />
-    <table>
-        <tr>
-            <td>제목</td>
-            <td><input type="text" name="boardTitle" th:value="${board.boardTitle}" /></td>
-        </tr>
-        <tr>
-            <td>작성자</td>
-            <td><input type="text" name="boardWriter" th:value="${emp.emp_name}" readonly="readonly" /></td>
-        </tr>
-        <tr>
-            <td>작성할 게시판</td>
-            <td>
-                <select id="boardDivision" name="boardDivision" >
+        <div>
+            <div>
+                <div class="boardTitle">
+                    <strong>제목</strong>
+                    <br>
+                    <input class="input_css" type="text" id="boardTitle" th:value="${board.boardTitle}" />
+                </div>
+                <hr>
+                <div class="boardWrite">
+                    <strong>작성자</strong>
+                    <br>
+                    <input class="input_css" type="text" id="boardWriter" th:value="${emp.emp_name}" readonly="readonly" />
+                </div>
+                <hr>
+                <div class="boardDivision">
+                    <strong>작성할 게시판</strong>
+                    <br>
+                    <select id="boardDivision" name="boardDivision" >
+                        <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
+                            <option value="회사뉴스및공지">회사뉴스 및 공지</option>
+                        </th:block>
+                        <option value="자유게시판">자유게시판</option>
+                        <option value="사내시스템/F&Q">사내시스템 / F&Q</option>
+                    </select>
                     <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
-                        <option value="회사뉴스및공지">회사뉴스 및 공지</option>
+                        <input type="checkbox" name="boardImportant" id="boardImportant">회사뉴스 및 공지 중요!
                     </th:block>
-                    <option value="자유게시판">자유게시판</option>
-                    <option value="사내시스템/F&Q">사내시스템 / F&Q</option>
-                </select>
-            </td>
-            <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
-                <td><input type="checkbox" name="boardImportant" id="boardImportant">회사뉴스 및 공지 중요!</td>
-            </th:block>
-        </tr>
-        <tr>
-            <td>내용</td>
-            <td><textarea type="textarea" name="boardContent"  cols="100" rows="50" th:text="${board.boardContent}"></textarea></td>
-        </tr>
-    </table>
-    <input type="submit" value="글 수정" id="submit2"/>
+                </div>
+                <hr>
+                <div class="boardContent">
+                    <strong>내용</strong>
+                    <br>
+                    <label>
+                        <textarea class="textarea" style="resize: none;" id="boardContent" name="boardContent"  cols="123" rows="30" th:text="${board.boardContent}"></textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="buttons">
+                <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+                <button type="submit" id="submit2">글 수정</button>
+            </div>
+        </div>
 </form>
-<button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+</div>
 <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="/js/boardCheck.js"></script>
 </body>
+    </th:block>
+</th:block>
 </html>

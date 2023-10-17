@@ -6,11 +6,12 @@ $(document).ready(function () {
         let boardDivision = $('select[name="boardDivision"]').val();
         let boardImportant = $('#boardImportant').prop('checked') ? 1 : 0;
         let boardContent = $('textarea[name="boardContent"]').val();
+        console.log(boardContent.length);
         let error = false;
 
         if (!boardTitle || !boardContent) {
             alert("제목과 내용을 입력해 주세요.");
-            error=true;
+            error = true;
         }
 
         if(!error){

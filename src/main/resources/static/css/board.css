@@ -1,11 +1,11 @@
-/**{*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/
+*{
+    margin: 0;
+    padding: 0;
+}
 
-/*html{*/
-/*    font-size: 15px;*/
-/*}*/
+html{
+    font-size: 15px;
+}
 
 a {
     text-decoration: none;
@@ -19,6 +19,14 @@ form {
 
 th, td {
     padding: 8px;
+}
+
+table {
+    width: 100%;
+}
+/************************************검색창*********************************/
+#board-search {
+    margin-top: -50px;
 }
 
 #board-search .search-window {
@@ -123,7 +131,9 @@ th, td {
     width: 1px;
     height: 1px;
 }
+/****************************************검색창***********************/
 
+/*********************************boardMain**************************/
 .boardMain_wrap {
     width: 1500px;
     margin: 100px auto;
@@ -178,11 +188,22 @@ th, td {
     border-bottom: 10px solid #999999;
 }
 
+.boardMain_list tfoot {
+    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    text-align: center;
+}
+
+.boardMain_list tbody tr:hover {
+    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+}
+
 /****************************boardMain****************************************/
 
+/*********************************board*************************************/
 .board_wrap{
     width: 1000px;
     margin: 100px auto;
+    margin-bottom: 0;
 }
 
 .board_wrap th, td {
@@ -193,10 +214,12 @@ th, td {
 }
 
 .title_board{
-    margin-bottom: 30px;
+    margin-top: -80PX;
+    margin-bottom: 20px;
 }
 .title_board strong {
     font-size: 3rem;
+    margin-left: 20px;
 }
 .title_board p {
     margin-top: 5px;
@@ -221,11 +244,24 @@ th, td {
     color: white;
 }
 
+.buttons button{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    margin-right: 10px;
+    background: black;
+    color: white;
+}
+
+
 .board_list {
     width: 100%;
     border-top: 2px solid #61adf6;
     border-bottom: 2px solid #61adf6;
-
+    text-align: center;
 }
 
 .board_list > table > thead {
@@ -250,11 +286,12 @@ th, td {
     width: 500px;
 }
 
-tfoot {
+.board_list tfoot {
     background-color: #f2f2f2; /* 풋터 배경색 설정 */
     text-align: center;
 }
 
-tbody tr:hover {
+.board_list tbody tr:hover {
     background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
 }
+/**************************************board*****************************/
