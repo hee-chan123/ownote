@@ -62,8 +62,8 @@
                     <thead>
                     <tr>
                         <td>글 번호</td>
-                        <td>제목</td>
                         <td>작성자</td>
+                        <td>제목</td>
                         <td>등록날짜</td>
                         <td>조회수</td>
                     </tr>
@@ -77,8 +77,8 @@
                     <tr>
                         <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" /></th:block>
                         <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
-                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
                         <td th:text="${board.boardWriter}"></td>
+                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
                         <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${board.boardHit}"></td>
                     </tr>
@@ -91,8 +91,8 @@
                     <thead>
                     <tr>
                         <td>글 번호</td>
-                        <td>제목</td>
                         <td>작성자</td>
+                        <td>제목</td>
                         <td>등록날짜</td>
                         <td>조회수</td>
                     </tr>
@@ -105,8 +105,8 @@
                     <tbody th:each="board : ${boardForum}">
                     <tr>
                         <td th:text="${board.boardNum}"></td>
-                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
                         <td th:text="${board.boardWriter}"></td>
+                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
                         <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${board.boardHit}"></td>
                     </tr>
@@ -119,8 +119,8 @@
                     <thead>
                     <tr>
                         <td>글 번호</td>
-                        <td>제목</td>
                         <td>작성자</td>
+                        <td>제목</td>
                         <td>등록날짜</td>
                         <td>조회수</td>
                     </tr>
@@ -139,8 +139,8 @@
                         <th:block th:if="${board.hierarchyNum == 0}">
                             <td th:text="${board.boardNum}"></td>
                         </th:block>
-                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
                         <td th:text="${board.boardWriter}"></td>
+                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
                         <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${board.boardHit}"></td>
                     </tr>
@@ -148,7 +148,6 @@
                 </table>
             </div>
         </div>
-        <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
         <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
         </body>
     </th:block>

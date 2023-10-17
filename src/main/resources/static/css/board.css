@@ -1,11 +1,11 @@
-/**{*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/
+*{
+    margin: 0;
+    padding: 0;
+}
 
-/*html{*/
-/*    font-size: 15px;*/
-/*}*/
+html{
+    font-size: 15px;
+}
 
 a {
     text-decoration: none;
@@ -21,78 +21,12 @@ th, td {
     padding: 8px;
 }
 
-.boardMain_wrap {
-    width: 1500px;
-    margin: 100px auto;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
+table {
+    width: 100%;
 }
-
-.boardMain-title-text {
-    text-align: left;
-    margin-top: 40px;
-    margin-bottom: -50px;
-    margin-left: 270px;
-    display: flex;
-}
-
-.boardMain-title-board {
-    margin-right: 380px;
-}
-
-.boardMain-title-board2 {
-    margin-left: 40px;
-}
-
-.boardMain-title-board strong {
-    font-size: 1rem;
-}
-.boardMain-title-board2 strong {
-    font-size: 1rem;
-}
-
-.boardMain_list table {
-    width: 450px;
-    border-top: 2px solid #61adf6;
-    border-bottom: 2px solid #61adf6;
-    padding: 10px;
-    margin-top: -30px;
-    margin-right: 10px;
-    margin-left: 50px;
-    justify-content: space-between;
-    text-align: center;
-    table-layout: fixed;
-}
-
-.boardMain_wrap td {
-    white-space:nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.boardMain_list > table > thead {
-    border-bottom: 10px solid #999999;
-}
-
-.board_wrap{
-    width: 1000px;
-    margin: 100px auto;
-}
-
-.board_wrap td {
-    white-space:nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-tfoot {
-    background-color: #f2f2f2;
-    text-align: center;
-}
-
-tbody tr:hover {
-    background-color: #61adf6;
+/************************************검색창*********************************/
+#board-search {
+    margin-top: -50px;
 }
 
 #board-search .search-window {
@@ -197,4 +131,167 @@ tbody tr:hover {
     width: 1px;
     height: 1px;
 }
+/****************************************검색창***********************/
 
+/*********************************boardMain**************************/
+.boardMain_wrap {
+    width: 1500px;
+    margin: 100px auto;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.boardMain-title-text {
+    text-align: left;
+    margin-top: 40px;
+    margin-bottom: -50px;
+    margin-left: 270px;
+    display: flex;
+}
+
+.boardMain-title-board {
+    margin-right: 380px;
+}
+
+.boardMain-title-board2 {
+    margin-left: 40px;
+}
+
+.boardMain-title-board strong {
+    font-size: 1rem;
+}
+.boardMain-title-board2 strong {
+    font-size: 1rem;
+}
+
+.boardMain_list table {
+    width: 450px;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+    padding: 10px;
+    margin-top: -30px;
+    margin-right: 10px;
+    margin-left: 50px;
+    justify-content: space-between;
+    text-align: center;
+    table-layout: fixed;
+}
+
+.boardMain_wrap td {
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.boardMain_list > table > thead {
+    border-bottom: 10px solid #999999;
+}
+
+.boardMain_list tfoot {
+    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    text-align: center;
+}
+
+.boardMain_list tbody tr:hover {
+    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+}
+
+/****************************boardMain****************************************/
+
+/*********************************board*************************************/
+.board_wrap{
+    width: 1000px;
+    margin: 100px auto;
+    margin-bottom: 0;
+}
+
+.board_wrap th, td {
+    padding: 8px;
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.title_board{
+    margin-top: -80PX;
+    margin-bottom: 20px;
+}
+.title_board strong {
+    font-size: 3rem;
+    margin-left: 20px;
+}
+.title_board p {
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
+
+.buttons {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.buttons a{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+
+    background: black;
+    color: white;
+}
+
+.buttons button{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    margin-right: 10px;
+    background: black;
+    color: white;
+}
+
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+    text-align: center;
+}
+
+.board_list > table > thead {
+    border-bottom: 10px solid #999999;
+}
+
+.board_list th:nth-child(1),
+.board_list td:nth-child(1) {
+    text-align: center;
+    width: 10px;
+}
+
+.board_list th:nth-child(2),
+.board_list td:nth-child(2) {
+    text-align: center;
+    width: 130px;
+}
+
+.board_list th:nth-child(3),
+.board_list td:nth-child(3) {
+
+    width: 500px;
+}
+
+.board_list tfoot {
+    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    text-align: center;
+}
+
+.board_list tbody tr:hover {
+    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+}
+/**************************************board*****************************/
