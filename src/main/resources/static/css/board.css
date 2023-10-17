@@ -26,7 +26,8 @@ table {
 }
 /************************************검색창*********************************/
 #board-search {
-    margin-top: -50px;
+    margin-top: 20px;
+    margin-left: 200px;
 }
 
 #board-search .search-window {
@@ -43,11 +44,12 @@ table {
 }
 
 #board-search .search-window .search-wrap input {
-    height: 60px;
+    height: 40px;
     width: 100%;
     font-size: 14px;
     padding: 7px 14px;
     border: 1px solid #ccc;
+    border-radius: 0.5em;
 }
 
 #board-search .search-window .search-wrap input:focus {
@@ -104,17 +106,7 @@ table {
 .btn-dark {
     background: #61adf6;
     color: #fff;
-}
-
-.btn-dark:hover, .btn-dark:focus {
-    background: #61adf6;
-    border-color: #61adf6;
-    color: #fff;
-}
-
-.btn-dark {
-    background: #61adf6;
-    color: #fff;
+    border-radius: 0.5em;
 }
 
 .btn-dark:hover, .btn-dark:focus {
@@ -295,3 +287,32 @@ table {
     background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
 }
 /**************************************board*****************************/
+
+/*dropdown*/
+select {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+    color: #444;
+    background-color: #fff;
+
+    padding: 0.6em 1.4em 0.5em 0.8em;
+    margin-left: -45px;
+    height: 40px;
+
+    border: 1px solid #aaa;
+    border-radius: 0.5em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+
+select:hover {
+    border-color: #888;
+}
+
+select:focus {
+    border-color: #aaa;
+    color: #222;
+    outline: none;
+}
+/*dropdown*/

@@ -78,3 +78,41 @@ select{
 .textarea {
     font-size: 1rem;
 }
+
+/*dropdown*/
+select {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+    color: #444;
+    background-color: #fff;
+
+    padding: 0.6em 1.4em 0.5em 0.8em;
+
+    border: 1px solid #aaa;
+    border-radius: 0.5em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+
+select:hover {
+    border-color: #888;
+}
+
+select:focus {
+    border-color: #aaa;
+    color: #222;
+    outline: none;
+}
+/*dropdown*/
+
+.checkbox {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    margin-left: 170px;
+}
+
+.checkbox-text {
+    font-size: 1.3rem;
+}
