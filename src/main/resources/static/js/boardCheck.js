@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('#submit1').click(function (e) { //write
+        e.preventDefault();
         let boardTitle = $('input[name="boardTitle"]').val();
         let boardWriter = $('input[name="boardWriter"]').val();
         let boardDivision = $('select[name="boardDivision"]').val();
