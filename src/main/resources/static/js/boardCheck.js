@@ -156,11 +156,11 @@ $(document).ready(function () {
     $('.deleteBoard').click(function (e) {
         e.preventDefault();
 
-        var boardNum = $(this).attr('data-boardNum');
+        let boardNum = $(this).attr('data-boardNum');
         console.log(boardNum);
-        var boardDivision = $(this).attr('data-boardDivision');
+        let boardDivision = $(this).attr('data-boardDivision');
         console.log(boardDivision);
-        var confirmResult = confirm('게시글을 삭제하시겠습니까?');
+        let confirmResult = confirm('게시글을 삭제하시겠습니까?');
         console.log(confirmResult);
         if (confirmResult) {
             $.ajax({
