@@ -31,7 +31,7 @@
                 <div class="boardDivision">
                     <strong>작성할 게시판</strong>
                     <br>
-                    <select id="boardDivision" name="boardDivision" >
+                    <select id="boardDivision" name="boardDivision" style="font-weight: bold">
                         <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
                             <option value="회사뉴스및공지">회사뉴스 및 공지</option>
                         </th:block>
@@ -40,7 +40,8 @@
                     </select>
                     <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
                         <label>
-                            <input type="checkbox" name="boardImportant" id="boardImportant">회사뉴스 및 공지 중요!
+                            <input class="checkbox" type="checkbox" name="boardImportant" id="boardImportant">
+                            <strong class="checkbox-text">회사뉴스 및 공지 중요!</strong>
                         </label>
                     </th:block>
                 </div>
@@ -63,6 +64,7 @@
 <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="/js/boardCheck.js"></script>
+<script src="/js/checkBoxShow.js"></script>
 </body>
     </th:block>
 </th:block>

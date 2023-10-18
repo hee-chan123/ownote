@@ -200,40 +200,42 @@ public class BoardController {
     }
 
     @GetMapping("/board/findLike") //검색 게시판
-    public String findLikePage(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model,
-                               @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
+    public String findLikePage(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, @RequestParam("searchOption") String searchOption,
+                               Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
 
-        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, boardDivision, find);
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, boardDivision, find, searchOption);
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         Emp emp = boardService.selectEmp(authInfo.getEmp_id());
 
         model.addAttribute("boardPage", boardPage);
         model.addAttribute("boardDivision", boardDivision);
         model.addAttribute("find", find);
+        model.addAttribute("searchOption", searchOption);
         model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
         return "board/findLike";
     }
 
     @PostMapping("/board/findLike") //검색 게시판
-    public String findLike(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, Model model,
-                           @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
+    public String findLike(@RequestParam("find") String find, @RequestParam("boardDivision") String boardDivision, @RequestParam("searchOption") String searchOption,
+                           Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
             pageNo = Integer.parseInt(pageNoVal);
         }
 
-        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, boardDivision, find);
+        BoardPage boardPage = listBoard.getBoardPage((long) pageNo, boardDivision, find, searchOption);
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         Emp emp = boardService.selectEmp(authInfo.getEmp_id());
 
         model.addAttribute("boardPage", boardPage);
         model.addAttribute("boardDivision", boardDivision);
         model.addAttribute("find", find);
+        model.addAttribute("searchOption", searchOption);
         model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
         return "board/findLike";

@@ -27,9 +27,9 @@ public class ListBoard {
         return new BoardPage(total,boardNum.intValue(), size, content);
     }
 
-    public BoardPage getBoardPage(Long boardNum, String boardDivision, String find){
-        int total = boardService.selectCount(boardDivision, find);
-        List<Board> content = boardService.select(((boardNum.intValue()) - 1) * size, size, boardDivision, find);
+    public BoardPage getBoardPage(Long boardNum, String boardDivision, String find, String searchOption){
+        int total = boardService.selectCount(boardDivision, find, searchOption);
+        List<Board> content = boardService.select(((boardNum.intValue()) - 1) * size, size, boardDivision, find, searchOption);
         return new BoardPage(total,boardNum.intValue(), size, content);
     }
 }

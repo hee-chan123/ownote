@@ -19,7 +19,7 @@ public interface BoardService {
 
     public void hitPlus(Long boardNum); //조회수 증가
 
-    public List<Board> findLike(String boardDivision, String find); //게시물 제목으로 검색
+//    public List<Board> findLike(String boardDivision, String find); //게시물 제목으로 검색
 
     public Long maxBoardNum(); //게시물 최대번호
 
@@ -29,13 +29,13 @@ public interface BoardService {
 
     public int selectCount(String boardDivision); //게시물 개수
 
-    public int selectCount(String boardDivision, String find); //게시물 개수
+    public int selectCount(String boardDivision, String find, String searchOption); //게시물 개수
 
     public List<Board> select(int startRow, int size); //게시물 페이징
 
     public List<Board> select(int startRow, int size, String boardDivision); //게시물 페이징
 
-    public List<Board> select(int startRow, int size, String boardDivision, String find); //검색 게시물 페이징
+    public List<Board> select(int startRow, int size, String boardDivision, String find, String searchOption); //검색 게시물 페이징
 
     public Emp selectEmp(int empId); //사원 번호로 사원 정보 가져오기
 

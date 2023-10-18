@@ -26,7 +26,8 @@ table {
 }
 /************************************검색창*********************************/
 #board-search {
-    margin-top: -50px;
+    margin-top: -10px;
+    margin-left: 300px;
 }
 
 #board-search .search-window {
@@ -43,11 +44,12 @@ table {
 }
 
 #board-search .search-window .search-wrap input {
-    height: 60px;
+    height: 40px;
     width: 100%;
     font-size: 14px;
     padding: 7px 14px;
     border: 1px solid #ccc;
+    border-radius: 0.5em;
 }
 
 #board-search .search-window .search-wrap input:focus {
@@ -57,8 +59,9 @@ table {
 }
 
 #board-search .search-window .search-wrap .select {
+    display: flex;
     position: absolute;
-    left: -140px;
+    left: -255px;
     width: 150px;
     font-size: 16px;
 }
@@ -71,6 +74,10 @@ table {
     width: 80px;
     padding: 0;
     font-size: 16px;
+}
+
+#searchOption {
+    margin-left: 0;
 }
 
 .btn {
@@ -104,17 +111,7 @@ table {
 .btn-dark {
     background: #61adf6;
     color: #fff;
-}
-
-.btn-dark:hover, .btn-dark:focus {
-    background: #61adf6;
-    border-color: #61adf6;
-    color: #fff;
-}
-
-.btn-dark {
-    background: #61adf6;
-    color: #fff;
+    border-radius: 0.5em;
 }
 
 .btn-dark:hover, .btn-dark:focus {
@@ -151,7 +148,7 @@ table {
 }
 
 .boardMain-title-board {
-    margin-right: 380px;
+    margin-right: 400px;
 }
 
 .boardMain-title-board2 {
@@ -166,7 +163,7 @@ table {
 }
 
 .boardMain_list table {
-    width: 450px;
+    width: 470px;
     border-top: 2px solid #61adf6;
     border-bottom: 2px solid #61adf6;
     padding: 10px;
@@ -176,6 +173,36 @@ table {
     justify-content: space-between;
     text-align: center;
     table-layout: fixed;
+}
+
+.boardMain_list th:nth-child(1),
+.boardMain_list td:nth-child(1) {
+    text-align: center;
+    width: 13%;
+}
+
+.boardMain_list th:nth-child(2),
+.boardMain_list td:nth-child(2) {
+    text-align: center;
+    width: 15%;
+}
+
+.boardMain_list th:nth-child(3),
+.boardMain_list td:nth-child(3) {
+    text-align: center;
+    width: 35%;
+}
+
+.boardMain_list th:nth-child(4),
+.boardMain_list td:nth-child(4) {
+    text-align: center;
+    width: 24%;
+}
+
+.boardMain_list th:nth-child(5),
+.boardMain_list td:nth-child(5) {
+    text-align: center;
+    width: 13%;
 }
 
 .boardMain_wrap td {
@@ -189,12 +216,12 @@ table {
 }
 
 .boardMain_list tfoot {
-    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    background-color: #f2f2f2;
     text-align: center;
 }
 
 .boardMain_list tbody tr:hover {
-    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+    background-color: #61adf6;
 }
 
 /****************************boardMain****************************************/
@@ -256,12 +283,18 @@ table {
     color: white;
 }
 
-
 .board_list {
     width: 100%;
     border-top: 2px solid #61adf6;
     border-bottom: 2px solid #61adf6;
     text-align: center;
+}
+
+.board_list table{
+    table-layout: fixed;
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .board_list > table > thead {
@@ -271,27 +304,87 @@ table {
 .board_list th:nth-child(1),
 .board_list td:nth-child(1) {
     text-align: center;
-    width: 10px;
+    width: 10%;
 }
 
 .board_list th:nth-child(2),
 .board_list td:nth-child(2) {
     text-align: center;
-    width: 130px;
+    width: 10%;
 }
 
 .board_list th:nth-child(3),
 .board_list td:nth-child(3) {
+    width: 50%;
+}
 
-    width: 500px;
+.board_list th:nth-child(4),
+.board_list td:nth-child(4) {
+    width: 20%;
+}
+
+.board_list th:nth-child(5),
+.board_list td:nth-child(5) {
+    width: 10%;
 }
 
 .board_list tfoot {
-    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    background-color: #f2f2f2;
     text-align: center;
 }
 
 .board_list tbody tr:hover {
-    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+    background-color: #61adf6;
+}
+
+.board-page a {
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    color: white;
+    background-color: #007BFF;
+    border-radius:10px;
+}
+
+.page {
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    color: white;
+    background-color:blue;
+    border-radius:10px;
 }
 /**************************************board*****************************/
+
+/*dropdown*/
+select {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+    color: #444;
+    background-color: #fff;
+
+    padding: 0.6em 1.4em 0.5em 0.8em;
+    margin-left: -45px;
+    height: 40px;
+
+    border: 1px solid #aaa;
+    border-radius: 0.5em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+
+select:hover {
+    border-color: #888;
+}
+
+select:focus {
+    border-color: #aaa;
+    color: #222;
+    outline: none;
+}
+/*dropdown*/

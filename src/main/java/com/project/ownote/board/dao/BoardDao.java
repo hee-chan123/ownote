@@ -78,26 +78,26 @@ public class BoardDao {
         jdbcTemplate.update(sql, boardNum);
     }
 
-    public List<Board> findLike(String sql, String param){ //게시물 제목으로 검색
-        List<Board> boards = jdbcTemplate.query(sql, (rs, n) -> {
-            Board board = new Board(
-                    rs.getLong("boardNum"),
-                    rs.getString("boardTitle"),
-                    rs.getString("boardContent"),
-                    rs.getString("boardWriter"),
-                    rs.getString("boardDivision"),
-                    rs.getTimestamp("boardRegDate").toLocalDateTime(),
-                    rs.getInt("boardHit"),
-                    rs.getInt("boardImportant"),
-                    rs.getInt("parentNum"),
-                    rs.getInt("hierarchyNum"),
-                    rs.getInt("pEmpId"),
-                    rs.getInt("empId"));
-            return board;
-
-        }, param);
-        return boards.isEmpty() ? null : boards;
-    }
+//    public List<Board> findLike(String sql, String param){ //게시물 제목으로 검색
+//        List<Board> boards = jdbcTemplate.query(sql, (rs, n) -> {
+//            Board board = new Board(
+//                    rs.getLong("boardNum"),
+//                    rs.getString("boardTitle"),
+//                    rs.getString("boardContent"),
+//                    rs.getString("boardWriter"),
+//                    rs.getString("boardDivision"),
+//                    rs.getTimestamp("boardRegDate").toLocalDateTime(),
+//                    rs.getInt("boardHit"),
+//                    rs.getInt("boardImportant"),
+//                    rs.getInt("parentNum"),
+//                    rs.getInt("hierarchyNum"),
+//                    rs.getInt("pEmpId"),
+//                    rs.getInt("empId"));
+//            return board;
+//
+//        }, param);
+//        return boards.isEmpty() ? null : boards;
+//    }
 
     public Long maxBoardNum(){ //게시물 최대번호
         String sql = "select max(boardnum) from board";
@@ -120,10 +120,24 @@ public class BoardDao {
         return jdbcTemplate.queryForObject(sql, Integer.class, boardDivision);
     }
 
-    public int selectCount(String boardDivision, String find){ //게시물 개수
-        String sql = "select count(*) from board where boardDivision = ? and boardtitle like ? order by boardnum desc";
-        String f = "%" + find + "%";
-        return jdbcTemplate.queryForObject(sql, Integer.class, boardDivision, f);
+    public int selectCount(String boardDivision, String find, String searchOption, String sql){ //게시물 개수
+        if(boardDivision.equals("전체")){
+            if(searchOption.equals("전체")) {
+                return jdbcTemplate.queryForObject(sql, Integer.class, find, find, find);
+            } else if(searchOption.equals("제목+내용")) {
+                return jdbcTemplate.queryForObject(sql, Integer.class, find, find);
+            }else{
+                return jdbcTemplate.queryForObject(sql, Integer.class, find);
+            }
+        } else {
+            if(searchOption.equals("전체")){
+                return jdbcTemplate.queryForObject(sql, Integer.class, boardDivision, find, find, find);
+            }else if(searchOption.equals("제목+내용")){
+                return jdbcTemplate.queryForObject(sql, Integer.class, boardDivision, find, find);
+            }else {
+                return jdbcTemplate.queryForObject(sql, Integer.class, boardDivision, find);
+            }
+        }
     }
 
     public List<Board> select(int startRow, int size){ //게시물 페이징
@@ -165,23 +179,59 @@ public class BoardDao {
         },startRow, size);
     }
 
-    public List<Board> select(int startRow, int size, String sql, String find){ //검색 게시물 페이징
-        return jdbcTemplate.query(sql, (rs, n) -> {
-            Board board = new Board(
-                    rs.getLong("boardNum"),
-                    rs.getString("boardTitle"),
-                    rs.getString("boardContent"),
-                    rs.getString("boardWriter"),
-                    rs.getString("boardDivision"),
-                    rs.getTimestamp("boardRegDate").toLocalDateTime(),
-                    rs.getInt("boardHit"),
-                    rs.getInt("boardImportant"),
-                    rs.getInt("parentNum"),
-                    rs.getInt("hierarchyNum"),
-                    rs.getInt("pEmpId"),
-                    rs.getInt("empId"));
-            return board;
-        }, find, startRow, size);
+    public List<Board> select(int startRow, int size, String sql, String find, String searchOption){ //검색 게시물 페이징
+        if(searchOption.equals("전체")){
+            return jdbcTemplate.query(sql, (rs, n) -> {
+                Board board = new Board(
+                        rs.getLong("boardNum"),
+                        rs.getString("boardTitle"),
+                        rs.getString("boardContent"),
+                        rs.getString("boardWriter"),
+                        rs.getString("boardDivision"),
+                        rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                        rs.getInt("boardHit"),
+                        rs.getInt("boardImportant"),
+                        rs.getInt("parentNum"),
+                        rs.getInt("hierarchyNum"),
+                        rs.getInt("pEmpId"),
+                        rs.getInt("empId"));
+                return board;
+            }, find, find, find, startRow, size);
+        } else if(searchOption.equals("제목+내용")){
+            return jdbcTemplate.query(sql, (rs, n) -> {
+                Board board = new Board(
+                        rs.getLong("boardNum"),
+                        rs.getString("boardTitle"),
+                        rs.getString("boardContent"),
+                        rs.getString("boardWriter"),
+                        rs.getString("boardDivision"),
+                        rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                        rs.getInt("boardHit"),
+                        rs.getInt("boardImportant"),
+                        rs.getInt("parentNum"),
+                        rs.getInt("hierarchyNum"),
+                        rs.getInt("pEmpId"),
+                        rs.getInt("empId"));
+                return board;
+            }, find, find, startRow, size);
+        } else {
+            return jdbcTemplate.query(sql, (rs, n) -> {
+                Board board = new Board(
+                        rs.getLong("boardNum"),
+                        rs.getString("boardTitle"),
+                        rs.getString("boardContent"),
+                        rs.getString("boardWriter"),
+                        rs.getString("boardDivision"),
+                        rs.getTimestamp("boardRegDate").toLocalDateTime(),
+                        rs.getInt("boardHit"),
+                        rs.getInt("boardImportant"),
+                        rs.getInt("parentNum"),
+                        rs.getInt("hierarchyNum"),
+                        rs.getInt("pEmpId"),
+                        rs.getInt("empId"));
+                return board;
+            }, find, startRow, size);
+        }
     }
 
     public Emp selectEmp(int empId){ //사원 번호로 사원 정보 가져오기

@@ -14,19 +14,19 @@
 <div class="view_wrap">
         <div class="board_name" style="text-align: left;">
             <strong>제목 : </strong>
-            <th:block th:text="${board.boardTitle}"></th:block>
+            <strong><th:block th:text="${board.boardTitle}"></th:block></strong>
         </div>
         <hr>
         <div class="board_write">
             <strong>작성자 : </strong>
-            <th:block th:text="${board.boardWriter}"></th:block>
+            <strong><th:block th:text="${board.boardWriter}"></th:block></strong>
         </div>
         <hr>
         <div class="board_dateHit">
             <strong>등록날짜 : </strong>
-            <th:block th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></th:block>
+            <strong><th:block th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></th:block></strong>
             <strong class="hit">조회수 : </strong>
-            <th:block th:text="${board.boardHit}"></th:block>
+            <strong><th:block th:text="${board.boardHit}"></th:block></strong>
         </div>
         <hr>
         <div class="board_content">
@@ -44,10 +44,10 @@
             <th:block th:if="${emp.emp_id == board.empId or emp.dept_num == 40}">
                 <button type="button" th:class="deleteBoard" th:data-boardNum="${board.boardNum}" th:data-boardDivision="${board.boardDivision}">삭제하기</button>
             </th:block>
-            <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 0) and (emp.dept_num == 30 or emp.dept_num == 40) and (board.hierarchyNum == maxHierarchynum)}">
+            <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 0) and (emp.dept_num == 30 or emp.dept_num == 40) and board.hierarchyNum == maxHierarchynum and emp.emp_id != board.empId}">
                 <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">답변하기</button>
             </th:block>
-            <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId and (board.hierarchyNum == maxHierarchynum)}">
+            <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId and board.hierarchyNum == maxHierarchynum and emp.emp_id != board.empId}">
                 <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">질문하기</button>
             </th:block>
         </th:block>
