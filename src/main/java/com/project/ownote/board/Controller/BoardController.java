@@ -34,6 +34,7 @@ public class BoardController {
         model.addAttribute("boardNotice", boardNotice);
         model.addAttribute("boardForum", boardForum);
         model.addAttribute("boardQa", boardQa);
+        model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
         return "board/boardMain";
     }

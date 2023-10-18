@@ -41,7 +41,7 @@
                                 </select>
                             </div>
                             <label for="search" class="blind">검색 할 내용</label>
-                            <input id="search" type="search" name="find" placeholder="검색어를 입력해 주세요"/>
+                            <input id="search" type="search" name="find" placeholder="검색어를 입력해 주세요" required/>
                             <button type="submit" class="btn btn-dark">검색</button>
                         </div>
                     </form>
@@ -65,15 +65,13 @@
         </div>
 
         <div class="boardMain_wrap">
-            <div class="boardMain_list">
+            <div class="boardMain_list">  <!--공지-->
                 <table>
                     <thead>
                     <tr>
                         <td>글번호</td>
                         <td>작성자</td>
                         <td>제목</td>
-                        <td>등록날짜</td>
-                        <td>조회수</td>
                     </tr>
                     </thead>
                     <th:block th:if="${boardNotice == null or boardNotice.isEmpty()}">
@@ -83,26 +81,22 @@
                     </th:block>
                     <tbody th:each="board : ${boardNotice}">
                     <tr>
-                        <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" style="color: red"></td></th:block>
+                        <th:block th:if="${board.boardImportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
                         <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
                         <td th:text="${board.boardWriter}"></td>
                         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
-                        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-                        <td th:text="${board.boardHit}"></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="boardMain_list">
+            <div class="boardMain_list"> <!--자유-->
                 <table>
                     <thead>
                     <tr>
                         <td>글번호</td>
                         <td>작성자</td>
                         <td>제목</td>
-                        <td>등록날짜</td>
-                        <td>조회수</td>
                     </tr>
                     </thead>
                     <th:block th:if="${boardForum == null or boardForum.isEmpty()}">
@@ -115,22 +109,18 @@
                         <td th:text="${board.boardNum}"></td>
                         <td th:text="${board.boardWriter}"></td>
                         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
-                        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-                        <td th:text="${board.boardHit}"></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="boardMain_list">
+            <div class="boardMain_list"> <!--F&Q-->
                 <table>
                     <thead>
                     <tr>
                         <td>글번호</td>
                         <td>작성자</td>
                         <td>제목</td>
-                        <td>등록날짜</td>
-                        <td>조회수</td>
                     </tr>
                     </thead>
                     <th:block th:if="${boardQa == null or boardQa.isEmpty()}">
@@ -148,9 +138,13 @@
                             <td th:text="${board.boardNum}"></td>
                         </th:block>
                         <td th:text="${board.boardWriter}"></td>
-                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
-                        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-                        <td th:text="${board.boardHit}"></td>
+                        <th:block th:if="${board.hierarchyNum > 0}">
+                            <th:block th:if="${board.hierarchyNum % 2 == 1}"><td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="'↳'+${board.boardTitle}"></a></td></th:block>
+                            <th:block th:if="${board.hierarchyNum % 2 == 0}"><td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="'↳'+${board.boardTitle}"></a></td></th:block>
+                        </th:block>
+                        <th:block th:if="${board.hierarchyNum == 0}">
+                            <td th:text="${board.boardTitle}"></td>
+                        </th:block>
                     </tr>
                     </tbody>
                 </table>

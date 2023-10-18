@@ -61,7 +61,7 @@ table {
 #board-search .search-window .search-wrap .select {
     display: flex;
     position: absolute;
-    left: -255px;
+    left: -257px;
     width: 150px;
     font-size: 16px;
 }
@@ -263,7 +263,7 @@ table {
     display: inline-block;
     min-width: 80px;
     padding: 10px;
-    border: 1px solid #000;
+    border: 1px solid #61adf6;
     border-radius: 5px;
     font-size: 1.4rem;
 
@@ -275,11 +275,11 @@ table {
     display: inline-block;
     min-width: 80px;
     padding: 10px;
-    border: 1px solid #000;
+    border: 1px solid #61adf6;
     border-radius: 5px;
     font-size: 1.4rem;
     margin-right: 10px;
-    background: black;
+    background: #61adf6;
     color: white;
 }
 
@@ -344,7 +344,7 @@ table {
     padding: 5px 8px;
     border: 1px solid #ccc;
     color: white;
-    background-color: #007BFF;
+    background-color: #61adf6;
     border-radius:10px;
 }
 
@@ -355,7 +355,7 @@ table {
     padding: 5px 8px;
     border: 1px solid #ccc;
     color: white;
-    background-color:blue;
+    background-color: #61adf6;
     border-radius:10px;
 }
 /**************************************board*****************************/

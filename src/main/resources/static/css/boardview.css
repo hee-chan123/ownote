@@ -65,14 +65,14 @@ a {
     display: inline-block;
     min-width: 80px;
     padding: 10px;
-    border: 1px solid #000;
+    border: 1px solid #61adf6;
     border-radius: 5px;
     font-size: 1.4rem;
 
-    background: black;
+    background: #61adf6;
     color: white;
 }
 
 .textarea {
-    font-size: 1rem;
+    font-size: 1.3rem;
 }

@@ -31,7 +31,7 @@
                                 </select>
                             </div>
                             <label for="search" class="blind">제목 검색</label>
-                            <input id="search" type="search" name="find" placeholder="검색어를 입력해주세요."/>
+                            <input id="search" type="search" name="find" placeholder="검색어를 입력해주세요." required/>
                             <button type="submit" class="btn btn-dark">검색</button>
                         </div>
                     </form>
@@ -63,7 +63,7 @@
                         </tr>
                     </th:block>
                     <tr th:each="board : ${boardPage.content}">
-                        <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" style="color: red"></td></th:block>
+                        <th:block th:if="${board.boardImportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
                         <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
                         <td th:text="${board.boardWriter}"></td>
                         <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>

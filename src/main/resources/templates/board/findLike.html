@@ -31,7 +31,7 @@
                                 </select>
                             </div>
                             <label for="search" class="blind">제목 검색</label>
-                            <input id="search" type="search" name="find" placeholder="검색어를 입력해주세요."/>
+                            <input id="search" type="search" name="find" placeholder="검색어를 입력해주세요." required/>
                             <button type="submit" class="btn btn-dark">검색</button>
                         </div>
                     </form>
@@ -49,7 +49,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>글번호</th>
+                        <th>게시판</th>
                         <th>작성자</th>
                         <th>제목</th>
                         <th>등록날짜</th>
@@ -65,7 +65,7 @@
                     <tr th:each="board : ${boardPage.content}">
 
                         <th:block th:if="${board.boardDivision == '회사뉴스및공지'}">
-                            <th:block th:if="${board.boardImportant == 1}"><td th:text="중요" style="color: red"></td></th:block>
+                            <th:block th:if="${board.boardImportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
                             <th:block th:if="${board.boardImportant != 1}"><td th:text="공지" ></td></th:block>
                         </th:block>
                         <th:block th:if="${board.boardDivision == '자유게시판'}">
@@ -73,8 +73,8 @@
                         </th:block>
                         <th:block th:if="${board.boardDivision == '사내시스템/F&Q'}">
                             <th:block th:if="${board.hierarchyNum > 0}">
-                                <th:block th:if="${board.hierarchyNum % 2 == 1}"><td th:text="답변" ></td></th:block>
-                                <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" ></td>th:block>
+                                <th:block th:if="${board.hierarchyNum % 2 == 1}"><td th:text="답변" style="color: red"></td></th:block>
+                                <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" style="color: deepskyblue"></td></th:block>
                             </th:block>
                             <th:block th:if="${board.hierarchyNum == 0}">
                                 <td th:text="'F&Q'"></td>
@@ -82,7 +82,15 @@
                         </th:block>
 
                         <td th:text="${board.boardWriter}"></td>
-                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
+
+                        <th:block th:if="${board.hierarchyNum > 0}">
+                            <th:block th:if="${board.hierarchyNum % 2 == 1}"><td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="'↳'+${board.boardTitle}"></a></td></th:block>
+                            <th:block th:if="${board.hierarchyNum % 2 == 0}"><td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="'↳'+${board.boardTitle}"></a></td></th:block>
+                        </th:block>
+                        <th:block th:if="${board.hierarchyNum == 0}">
+                            <td th:text="${board.boardTitle}"></td>
+                        </th:block>
+
                         <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${board.boardHit}"></td>
                     </tr>

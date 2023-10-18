@@ -107,7 +107,7 @@ public class BoardServiceImpl implements BoardService{
 
         switch (searchOption) {
             case "전체": {
-                sql += "boardtitle like ? or boardwriter like ? or boardcontent like ?";
+                sql += "(boardtitle like ? or boardwriter like ? or boardcontent like ?)";
                 break;
             }
             case "제목": {
@@ -123,7 +123,7 @@ public class BoardServiceImpl implements BoardService{
                 break;
             }
             case "제목+내용": {
-                sql += "boardtitle like ? or boardcontent like ?";
+                sql += "(boardtitle like ? or boardcontent like ?)";
                 break;
             }
         }
@@ -186,7 +186,7 @@ public class BoardServiceImpl implements BoardService{
 
         switch (searchOption) {
             case "전체": {
-                sql += "boardtitle like ? or boardwriter like ? or boardcontent like ? ";
+                sql += "(boardtitle like ? or boardwriter like ? or boardcontent like ?) ";
                 break;
             }
             case "제목": {
@@ -202,7 +202,7 @@ public class BoardServiceImpl implements BoardService{
                 break;
             }
             case "제목+내용": {
-                sql += "boardtitle like ? or boardcontent like ? ";
+                sql += "(boardtitle like ? or boardcontent like ?) ";
                 break;
             }
         }
