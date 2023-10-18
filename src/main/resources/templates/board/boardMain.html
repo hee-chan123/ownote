@@ -101,7 +101,7 @@
                     </thead>
                     <th:block th:if="${boardForum == null or boardForum.isEmpty()}">
                         <tr>
-                            <td colspan="5">게시글이 없습니다.</td>
+                            <td colspan="3">게시글이 없습니다.</td>
                         </tr>
                     </th:block>
                     <tbody th:each="board : ${boardForum}">
