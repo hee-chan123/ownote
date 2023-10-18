@@ -35,8 +35,15 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void delete(Long boardNum) { //게시글 삭제
-        boardDao.delete(boardNum);
+    public void delete(Long boardNum, int parentNum) { //게시글 삭제
+        String sql = "";
+
+        if(parentNum == boardNum){
+            sql = "delete from board where parentnum = ?";
+        }else {
+            sql = "delete from board where boardnum = ?";
+        }
+        boardDao.delete(boardNum, sql);
     }
 
     @Override

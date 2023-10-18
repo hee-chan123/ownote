@@ -15,7 +15,7 @@ public interface BoardService {
 
     public void update(Board board); //게시글 업데이트
 
-    public void delete(Long boardNum); //게시글 삭제
+    public void delete(Long boardNum, int parentNum); //게시글 삭제
 
     public void hitPlus(Long boardNum); //조회수 증가
 

@@ -68,9 +68,9 @@ public class BoardDao {
         jdbcTemplate.update(sql, board.getBoardTitle(), board.getBoardContent(), board.getBoardDivision(), board.getBoardImportant(), board.getBoardNum());
     }
 
-    public void delete(Long boardNum){ //게시글 삭제
-        String sql = "delete from board where parentnum = ?";
-        jdbcTemplate.update(sql, boardNum);
+    public void delete(Long boardNum, String sql){ //게시글 삭제
+        String delete = sql;
+        jdbcTemplate.update(delete, boardNum);
     }
 
     public void hitPlus(Long boardNum){ //조회수 증가

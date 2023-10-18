@@ -133,7 +133,8 @@ public class BoardController {
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         Emp emp = boardService.selectEmp(authInfo.getEmp_id());
         String boardDivision = boardService.selectByNum(boardNum).getBoardDivision();
-        boardService.delete(boardNum);
+        int parentNum = boardService.selectByNum(boardNum).getParentNum();
+        boardService.delete(boardNum, parentNum);
 
         model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
