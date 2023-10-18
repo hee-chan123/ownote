@@ -152,7 +152,7 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
+$(document).ready(function () { //삭제
     $('.deleteBoard').click(function (e) {
         e.preventDefault();
 

@@ -17,11 +17,21 @@
                         <div class="search-wrap">
                             <div class="select">
                                 <select id="boardDivision" name="boardDivision">
+                                    <option value="전체">전체</option>
+                                    <option value="회사뉴스및공지">회사뉴스 및 공지</option>
                                     <option value="자유게시판">자유게시판</option>
+                                    <option value="사내시스템/F&Q">사내시스템 / FAQ</option>
+                                </select>
+                                <select id="searchOption" name="searchOption">
+                                    <option value="전체">전체</option>
+                                    <option value="제목">제목</option>
+                                    <option value="작성자">작성자</option>
+                                    <option value="내용">내용</option>ti
+                                    <option value="제목+내용">제목+내용</option>
                                 </select>
                             </div>
                             <label for="search" class="blind">제목 검색</label>
-                            <input id="search" type="search" name="find" placeholder="검색어를 입력해주세요."/>
+                            <input id="search" type="search" name="find" placeholder="검색어를 입력해주세요." required/>
                             <button type="submit" class="btn btn-dark">검색</button>
                         </div>
                     </form>
@@ -39,7 +49,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>글 번호</th>
+                        <th>글번호</th>
                         <th>작성자</th>
                         <th>제목</th>
                         <th>등록날짜</th>
@@ -65,13 +75,13 @@
                             <tr>
                                 <td colspan="5">
                                     <th:block th:if="${boardPage.currentPage > 1}">
-                                        <a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage - 1})}">[이전]</a>
+                                        <div class="page"><a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage - 1})}">이전</a></div>
                                     </th:block>
                                     <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
-                                        <a th:href="@{/board/forumList(pageNo=${pNo})}" th:text="${pNo}"></a>
+                                        <div class="page"><a th:href="@{/board/forumList(pageNo=${pNo})}" th:text="${pNo}"></a></div>
                                     </th:block>
                                     <th:block th:if="${boardPage.currentPage < boardPage.totalPages}">
-                                        <a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage + 1})}">[다음]</a>
+                                        <div class="page"><a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage + 1})}">다음</a></div>
                                     </th:block>
                                 </td>
                             </tr>

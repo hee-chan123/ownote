@@ -31,21 +31,16 @@
                 <div class="boardDivision">
                     <strong>작성할 게시판</strong>
                     <br>
-                    <select id="boardDivision" name="boardDivision" >
-                        <option value="사내시스템/F&Q">사내시스템 / F&Q</option>
+                    <select id="boardDivision" name="boardDivision" style="font-weight: bold">
+                        <option value="사내시스템/F&Q">사내시스템 / FAQ</option>
                     </select>
-                    <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
-                        <label>
-                            <input type="checkbox" name="boardImportant" id="boardImportant">회사뉴스 및 공지 중요!
-                        </label>
-                    </th:block>
                 </div>
                 <hr>
                 <div class="boardContent">
                     <strong>내용</strong>
                     <br>
                         <label>
-                            <textarea class="textarea" style="resize: none;" id="boardContent" name="boardContent"  cols="123" rows="30"></textarea>
+                            <textarea class="textarea" style="resize: none;" id="boardContent" name="boardContent"  cols="97" rows="25"></textarea>
                         </label>
                 </div>
             </div>
