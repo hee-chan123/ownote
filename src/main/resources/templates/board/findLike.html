@@ -20,7 +20,7 @@
                                     <option value="전체">전체</option>
                                     <option value="회사뉴스및공지">회사뉴스 및 공지</option>
                                     <option value="자유게시판">자유게시판</option>
-                                    <option value="사내시스템/F&Q">사내시스템 / F&Q</option>
+                                    <option value="사내시스템/F&Q">사내시스템 / FAQ</option>
                                 </select>
                                 <select id="searchOption" name="searchOption">
                                     <option value="전체">전체</option>
@@ -77,7 +77,7 @@
                                 <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" style="color: deepskyblue"></td></th:block>
                             </th:block>
                             <th:block th:if="${board.hierarchyNum == 0}">
-                                <td th:text="'F&Q'"></td>
+                                <td th:text="'FAQ'"></td>
                             </th:block>
                         </th:block>
 
