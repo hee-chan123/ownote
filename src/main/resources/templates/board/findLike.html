@@ -88,7 +88,7 @@
                             <th:block th:if="${board.hierarchyNum % 2 == 0}"><td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="'↳'+${board.boardTitle}"></a></td></th:block>
                         </th:block>
                         <th:block th:if="${board.hierarchyNum == 0}">
-                            <td th:text="${board.boardTitle}"></td>
+                            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
                         </th:block>
 
                         <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>

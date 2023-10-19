@@ -76,7 +76,7 @@
                     </thead>
                     <th:block th:if="${boardNotice == null or boardNotice.isEmpty()}">
                         <tr>
-                            <td colspan="5">게시글이 없습니다.</td>
+                            <td colspan="3">게시글이 없습니다.</td>
                         </tr>
                     </th:block>
                     <tbody th:each="board : ${boardNotice}">
@@ -101,7 +101,7 @@
                     </thead>
                     <th:block th:if="${boardForum == null or boardForum.isEmpty()}">
                         <tr>
-                            <td colspan="5">게시글이 없습니다.</td>
+                            <td colspan="3">게시글이 없습니다.</td>
                         </tr>
                     </th:block>
                     <tbody th:each="board : ${boardForum}">
@@ -125,7 +125,7 @@
                     </thead>
                     <th:block th:if="${boardQa == null or boardQa.isEmpty()}">
                         <tr>
-                            <td colspan="5">게시글이 없습니다.</td>
+                            <td colspan="3">게시글이 없습니다.</td>
                         </tr>
                     </th:block>
                     <tbody th:each="board : ${boardQa}">
@@ -139,11 +139,10 @@
                         </th:block>
                         <td th:text="${board.boardWriter}"></td>
                         <th:block th:if="${board.hierarchyNum > 0}">
-                            <th:block th:if="${board.hierarchyNum % 2 == 1}"><td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="'↳'+${board.boardTitle}"></a></td></th:block>
-                            <th:block th:if="${board.hierarchyNum % 2 == 0}"><td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="'↳'+${board.boardTitle}"></a></td></th:block>
+                            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="'↳'+${board.boardTitle}"></a></td>
                         </th:block>
                         <th:block th:if="${board.hierarchyNum == 0}">
-                            <td th:text="${board.boardTitle}"></td>
+                            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
                         </th:block>
                     </tr>
                     </tbody>
