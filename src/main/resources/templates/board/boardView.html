@@ -14,41 +14,41 @@
 <div class="view_wrap">
         <div class="board_name" style="text-align: left;">
             <strong>제목 : </strong>
-            <strong><th:block th:text="${board.boardTitle}"></th:block></strong>
+            <strong><th:block th:text="${board.boardtitle}"></th:block></strong>
         </div>
         <hr>
         <div class="board_write">
             <strong>작성자 : </strong>
-            <strong><th:block th:text="${board.boardWriter}"></th:block></strong>
+            <strong><th:block th:text="${board.boardwriter}"></th:block></strong>
         </div>
         <hr>
         <div class="board_dateHit">
             <strong>등록날짜 : </strong>
-            <strong><th:block th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></th:block></strong>
+            <strong><th:block th:text="${#dates.format(board.boardregdate, 'yyyy-MM-dd')}"></th:block></strong>
             <strong class="hit">조회수 : </strong>
-            <strong><th:block th:text="${board.boardHit}"></th:block></strong>
+            <strong><th:block th:text="${board.boardhit}"></th:block></strong>
         </div>
         <hr>
         <div class="board_content">
             <strong>내용</strong><br>
             <label>
-                <textarea class="textarea" th:text="${board.boardContent}" readonly="readonly" cols="97" rows="25" style="resize: none;"></textarea>
+                <textarea class="textarea" th:text="${board.boardcontent}" readonly="readonly" cols="97" rows="25" style="resize: none;"></textarea>
             </label>
         </div>
     <div class="buttons">
         <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
         <th:block th:if="${mainCheck != '1'}">
-            <th:block th:if="${emp.emp_id == board.empId}">
-                <button type="button" th:onclick="|location.href='@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}'|">수정하기</button>
+            <th:block th:if="${emp.emp_id == board.empid}">
+                <button type="button" th:onclick="|location.href='@{/board/boardupdate/{boardnum}(boardnum=${board.boardnum})}'|">수정하기</button>
             </th:block>
-            <th:block th:if="${emp.emp_id == board.empId or emp.dept_num == 40}">
-                <button type="button" th:class="deleteBoard" th:data-boardNum="${board.boardNum}" th:data-boardDivision="${board.boardDivision}">삭제하기</button>
+            <th:block th:if="${emp.emp_id == board.empid or emp.dept_num == 40}">
+                <button type="button" th:class="deleteBoard" th:data-boardnum="${board.boardnum}" th:data-boarddivision="${board.boarddivision}">삭제하기</button>
             </th:block>
-            <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 0) and (emp.dept_num == 30 or emp.dept_num == 40) and board.hierarchyNum == maxHierarchynum and emp.emp_id != board.empId}">
-                <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">답변하기</button>
+            <th:block th:if="${board.boarddivision == '사내시스템/F&Q' and (board.hierarchynum % 2 == 0) and (emp.dept_num == 30 or emp.dept_num == 40) and board.hierarchynum == maxHierarchynum and emp.emp_id != board.empid}">
+                <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardnum}(boardnum=${board.boardnum})}'|">답변하기</button>
             </th:block>
-            <th:block th:if="${board.boardDivision == '사내시스템/F&Q' and (board.hierarchyNum % 2 == 1) and emp.emp_id == board.PEmpId and board.hierarchyNum == maxHierarchynum and emp.emp_id != board.empId}">
-                <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}'|">질문하기</button>
+            <th:block th:if="${board.boarddivision == '사내시스템/F&Q' and (board.hierarchynum % 2 == 1) and emp.emp_id == board.pempid and board.hierarchynum == maxHierarchynum and emp.emp_id != board.empid}">
+                <button type="button" th:onclick="|location.href='@{/board/replywrite/{boardnum}(boardnum=${board.boardnum})}'|">질문하기</button>
             </th:block>
         </th:block>
     </div>

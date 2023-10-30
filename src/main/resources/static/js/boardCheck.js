@@ -1,15 +1,19 @@
 $(document).ready(function () {
     $('#submit1').click(function (e) { //write
         e.preventDefault();
-        let boardTitle = $('input[name="boardTitle"]').val();
-        let boardWriter = $('input[name="boardWriter"]').val();
-        let boardDivision = $('select[name="boardDivision"]').val();
-        let boardImportant = $('#boardImportant').prop('checked') ? 1 : 0;
-        let boardContent = $('textarea[name="boardContent"]').val();
-        console.log(boardContent.length);
+        let boardtitle = $('input[name="boardTitle"]').val();
+        console.log(boardtitle)
+        let boardwriter = $('input[name="boardWriter"]').val();
+        console.log(boardwriter)
+        let boarddivision = $('select[name="boardDivision"]').val();
+        console.log(boarddivision)
+        let boardimportant = $('#boardImportant').prop('checked') ? 1 : 0;
+        console.log(boardimportant)
+        let boardcontent = $('textarea[name="boardContent"]').val();
+        console.log(boardcontent)
         let error = false;
 
-        if (!boardTitle || !boardContent) {
+        if (!boardtitle || !boardcontent) {
             alert("제목과 내용을 입력해 주세요.");
             error = true;
         }
@@ -19,15 +23,15 @@ $(document).ready(function () {
                 type: 'POST',
                 url: '/board/boardwrite',
                 data: {
-                    boardTitle: boardTitle,
-                    boardWriter: boardWriter,
-                    boardDivision: boardDivision,
-                    boardImportant: boardImportant,
-                    boardContent: boardContent
+                    boardtitle: boardtitle,
+                    boardwriter: boardwriter,
+                    boarddivision: boarddivision,
+                    boardcontent: boardcontent,
+                    boardimportant: boardimportant
                 },
                 success: function (data) {
                     alert("글 등록이 완료되었습니다.");
-                    switch (boardDivision) {
+                    switch (boarddivision) {
                         case "회사뉴스및공지":
                             window.location.href = "/board/noticeList";
                             break;
@@ -53,15 +57,15 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#submit2').click(function (e) { //update
         e.preventDefault();
-        let boardNum = $('#boardNum').val();
-        let boardTitle = $('input[name="boardTitle"]').val();
-        let boardWriter = $('input[name="boardWriter"]').val();
-        let boardDivision = $('select[name="boardDivision"]').val();
-        let boardImportant = $('#boardImportant').prop('checked') ? 1 : 0;
-        let boardContent = $('textarea[name="boardContent"]').val();
+        let boardnum = $('#boardNum').val();
+        let boardtitle = $('input[name="boardTitle"]').val();
+        let boardwriter = $('input[name="boardWriter"]').val();
+        let boarddivision = $('select[name="boardDivision"]').val();
+        let boardimportant = $('#boardImportant').prop('checked') ? 1 : 0;
+        let boardcontent = $('textarea[name="boardContent"]').val();
         let error = false;
 
-        if (!boardTitle || !boardContent) {
+        if (!boardtitle || !boardcontent) {
             alert("제목과 내용을 입력해 주세요.");
             error = true;
         }
@@ -69,17 +73,17 @@ $(document).ready(function () {
         if (!error) {
             $.ajax({
                 type: 'POST',
-                url: '/board/boardupdate/' + boardNum,
+                url: '/board/boardupdate/' + boardnum,
                 data: {
-                    boardTitle: boardTitle,
-                    boardWriter: boardWriter,
-                    boardDivision: boardDivision,
-                    boardImportant: boardImportant,
-                    boardContent: boardContent
+                    boardtitle: boardtitle,
+                    boardwriter: boardwriter,
+                    boarddivision: boarddivision,
+                    boardimportant: boardimportant,
+                    boardcontent: boardcontent
                 },
                 success: function (data) {
                     alert("글 수정이 완료되었습니다.")
-                    switch (boardDivision) {
+                    switch (boarddivision) {
                         case "회사뉴스및공지":
                             window.location.href = "/board/noticeList";
                             break;
@@ -105,14 +109,14 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#submit3').click(function (e) { //reply
         e.preventDefault();
-        let boardNum = $('#boardNum').val();
-        let boardTitle = $('input[name="boardTitle"]').val();
-        let boardWriter = $('input[name="boardWriter"]').val();
-        let boardDivision = $('select[name="boardDivision"]').val();
-        let boardContent = $('textarea[name="boardContent"]').val();
+        let boardnum = $('#boardNum').val();
+        let boardtitle = $('input[name="boardTitle"]').val();
+        let boardwriter = $('input[name="boardWriter"]').val();
+        let boarddivision = $('select[name="boardDivision"]').val();
+        let boardcontent = $('textarea[name="boardContent"]').val();
         let error = false;
 
-        if (!boardTitle || !boardContent) {
+        if (!boardtitle || !boardcontent) {
             alert("제목과 내용을 입력해 주세요.");
             error=true;
         }
@@ -120,16 +124,16 @@ $(document).ready(function () {
         if(!error){
             $.ajax({
                 type: 'POST',
-                url: '/board/replywrite/'+boardNum,
+                url: '/board/replywrite/'+boardnum,
                 data: {
-                    boardTitle: boardTitle,
-                    boardWriter: boardWriter,
-                    boardDivision: boardDivision,
-                    boardContent: boardContent
+                    boardtitle: boardtitle,
+                    boardwriter: boardwriter,
+                    boarddivision: boarddivision,
+                    boardcontent: boardcontent
                 },
                 success: function (data) {
                     alert("글 등록이 완료되었습니다.")
-                    switch (boardDivision) {
+                    switch (boarddivision) {
                         case "회사뉴스및공지":
                             window.location.href = "/board/noticeList";
                             break;
@@ -156,23 +160,23 @@ $(document).ready(function () { //삭제
     $('.deleteBoard').click(function (e) {
         e.preventDefault();
 
-        let boardNum = $(this).attr('data-boardNum');
-        console.log(boardNum);
-        let boardDivision = $(this).attr('data-boardDivision');
-        console.log(boardDivision);
+        let boardnum = $(this).attr('data-boardnum');
+        console.log(boardnum);
+        let boarddivision = $(this).attr('data-boarddivision');
+        console.log(boarddivision);
         let confirmResult = confirm('게시글을 삭제하시겠습니까?');
         console.log(confirmResult);
         if (confirmResult) {
             $.ajax({
                 type: 'GET',
-                url: '/board/boarddelete/'+boardNum,
+                url: '/board/boarddelete/'+boardnum,
                 data: {
-                    boardNum: boardNum
+                    boardnum: boardnum
                 },
 
                 success: function (data) {
                     alert('삭제가 완료되었습니다.')
-                    switch (boardDivision) {
+                    switch (boarddivision) {
                         case "회사뉴스및공지":
                             window.location.href = "/board/noticeList";
                             break;

@@ -81,10 +81,10 @@
                     </th:block>
                     <tbody th:each="board : ${boardNotice}">
                     <tr>
-                        <th:block th:if="${board.boardImportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
-                        <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
-                        <td th:text="${board.boardWriter}"></td>
-                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
+                        <th:block th:if="${board.boardimportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
+                        <th:block th:if="${board.boardimportant != 1}"><td th:text="${board.boardnum}"></td></th:block>
+                        <td th:text="${board.boardwriter}"></td>
+                        <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="${board.boardtitle}"></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -106,9 +106,9 @@
                     </th:block>
                     <tbody th:each="board : ${boardForum}">
                     <tr>
-                        <td th:text="${board.boardNum}"></td>
-                        <td th:text="${board.boardWriter}"></td>
-                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
+                        <td th:text="${board.boardnum}"></td>
+                        <td th:text="${board.boardwriter}"></td>
+                        <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="${board.boardtitle}"></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -130,19 +130,19 @@
                     </th:block>
                     <tbody th:each="board : ${boardQa}">
                     <tr>
-                        <th:block th:if="${board.hierarchyNum > 0}">
-                            <th:block th:if="${board.hierarchyNum % 2 == 1}"><td th:text="답변" style="color: red"></td></th:block>
-                            <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" style="color: deepskyblue"></td></th:block>
+                        <th:block th:if="${board.hierarchynum > 0}">
+                            <th:block th:if="${board.hierarchynum % 2 == 1}"><td th:text="답변" style="color: red"></td></th:block>
+                            <th:block th:if="${board.hierarchynum % 2 == 0}"><td th:text="재질문" style="color: deepskyblue"></td></th:block>
                         </th:block>
-                        <th:block th:if="${board.hierarchyNum == 0}">
-                            <td th:text="${board.boardNum}"></td>
+                        <th:block th:if="${board.hierarchynum == 0}">
+                            <td th:text="${board.boardnum}"></td>
                         </th:block>
-                        <td th:text="${board.boardWriter}"></td>
-                        <th:block th:if="${board.hierarchyNum > 0}">
-                            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="'↳'+${board.boardTitle}"></a></td>
+                        <td th:text="${board.boardwriter}"></td>
+                        <th:block th:if="${board.hierarchynum > 0}">
+                            <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="'↳'+${board.boardtitle}"></a></td>
                         </th:block>
-                        <th:block th:if="${board.hierarchyNum == 0}">
-                            <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum}, mainCheck=${1})}" th:text="${board.boardTitle}"></a></td>
+                        <th:block th:if="${board.hierarchynum == 0}">
+                            <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="${board.boardtitle}"></a></td>
                         </th:block>
                     </tr>
                     </tbody>

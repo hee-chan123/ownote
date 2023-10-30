@@ -63,12 +63,12 @@
                         </tr>
                     </th:block>
                     <tr th:each="board : ${boardPage.content}">
-                        <th:block th:if="${board.boardImportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
-                        <th:block th:if="${board.boardImportant != 1}"><td th:text="${board.boardNum}"></td></th:block>
-                        <td th:text="${board.boardWriter}"></td>
-                        <td><a th:href = "@{/board/boardView/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
-                        <td th:text="${#temporals.format(board.boardRegDate, 'yyyy-MM-dd')}"></td>
-                        <td th:text="${board.boardHit}"></td>
+                        <th:block th:if="${board.boardimportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
+                        <th:block th:if="${board.boardimportant != 1}"><td th:text="${board.boardnum}"></td></th:block>
+                        <td th:text="${board.boardwriter}"></td>
+                        <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum})}" th:text="${board.boardtitle}"></a></td>
+                        <td th:text="${#dates.format(board.boardregdate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${board.boardhit}"></td>
                     </tr>
                     </tbody>
                     <tfoot>

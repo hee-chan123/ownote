@@ -11,18 +11,18 @@
 <body>
 
 <div class="write_wrap">
-<form th:action="@{/board/boardupdate/{boardNum}(boardNum=${board.boardNum})}" method="post">
-    <input type="hidden" id="boardNum" name="boardNum" th:value="${board.boardNum}" />
+<form th:action="@{/board/boardupdate/{boardnum}(boardnum=${board.boardnum})}" method="post">
+    <input type="hidden" id="boardNum" name="boardNum" th:value="${board.boardnum}" />
         <div>
             <div>
                 <div class="boardTitle">
                     <strong>제목</strong>
                     <br>
-                    <th:block th:if="${board.hierarchyNum > 0}">
-                        <input class="input_css" type="text" name="boardTitle" th:value="${board.boardTitle}" readonly="readonly"/>
+                    <th:block th:if="${board.hierarchynum > 0}">
+                        <input class="input_css" type="text" name="boardTitle" th:value="${board.boardtitle}" readonly="readonly"/>
                     </th:block>
-                    <th:block th:if="${board.hierarchyNum == 0}">
-                        <input class="input_css" type="text" name="boardTitle" th:value="${board.boardTitle}" />
+                    <th:block th:if="${board.hierarchynum == 0}">
+                        <input class="input_css" type="text" name="boardTitle" th:value="${board.boardtitle}" />
                     </th:block>
                 </div>
                 <hr>
@@ -35,7 +35,7 @@
                 <div class="boardDivision">
                     <strong>작성할 게시판</strong>
                     <br>
-                    <th:block th:if="${!board.boardDivision.equals('사내시스템/F&Q')}">
+                    <th:block th:if="${!board.boarddivision.equals('사내시스템/F&Q')}">
                         <select id="boardDivision" name="boardDivision" style="font-weight: bold">
                             <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
                                 <option value="회사뉴스및공지">회사뉴스 및 공지</option>
@@ -50,7 +50,7 @@
                             </label>
                         </th:block>
                     </th:block>
-                    <th:block th:if="${board.boardDivision.equals('사내시스템/F&Q')}">
+                    <th:block th:if="${board.boarddivision.equals('사내시스템/F&Q')}">
                         <select name="boardDivision" style="font-weight: bold">
                             <option value="사내시스템/F&Q">사내시스템 / FAQ</option>
                         </select>
@@ -61,7 +61,7 @@
                     <strong>내용</strong>
                     <br>
                     <label>
-                        <textarea class="textarea" style="resize: none;" id="boardContent" name="boardContent"  cols="97" rows="25" th:text="${board.boardContent}"></textarea>
+                        <textarea class="textarea" style="resize: none;" id="boardContent" name="boardContent"  cols="97" rows="25" th:text="${board.boardcontent}"></textarea>
                     </label>
                 </div>
             </div>
