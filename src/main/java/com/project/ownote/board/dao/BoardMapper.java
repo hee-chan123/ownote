@@ -14,7 +14,7 @@ public interface BoardMapper {
 
     Board selectByNum(@Param("boardnum") Long boardnum); //게시물 번호로 한 개 게시물 가져오기
 
-    void write(Board board, @Param("empid") int empid); //게시글 작성
+    void write(@Param("board") Board board, @Param("empid") int empid); //게시글 작성
 
     void update(Board board); //게시글 업데이트
 
@@ -30,7 +30,7 @@ public interface BoardMapper {
 
     void parentNumUpdate(@Param("boardnum") Long boardnum); //게시물 작성시 parentnum업데이트
 
-    void replywrite(Board board, @Param("parentnum") int parentnum, @Param("hierarchynum") int hierarchynum, @Param("pempid") int pempid, @Param("empid") int empid); //Q&A 답변
+    void replywrite(@Param("board") Board board, @Param("parentnum") int parentnum, @Param("hierarchynum") int hierarchynum, @Param("pempid") int pempid, @Param("empid") int empid); //Q&A 답변
 
     int selectCount1(@Param("boarddivision") String boarddivision); //게시물 개수
 
