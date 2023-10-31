@@ -41,11 +41,12 @@ anncheck_ps int default 0) ;
 
 create table anndata(
 anndata_id int primary key auto_increment,
-anndata_date int default 15,
-anndata_add int default 0,
-anndata_used int default 0,
-anndata_extra int default 15,
+anndata_date double default 12,
+anndata_add double default 0,
+anndata_used double default 0,
+anndata_extra double default 12,
 emp_id int,
+
 foreign key (emp_id) references emp (emp_id) on delete cascade,
 foreign key (emp_id) references emp (emp_id) on update cascade
 );
@@ -69,6 +70,7 @@ create table board(
 create table club(
     club_id int auto_increment primary key,
     club_emp_name varchar(50) not null,	
+    club_dept_name varchar(50) not null,
     club_name varchar(100) not null,
 	clubcategory_name varchar(50) not null,
     club_sub varchar(100) not null,
@@ -76,17 +78,42 @@ create table club(
       ) engine=InnoDB default character set = utf8mb4;
 
 create table clubcategory(
-	clubcategory_id int auto_increment primary key,
-    clubcategory_name varchar(50) not null
+clubcategory_id int auto_increment primary key,
+clubcategory_name varchar(50) not null,
+clubcategory_file varchar(500)
 )engine=InnoDB default character set = utf8mb4;
 
 CREATE TABLE clubboard (
     clubboard_id INT AUTO_INCREMENT PRIMARY KEY,
     clubboard_emp_name varchar(50) not null,
-    clubboard_title varchar(100) not null,
-		clubboard_sub varchar(5000) not null,
+		clubboard_dept_name varchar(50) not null,
+		clubboard_title varchar(100) not null,
     clubboard_filename VARCHAR(255),
     clubboard_filepath VARCHAR(255),
-
+    clubboard_sub longtext not null,
     clubboard_regdate datetime not null
 ) engine=InnoDB default character set = utf8mb4;
+
+이벤트 게시판
+CREATE TABLE `musiccontest` (
+  `musiccontest_id` int NOT NULL AUTO_INCREMENT,
+  `musiccontest_num` int NOT NULL,
+  `musiccontest_emp_name` varchar(30) NOT NULL,
+  `musiccontest_dept_name` varchar(30) NOT NULL,
+  `musiccontest_title` varchar(40) NOT NULL,
+  `musiccontest_content` text NOT NULL,
+  `musiccontest_regdate` date NOT NULL,
+  `musiccontest_likes` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`musiccontest_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `musiccontest_like` (
+  `musiccontest_like_id` int NOT NULL AUTO_INCREMENT,
+  `musiccontest_id` int NOT NULL,
+  `emp_id` int NOT NULL,
+  PRIMARY KEY (`musiccontest_like_id`),
+  KEY `musiccontest_id` (`musiccontest_id`),
+  KEY `emp_id` (`emp_id`),
+  FOREIGN KEY (`musiccontest_id`) REFERENCES `musiccontest` (`musiccontest_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`emp_id`) REFERENCES `emp` (`emp_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
