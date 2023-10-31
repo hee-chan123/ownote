@@ -1,0 +1,92 @@
+근태관리
+create table  attendance(
+attendance_id int auto_increment primary key,
+emp_num int not null,
+att_date date  not null,
+att_ontime  time not null ,
+att_offtime  time ,
+att_status  varchar(100),
+emp_name VARCHAR(50),
+att_gradename VARCHAR(50),
+att_deptname VARCHAR(50)
+);
+
+연반차관리
+create table annInfo (
+anninfo_name character (20) not null  unique ,
+anninfo_code int  auto_increment primary key,
+anninfo_date double not null);
+
+
+create table annual(
+annual_id int auto_increment not null primary key,
+annual_content character (200) not null,
+annual_startdate date not null ,
+annual_enddate date not null,
+anninfo_code int ,
+anncheck_id int,
+emp_id int,
+foreign key (anninfo_code)  REFERENCES annInfo(anninfo_code) on delete cascade,
+foreign key (anninfo_code)  REFERENCES annInfo(anninfo_code) on update cascade,
+foreign key (emp_id) references emp (emp_id) on delete cascade,
+foreign key (emp_id) references emp (emp_id) on update cascade,
+foreign key (anncheck_id) references anncheck (anncheck_id) on delete cascade,
+foreign key (anncheck_id) references anncheck (anncheck_id) on update cascade
+);
+
+create table anncheck(
+anncheck_id int primary key auto_increment,
+anncheck_pass character (50),
+anncheck_ps int default 0) ;
+
+create table anndata(
+anndata_id int primary key auto_increment,
+anndata_date int default 15,
+anndata_add int default 0,
+anndata_used int default 0,
+anndata_extra int default 15,
+emp_id int,
+foreign key (emp_id) references emp (emp_id) on delete cascade,
+foreign key (emp_id) references emp (emp_id) on update cascade
+);
+
+게시판
+create table board(
+	boardnum int not null primary key auto_increment,
+	boardtitle varchar(100) not null,
+	boardcontent longtext not null,
+	boardwriter varchar(10) not null, 
+	boarddivision varchar(10) not null,
+	boardregdate date not null,
+  	boardhit int not null,
+	boardimportant int not null,
+	parentnum int not null,
+	hierarchynum int not null,
+  pempid int not null,
+  empid int not null)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+동호회 게시판
+create table club(
+    club_id int auto_increment primary key,
+    club_emp_name varchar(50) not null,	
+    club_name varchar(100) not null,
+	clubcategory_name varchar(50) not null,
+    club_sub varchar(100) not null,
+    club_regdate datetime not null
+      ) engine=InnoDB default character set = utf8mb4;
+
+create table clubcategory(
+	clubcategory_id int auto_increment primary key,
+    clubcategory_name varchar(50) not null
+)engine=InnoDB default character set = utf8mb4;
+
+CREATE TABLE clubboard (
+    clubboard_id INT AUTO_INCREMENT PRIMARY KEY,
+    clubboard_emp_name varchar(50) not null,
+    clubboard_title varchar(100) not null,
+		clubboard_sub varchar(5000) not null,
+    clubboard_filename VARCHAR(255),
+    clubboard_filepath VARCHAR(255),
+
+    clubboard_regdate datetime not null
+) engine=InnoDB default character set = utf8mb4;
