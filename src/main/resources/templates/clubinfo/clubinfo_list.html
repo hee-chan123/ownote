@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>동아리 목록</title>
+<link href="/css/clubInfo.css" rel="stylesheet">
+</head>
+<body>
+<div class="articles">
+    <div class="title_wrap">
+        <strong>동아리</strong> <br>
+        <p><h3> Ownote </h3>동아리 언제나 열려있습니다!</p>
+    </div>
+
+    <div class="club_wrap">
+        <div th:each="dto : ${listPage.clubDtos}" class="club">
+            <strong>[[${dto.club_emp_name}]]</strong>
+            <img th:src="${dto.clubcategory_file}" alt="이미지 설명" class="category_image">
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

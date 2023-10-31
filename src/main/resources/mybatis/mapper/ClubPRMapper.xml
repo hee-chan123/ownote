@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ownote.club.clubPR.dao.ClubPRMapper">
+     <select id="countClubBoard" resultType="Integer">
+        SELECT count(*) FROM clubboard
+     </select>
+
+    <select id="selectAllClubBoard" resultType="com.project.ownote.club.clubPR.dto.ClubBoardDto">
+        SELECT * FROM clubboard ORDER BY clubboard_id desc
+    </select>
+
+    <select id="clubListPage" resultType="com.project.ownote.club.clubPR.dto.ClubBoardDto">
+        SELECT * FROM clubboard order by clubboard_id desc LIMIT #{startRow}, #{size}
+    </select>
+
+    <insert id="insertClubBoard" parameterType="com.project.ownote.club.clubPR.dto.ClubBoardDto">
+        INSERT INTO clubboard (clubboard_emp_name, clubboard_title, clubboard_filename, clubboard_filepath, clubboard_sub, clubboard_regdate)
+        VALUES (#{clubboard_emp_name}, #{clubboard_title}, #{clubboard_filename}, #{clubboard_filepath}, #{clubboard_sub}, now())
+    </insert>
+
+    <select id="selectOneClubBoard" resultType="com.project.ownote.club.clubPR.dto.ClubBoardDto">
+            select * from clubboard where clubboard_id = #{clubboard_id}
+    </select>
+
+
+    <update id="modifyClubBoard" parameterType="com.project.ownote.club.clubPR.dto.ClubBoardDto">
+        update clubboard
+        set clubboard_title = #{clubboard_title}, clubboard_sub = #{clubboard_sub}, clubboard_filename = #{clubboard_filename},
+            clubboard_filepath = #{clubboard_filepath}, clubboard_regdate = now()
+        where clubboard_id = #{clubboard_id}
+    </update>
+
+    <delete id="deleteClubBoard" parameterType="int">
+            DELETE FROM clubboard WHERE clubboard_id = #{clubboard_id}
+    </delete>
+
+
+</mapper>

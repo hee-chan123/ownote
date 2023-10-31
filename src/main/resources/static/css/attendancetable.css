@@ -1,0 +1,84 @@
+.table1 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    border-left: 3px solid #369;
+    margin: 20px 10px;
+
+    .table1 th {
+        width: 147px;
+        padding: 10px;
+        font-weight: bold;
+        vertical-align: top;
+        color: #153d73;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .table1 td {
+        width: 349px;
+        padding: 10px;
+        vertical-align: top;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+}
+
+/* 버튼 공통 스타일 */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+
+/* "전체" 버튼 스타일 */
+#all_emp_adress {
+    background-color: #007BFF;
+}
+
+/* "회계" 버튼 스타일 */
+#acc_emp_adress {
+    background-color: #28A745;
+}
+
+/* "개발" 버튼 스타일 */
+#dev_emp_adress {
+    background-color: #FFC107;
+}
+
+/* "인사" 버튼 스타일 */
+#per_emp_adress {
+    background-color: #17A2B8;
+}
+
+/* "경영" 버튼 스타일 */
+#man_emp_adress {
+    background-color: #FF5733;
+}
+
+/* "물류" 버튼 스타일 */
+#dis_emp_adress {
+    background-color: #6610F2;
+}
+
+/* "영업" 버튼 스타일 */
+#sal_emp_adress {
+    background-color: #DC3545;
+}
+
+/* 호버 효과 */
+.button:hover {
+    opacity: 0.8;
+}
+
+/* 활성 버튼 스타일 (클릭 또는 선택된 상태) */
+.button.active {
+    background-color: #000;
+}

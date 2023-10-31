@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ownote.board.dao.BoardMapper">
+    <select id="selectAll" resultType="com.project.ownote.board.dto.Board">
+        select * from board order by boardnum desc
+    </select>
+    <select id="selectByNum" parameterType="java.lang.Long" resultType="com.project.ownote.board.dto.Board">
+        select * from board where boardnum = #{boardnum}
+    </select>
+    <insert id="write" parameterType="com.project.ownote.board.dto.Board">
+        insert into board (boardtitle, boardwriter, boarddivision, boardcontent, boardregdate, boardhit, boardimportant, parentnum, hierarchynum, pempid, empid)
+        values (#{board.boardtitle}, #{board.boardwriter}, #{board.boarddivision}, #{board.boardcontent}, now(), 0, #{board.boardimportant}, 0, 0, #{empid}, #{empid})
+    </insert>
+
+    <update id="update" parameterType="com.project.ownote.board.dto.Board">
+        update board set boardtitle = #{boardtitle}, boardcontent = #{boardcontent}, boarddivision = #{boarddivision}, boardregdate = now(), boardimportant = #{boardimportant} where boardnum = #{boardnum}
+    </update>
+    <delete id="deleteBoardNum" parameterType="Long">
+        delete from board where boardnum = #{boardnum}
+    </delete>
+    <delete id="deleteParentNum" parameterType="Integer">
+        delete from board where parentnum = #{parentnum}
+    </delete>
+    <update id="hitPlus" parameterType="java.lang.Long">
+        update board set boardhit = boardhit + 1 where boardnum = #{boardnum}
+    </update>
+    <select id="maxBoardNum" resultType="Long">
+        select max(boardnum) from board
+    </select>
+    <update id="parentNumUpdate" parameterType="Long">
+        update board set parentnum = #{boardnum} where boardnum = #{boardnum}
+    </update>
+    <insert id="replywrite" parameterType="com.project.ownote.board.dto.Board">
+        insert into board (boardtitle, boardwriter, boarddivision, boardcontent, boardregdate, boardhit, boardimportant, parentnum, hierarchynum, pempid, empid)
+        values (#{board.boardtitle}, #{board.boardwriter}, #{board.boarddivision}, #{board.boardcontent}, now(), 0, #{board.boardimportant}, #{parentnum}, #{hierarchynum}, #{pempid}, #{empid})
+    </insert>
+    <select id="selectCount1" resultType="Integer">
+        select count(*) from board where boarddivision = #{boarddivision}
+    </select>
+    <select id="selectCount2" resultType="Integer">
+        SELECT COUNT(*)
+        FROM board
+        <choose>
+            <when test="boarddivision == '전체'">
+                <if test="searchOption == '전체'">
+                    where (boardtitle LIKE #{find} OR boardwriter LIKE #{find} OR boardcontent LIKE #{find})
+                </if>
+                <if test="searchOption == '제목'">
+                    where boardtitle LIKE #{find}
+                </if>
+                <if test="searchOption == '작성자'">
+                    where boardwriter LIKE #{find}
+                </if>
+                <if test="searchOption == '내용'">
+                    where boardcontent LIKE #{find}
+                </if>
+                <if test="searchOption == '제목+내용'">
+                    where (boardtitle LIKE #{find} OR boardcontent LIKE #{find})
+                </if>
+            </when>
+            <otherwise>
+                where boarddivision = #{boarddivision}
+                <if test="searchOption == '전체'">
+                    AND (boardtitle LIKE #{find} OR boardwriter LIKE #{find} OR boardcontent LIKE #{find})
+                </if>
+                <if test="searchOption == '제목'">
+                    AND boardtitle LIKE #{find}
+                </if>
+                <if test="searchOption == '작성자'">
+                    AND boardwriter LIKE #{find}
+                </if>
+                <if test="searchOption == '내용'">
+                    AND boardcontent LIKE #{find}
+                </if>
+                <if test="searchOption == '제목+내용'">
+                    AND (boardtitle LIKE #{find} OR boardcontent LIKE #{find})
+                </if>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="select1" resultType="com.project.ownote.board.dto.Board">
+        select * from board order by boardnum desc limit #{startRow}, #{size}
+    </select>
+    <select id="select2" resultType="com.project.ownote.board.dto.Board">
+        select * from board
+        <where>
+            <choose>
+                <when test="boarddivision == '회사뉴스및공지'">
+                    boarddivision = '회사뉴스및공지' order by boardimportant desc, boardnum desc limit #{startRow}, #{size}
+                </when>
+                <when test="boarddivision == '자유게시판'">
+                    boarddivision = '자유게시판' order by boardnum desc limit #{startRow}, #{size}
+                </when>
+                <when test="boarddivision == '사내시스템/F&amp;Q'">
+                    boarddivision = '사내시스템/F&amp;Q' order by parentnum desc, hierarchynum limit #{startRow}, #{size}
+                </when>
+            </choose>
+        </where>
+    </select>
+    <select id="select3" resultType="com.project.ownote.board.dto.Board">
+        select * from board
+        <where>
+            <choose>
+                <when test="boarddivision == '전체'">
+                    <if test="searchOption == '전체'">
+                        (boardtitle like #{find} or boardwriter like #{find} or boardcontent like #{find}) order by boardimportant desc, parentnum desc, hierarchynum, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '제목'">
+                        boardtitle like #{find} order by boardimportant desc, parentnum desc, hierarchynum, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '작성자'">
+                        boardwriter like #{find} order by boardimportant desc, parentnum desc, hierarchynum, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '내용'">
+                        boardcontent like #{find} order by boardimportant desc, parentnum desc, hierarchynum, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '제목+내용'">
+                        (boardtitle like #{find} or boardcontent like #{find}) order by boardimportant desc, parentnum desc, hierarchynum, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                </when>
+                <when test="boarddivision == '회사뉴스및공지'">
+                    <if test="searchOption == '전체'">
+                        boarddivision = '회사뉴스및공지' and (boardtitle like #{find} or boardwriter like #{find} or boardcontent like #{find}) order by boardimportant desc, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '제목'">
+                        boarddivision = '회사뉴스및공지' and boardtitle like #{find} order by boardimportant desc, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '작성자'">
+                        boarddivision = '회사뉴스및공지' and boardwriter like #{find} order by boardimportant desc, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '내용'">
+                        boarddivision = '회사뉴스및공지' and boardcontent like #{find} order by boardimportant desc, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '제목+내용'">
+                        boarddivision = '회사뉴스및공지' and (boardtitle like #{find} or boardcontent like #{find}) order by boardimportant desc, boardnum desc limit #{startRow}, #{size}
+                    </if>
+                </when>
+                <when test="boarddivision == '자유게시판'">
+                    <if test="searchOption == '전체'">
+                        boarddivision = '자유게시판' and (boardtitle like #{find} or boardwriter like #{find} or boardcontent like #{find}) order by boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '제목'">
+                        boarddivision = '자유게시판' and boardtitle like #{find} order by boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '작성자'">
+                        boarddivision = '자유게시판' and boardwriter like #{find} order by boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '내용'">
+                        boarddivision = '자유게시판' and boardcontent like #{find} order by boardnum desc limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '제목+내용'">
+                        boarddivision = '자유게시판' and (boardtitle like #{find} or boardcontent like #{find}) order by boardnum desc limit #{startRow}, #{size}
+                    </if>
+                </when>
+                <when test="boarddivision == '사내시스템/F&amp;Q'">
+                    <if test="searchOption == '전체'">
+                        boarddivision = '사내시스템/F&amp;Q' and (boardtitle like #{find} or boardwriter like #{find} or boardcontent like #{find}) order by parentnum desc, hierarchynum limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '제목'">
+                        boarddivision = '사내시스템/F&amp;Q' and boardtitle like #{find} order by parentnum desc, hierarchynum limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '작성자'">
+                        boarddivision = '사내시스템/F&amp;Q' and boardwriter like #{find} order by parentnum desc, hierarchynum limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '내용'">
+                        boarddivision = '사내시스템/F&amp;Q' and boardcontent like #{find} order by parentnum desc, hierarchynum limit #{startRow}, #{size}
+                    </if>
+                    <if test="searchOption == '제목+내용'">
+                        boarddivision = '사내시스템/F&amp;Q' and (boardtitle like #{find} or boardcontent like #{find}) order by parentnum desc, hierarchynum limit #{startRow}, #{size}
+                    </if>
+                </when>
+            </choose>
+        </where>
+    </select>
+    <select id="selectEmp" resultType="com.project.ownote.emp.login.dto.Emp">
+        select * from emp where emp_id = #{empid}
+    </select>
+    <select id="maxHierarchynum" resultType="Integer">
+        select max(hierarchynum) from board where parentnum = #{parentnum}
+    </select>
+</mapper>

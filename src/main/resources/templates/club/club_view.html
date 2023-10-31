@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/clubview.css" rel="stylesheet">
+    <link href="/css/button.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="view_wrap">
+<div th:each="dto : ${dto}">
+    <div class="title_name" style="text-align: left;">
+        <img class="user_image" src="/image/user.png" alt="userIcon">
+        [[${dto.clubboard_emp_name}]] ( [[${dto.clubboard_dept_name}]] )<br>
+        [[${#dates.format(dto.clubboard_regdate, 'yyyy-MM-dd HH:mm')}]]
+    </div>
+
+    <hr>
+
+    <div class="title_view">
+    <input type="hidden" name="clubboard_id" th:value="${dto.clubboard_id}">
+    <strong>제목 : [[${dto.clubboard_title}]]</strong>
+    </div>
+
+    <hr>
+
+    <div class="clubPR_content" th:utext="${dto.clubboard_sub}" > [[${dto.clubboard_sub}]]</div>
+
+    <hr>
+
+    <div class="file_box">
+    파일 : <a th:href="@{${dto.clubboard_filepath}}" target="_blank"> [[${dto.clubboard_filename}]]</a>
+    </div>
+
+    <hr>
+
+
+    <th:block th:if="${authInfo.getEmp_name() == dto.clubboard_emp_name}">
+        <div class="container">
+            <div class="button-effect" >
+                <a class="effect effect-1" th:href="@{/club/list}">
+                    돌아가기
+                </a>
+            </div>
+            <div class="button-effect">
+                <a class="effect effect-1" th:href="@{'/club/modify?clubboard_id=' + ${dto.clubboard_id}}">게시글수정</a>
+            </div>
+            <div class="button-effect">
+                <a class="effect effect-1" href="#" id="delete-link" th:data-clubboard-id='${dto.clubboard_id}'>게시글삭제</a>
+            </div>
+        </div>
+    </th:block>
+
+    <!--    </th:block>-->
+
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/club.js"></script>
+</body>
+    </th:block>
+</th:block>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ownote.annual.dao.AnnualDao">
+
+    <select id="countAnnual" resultType="Integer">
+        SELECT count(*) FROM annual
+    </select>
+
+
+    <insert id="writeAnnual" parameterType="com.project.ownote.annual.dto.AnnualDto">
+        insert into annual values (null,#{annual_content},#{annual_startdate},#{annual_enddate},#{annual_time},#{anninfo_code},1,1)
+    </insert>
+
+<select id="findEmpNameById" parameterType="int" resultType="java.lang.String">
+    SELECT emp_name FROM emp WHERE emp_id = #{emp_Id}
+
+</select>
+    <select id="codeId" resultType="int">
+        select anninfo_date from anninfo where anninfo_code=#{param1}
+    </select>
+    <select id="checkId" resultType="int">
+        select anncheck_pass  from anncheck where anncheck_id
+                                                      =#{param1}
+    </select>
+
+
+    <select id="annualAllList" resultType= "com.project.ownote.annual.dto.AnnualDto">
+        select * from annual
+    </select>
+
+<!--   values (null,#{annual_content},now(),now(),#{annual_time},#{anninfo_code},#{anncheck_id},#{emp_id})  -->
+
+<!--     <select id="selectCountClub" resultType="Integer">-->
+<!--        SELECT count(*) FROM club-->
+<!--     </select>-->
+
+<!--    <select id="selectAllClub" resultType="com.project.ownote.club.clubInfo.dto.ClubInfoDto">-->
+<!--        SELECT * FROM club-->
+<!--    </select>-->
+
+<!--    <insert id="insertClub" parameterType="com.project.ownote.club.clubInfo.dto.ClubInfoDto">-->
+<!--        INSERT INTO club (emp_name, club_name, club_sub, club_regdate)-->
+<!--        VALUES (#{emp_name}, #{club_name}, #{club_sub}, #{club_regdate})-->
+<!--    </insert>-->
+
+<!--    <update id="updateStudent" parameterType="com.example.dto.StudentDTO">-->
+<!--        UPDATE students SET name = #{name}, age = #{age} WHERE id = #{id}-->
+<!--    </update>-->
+
+<!--    <delete id="deleteStudent" parameterType="int">-->
+<!--        DELETE FROM students WHERE id = #{id}-->
+<!--    </delete>-->
+
+</mapper>

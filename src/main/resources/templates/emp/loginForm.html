@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="sign-in-container">
+           <form th:action="@{/ownote}" method="post">
+               <h1>Sign In</h1>
+               <label for="emp_email">이메일</label><br>
+               <input type="text" id="emp_email" name="emp_email" placeholder="@전까지 입려해 주세요.">@ownote.com</p><br>
+               <div id="textError1"></div>
+               <label for="emp_password">비밀번호</label><br>
+               <input type="password" id="emp_password" name="emp_password"/>
+               <div id="textError2"></div>
+               <input type="submit" value="로그인" id="login">
+               <a th:href="@{/}"><input type="button" class="cancle_login" th:value="취소"></a>
+           </form>
+    </div>
+</div>
+<div id="error-message" th:text="${error_message}" th:style="${error_messageStyle}" style="color: red;"></div>
+<script>
+    // URL 매개변수를 통해 에러 코드를 확인하고 알림창을 표시합니다.
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("error") === "1") {
+        window.location.href = "/emp/logIn";
+        alert("회원 정보가 일치하지 않습니다.");
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/checkLogin.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <title>modify</title>
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/clubmodify.css" rel="stylesheet">
+    <link href="/css/button.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="modify_wrap">
+<form id="upload-form" action="/club/modify" method="post" enctype="multipart/form-data">
+    <div th:each="dto : ${dto}">
+        <div class="title_name">
+            <img class="user_image" src="/image/user.png" alt="userIcon">
+            <span th:text="${dto.clubboard_emp_name}"></span><br>
+            <span th:text="${#dates.format(dto.clubboard_regdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+
+        </div>
+        <hr>
+
+        <div class="title_view">
+            <input type="hidden" name="clubboard_id" th:value="${dto.clubboard_id}">
+            <strong>동아리명 </strong>
+            <br>
+            <label>
+                <input class="input_css" type="text" name="clubboard_title" th:value="${dto.clubboard_title}" required>
+            </label>
+        </div>
+        <hr>
+        내용  <br>
+        <hr>
+        <div class="clubPR_content">
+        <label>
+            <textarea id="summernote" name="clubboard_sub" required>[[${dto.clubboard_sub}]]</textarea>
+            <script>
+                // ${dto.clubboard_sub} 값을 초기 내용으로 설정
+
+                $('#summernote').summernote({
+                    tabsize: 2,
+                    height: 450,
+                    width: 1000
+                });
+
+            </script>
+        </label>
+        </div>
+        <hr>
+        파일 이름 : <a th:href="${dto.clubboard_filepath}" target="_blank"><span th:text="${dto.clubboard_filename}"></span></a>
+        <label>
+            <input type="file" name="file">
+        </label>
+        파일 1 업로드 시 기존 파일 삭제됩니다.
+
+        <hr>
+        <div class="container" style="justify-content: left">
+            <div class="button-effect">
+                <a class="effect effect-1" href="#" id="listback-link" th:data-clubboard-id='${dto.clubboard_id}'>돌아가기</a>
+            </div>
+
+            <div class="button-effect">
+                <a class="effect effect-1" onclick="submitForm()">업로드</a>
+            </div>
+
+            <div class="button-effect">
+                <a href="#" class="effect effect-1" id="delete-link" th:data-clubboard-id='${dto.clubboard_id}'>게시글삭제</a>
+            </div>
+        </div>
+
+    </div>
+</form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/club.js"></script>
+<script src="/js/club_modify.js"></script>
+</body>
+    </th:block>
+</th:block>
+</html>

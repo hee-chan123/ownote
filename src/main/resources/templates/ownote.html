@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="/css/mainboard.css" rel="stylesheet">
+
+</head>
+<body>
+
+<header>
+    <nav id="nav2">
+        <h1>Ownote</h1>
+        <div class="logo">
+            <a th:href="@{/}">
+            <img class="logo_image" src="/image/logo.png" alt="logoIcon">
+            </a>
+        </div>
+
+        <div class="navbar-menu" th:if="${authInfo == null}">
+        <a th:href="@{/emp/logIn}">로그인</a>
+        </div>
+        <div class="navbar-menu" th:if="${authInfo != null}">
+            <!-- authInfo가 null이 아닐 때만 이 부분이 렌더링됩니다 -->
+            <img class="user_image" src="/image/usericon.png" alt="userIcon"><a th:href="@{/emp/myPage}">[[${authInfo.emp_name}]]</a>| &nbsp
+            <a th:href="@{/logout}">로그아웃</a>
+        </div>
+    </nav>
+</header>
+  <aside class="side-bar">
+
+    <ul>
+        <li th:if="${authInfo != null}">
+
+          <a th:if="${authInfo.dept_num == 40}" th:href="@{/emp/signUp}">사원 등록</a>
+
+        </li>
+        <li>
+            <a th:href="@{#}">근태</a>
+            <ul>
+                <li><a th:href="@{/attendance/list1}">근태관리 </a></li>
+                <li><a th:href="@{/attendance/record}">출근/퇴근</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:href="@{#}">연차</a>
+            <ul>
+                <li><a th:href="@{/annual/write}">연차 신청 </a></li>
+                <li><a th:href="@{/annual/anndata}">연차 확인</a></li>
+                <li th:if="${authInfo != null}">
+                    <a th:if="${authInfo.grade_num >= 3}" th:href="@{annual/list}">연차 승인</a>
+
+                </li>
+                <li><a th:href="@{#}">연차 수정 신청</a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:href="@{/board/boardmain}">게시판</a>
+            <ul>
+                <li><a th:href="@{/board/noticeList}">회사뉴스 및 공지</a></li>
+                <li><a th:href="@{/board/forumList}">자유게시판</a></li>
+                <li><a th:href="@{/board/qaList}">사내시스템 / F&Q</a></li>
+            </ul>
+        </li>
+        <li>
+          <a th:href="@{/club/list}">동아리</a>
+        <li>
+        <a th:href="@{/emp/adress}">주소록</a></li>
+      </ul>
+
+  </aside>
+<div class="board_wrap">
+    <div class="adress-dept">
+        <p><a th:href="@{/musicContest/list}" >더보기</a></p>
+        <table>
+            <tr>
+                <th>번호</th>
+                <th>사원</th>
+                <th>부서</th>
+                <th>제목</th>
+                <th>게시일</th>
+                <th>좋아요</th>
+            </tr>
+            <tr th:each="dto : ${contestList}">
+                <td th:text="${dto.musiccontest_num}"></td>
+                <td th:text="${dto.musiccontest_emp_name}"></td>
+                <td th:text="${dto.musiccontest_dept_name}"></td>
+                <td th:text="${dto.musiccontest_title}"></td>
+                <td th:text="${#dates.format(dto.musiccontest_regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${dto.musiccontest_likes}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+/**{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*html{*/
+/*    font-size: 15px;*/
+/*}*/
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.board_wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+.title_board{
+    margin-bottom: 30px;
+}
+.title_board strong {
+    font-size: 3rem;
+}
+.title_board p {
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
+
+.buttons {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.buttons a{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+
+    background: black;
+    color: white;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+
+}
+
+.board_list > table > thead {
+    border-bottom: 10px solid #999999;
+}
+
+table {
+    width: 80%;
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+th, td {
+    padding: 8px; /* 셀 안의 여백 설정 */
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    text-align: center;
+    width: 10px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: center;
+    width: 130px;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+
+    width: 500px;
+}
+
+tfoot {
+    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    text-align: center;
+}
+
+tbody tr:hover {
+    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+}
+
+/* 폼 요소 스타일링 */
+form {
+    text-align: center;
+
+}
+
+/* 라벨 스타일링 */
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* 입력 필드 스타일링 */
+input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 200px;
+}
+
+/* 버튼 스타일링 */
+button[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}

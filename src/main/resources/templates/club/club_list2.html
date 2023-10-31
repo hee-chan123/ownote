@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+</head>
+<body>
+
+
+    <div class="title-text">
+        <div class="title board"><h1>동아리</h1></div>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>개설자</th>
+            <th>동아리 이름</th>
+            <th>한 줄 소개</th>
+            <th>개설일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dto : ${pageInfo.list}">
+            <td>[[${dto.clubboard_id}]]</td>
+            <td>[[${dto.clubboard_emp_name}]]</td>
+            <td>[[${dto.clubboard_title}]]</td>
+            <td>[[${dto.clubboard_sub}]]</td>
+            <td>[[${#dates.format(dto.clubboard_regdate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <div class="pagination">
+            <ul>
+                <li th:if="${pageInfo.hasPreviousPage}">
+                    <a th:href="@{'/club/list?page=' + pageInfo.pageNum + '&amp;pageSize=' + pageInfo.pageSize}">First</a>
+                </li>
+                <li th:if="${pageInfo.hasPreviousPage}">
+                    <a th:href="@{'/club/list?page=' + (pageInfo.pageNum - 1) + '&amp;pageSize=' + pageInfo.pageSize}">Previous</a>
+                </li>
+
+                <!-- 현재 페이지를 굵게 표시 -->
+                <li class="current">
+                    <span th:text="${pageInfo.pageNum}"></span>
+                </li>
+
+                <li th:if="${pageInfo.hasNextPage}">
+                    <a th:href="@{'/club/list?page=' + (pageInfo.pageNum + 1) + '&amp;pageSize=' + pageInfo.pageSize}">Next</a>
+                </li>
+                <li th:if="${pageInfo.hasNextPage}">
+                    <a th:href="@{'/club/list?page=' + pageInfo.pages + '&amp;pageSize=' + pageInfo.pageSize}">Last</a>
+                </li>
+            </ul>
+        </div>
+        </tfoot>
+    </table>
+
+<!--    <div class="buttons">-->
+<!--        <a class="button-writego" href="#" id="write-link">[게시글쓰기]</a>-->
+<!--    </div>-->
+
+</body>
+</html>

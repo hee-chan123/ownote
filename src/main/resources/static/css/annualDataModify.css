@@ -1,0 +1,151 @@
+/**{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*html{*/
+/*    font-size: 15px;*/
+/*}*/
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.board{
+    width: 1000px;
+    margin: 100px auto;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    background-color: #61adf6;
+}
+
+
+.title_board{
+    margin-bottom: 30px;
+}
+strong {
+    font-size: 1.5rem;
+}
+.title_board p {
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
+
+.buttons {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.buttons a{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+
+    background: black;
+    color: white;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+
+}
+
+.board_list > table > thead {
+    border-bottom: 10px solid #999999;
+}
+
+
+th, td {
+    padding: 8px; /* 셀 안의 여백 설정 */
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    text-align: center;
+    width: 250px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: center;
+    width: 90px;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    text-align: center;
+    width: 90px;
+}
+th:nth-child(4),
+td:nth-child(4) {
+    text-align: center;
+
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+    text-align: center;
+
+}
+th:nth-child(6),
+td:nth-child(6) {
+    text-align: center;
+
+}
+
+tfoot {
+    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    text-align: center;
+}
+
+
+                          /* input 숨겨준다 */
+                      input#check_btn{
+                          display:none;
+                      }
+
+input#check_btn + label{
+    cursor:pointer;
+}
+
+input#check_btn + label > span{
+    vertical-align: middle;
+    padding-left: 5px;
+}
+
+/* label:before에 체크하기 전 상태 CSS */
+input#check_btn + label:before{
+    content:"";
+    display:inline-block;
+    width:17px;
+    height:17px;
+    border:2px solid #F47C7C;
+    border-radius: 4px;
+    vertical-align:middle;
+}
+
+/* label:before에 체크 된 상태 CSS */
+input#check_btn:checked + label:before{
+    content:"";
+    background-color:#F47C7C;
+    border-color:#F47C7C;
+    background-image: url('check_btn.png');
+    background-repeat: no-repeat;
+    background-position: 50%;
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/annualTable.css" rel="stylesheet">
+</head>
+<body>
+<div class="write">
+    <strong style=" font-size: 1.5rem">연차 신청이 완료되었습니다.</strong></br></br>
+
+<a th:href="@{/annual/anndata}" ><button class="button"> 신청 내역 확인하기 </button></a>
+<a href="/"><button class="button"> 메인으로 돌아가기 </button></a>
+</div>
+</body>
+    </th:block>
+</th:block>
+</html>

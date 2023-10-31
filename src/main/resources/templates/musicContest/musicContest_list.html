@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="contentContainer">
+    <table class="table1">
+        <tr>
+            <th>번호</th>
+            <th>사원</th>
+            <th>부서</th>
+            <th>제목</th>
+            <th>게시일</th>
+            <th>좋아요</th>
+        </tr>
+        <tr th:each="dto : ${contestList}">
+            <td th:text="${dto.musiccontest_num}"></td>
+            <td th:text="${dto.musiccontest_emp_name}"></td>
+            <td th:text="${dto.musiccontest_dept_name}"></td>
+            <td><a th:href="@{'/musicContest/view?musiccontest_id=' + ${dto.musiccontest_id}}">[[${dto.musiccontest_title}]]</a></td>
+            <td th:text="${#dates.format(dto.musiccontest_regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${dto.musiccontest_likes}"></td>
+        </tr>
+    </table>
+    <a th:href="@{/musicContest/write}">글쓰기</a>
+</div>
+<script>
+    // URL 매개변수를 통해 에러 코드를 확인하고 알림창을 표시합니다.
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("error") === "1") {
+        window.location.href = "/musicContest/list";
+        alert("이미 좋아요를 선택 하였습니다.");
+    }
+</script>
+</body>
+</html>

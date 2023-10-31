@@ -1,0 +1,116 @@
+/**{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*html{*/
+/*    font-size: 15px;*/
+/*}*/
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.write{
+    width: 430px;
+    margin: 100px auto;
+
+}
+textarea {
+    width: 100%;
+    height: 6.25em;
+    border: none;
+    resize: none;
+}
+.board{
+    width: 1000px;
+    margin: 100px auto;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    background-color: #61adf6;
+}
+
+
+.title_board{
+    margin-bottom: 30px;
+}
+.title_board strong {
+    font-size: 3rem;
+}
+.title_board p {
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
+
+.buttons {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.buttons a{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+
+    background: black;
+    color: white;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+
+}
+
+.board_list > table > thead {
+    border-bottom: 10px solid #999999;
+}
+
+table {
+        border-top: 1px solid #61adf6;
+        border-collapse: collapse;
+    }
+    th, td {
+        border-bottom: 1px solid #61adf6;
+        padding: 10px;
+    }
+
+
+
+th:nth-child(1),
+td:nth-child(1) {
+    text-align: center;
+    width: 100px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: center;
+    width: 80px;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    text-align: center;
+    width: 250px;
+}
+
+tfoot {
+    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    text-align: center;
+}

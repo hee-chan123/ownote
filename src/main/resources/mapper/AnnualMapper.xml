@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ownote.annual.dao.AnnualDao">
+
+    <select id="countAnnual" resultType="Integer">
+        SELECT count(*) FROM annual
+    </select>
+
+    <select id="countDataAnnual" resultType="Integer">
+        SELECT count(*) FROM annual where emp_id = #{emp_id}
+    </select>
+
+
+    <insert id="writeAnnual" parameterType="com.project.ownote.annual.dto.AnnualDto">
+        insert into annual values (null,#{annual_content},#{annual_startdate},#{annual_enddate},#{anninfo_code},1,#{emp_id})
+    </insert>
+
+<select id="findEmpNameById" parameterType="int" resultType="java.lang.String">
+    SELECT emp_name FROM emp WHERE emp_id = #{emp_id}
+
+</select>
+    <select id="codeId" resultType="int">
+        select anninfo_date from anninfo where anninfo_code=#{param1}
+    </select>
+    <select id="checkId" resultType="int">
+        select anncheck_pass  from anncheck where anncheck_id
+                                                      =#{param1}
+    </select>
+
+
+    <select id="annualAllList" resultType= "com.project.ownote.annual.dto.AnnualDto">
+        SELECT a.annual_id, a.annual_content, a.annual_startdate, a.annual_enddate,
+               i.anninfo_name, i.anninfo_date, e.emp_name, c.anncheck_id, a.emp_id
+        FROM annual a
+                 INNER JOIN anninfo i ON a.anninfo_code = i.anninfo_code
+                 INNER JOIN emp e ON a.emp_id = e.emp_id
+                 INNER JOIN anncheck c ON a.anncheck_id = c.anncheck_id
+        ORDER BY c.anncheck_id asc
+        LIMIT #{startRow}, #{size}
+
+    </select>
+
+
+
+    <select id="annualListByID" resultType="com.project.ownote.annual.dto.AnnualDto">
+        SELECT a.annual_id, a.annual_content, a.annual_startdate, a.annual_enddate,
+               i.anninfo_name, i.anninfo_date, e.emp_name, c.anncheck_pass, a.emp_id, c.anncheck_id
+        FROM annual a
+                 INNER JOIN anninfo i ON a.anninfo_code = i.anninfo_code
+                 INNER JOIN emp e ON a.emp_id = e.emp_id
+                 INNER JOIN anncheck c ON a.anncheck_id = c.anncheck_id
+        WHERE a.emp_id = #{emp_id}
+            LIMIT #{startRow}, #{size}
+
+    </select>
+
+
+    <delete id="annualDeleteId" parameterType="Long">
+        Delete from annual where annual_id = #{annual_id}
+    </delete>
+
+
+    <select id="countAnnualdate" resultType="Integer">
+        select anndata_extra from anndata where emp_id=#{emp_id}
+
+    </select>
+
+    <update id="updateAnnual" parameterType="com.project.ownote.annual.dto.AnnualDto">
+        UPDATE annual
+        SET
+            annual_content = #{annual_content},
+            annual_startdate = #{annual_startdate},
+            annual_enddate = #{annual_enddate},
+            anninfo_code = #{anninfo_code}
+
+        WHERE
+            annual_id = #{annual_id}
+    </update>
+
+
+
+
+
+        <update id="updateAnndataDate" parameterType="map">
+            UPDATE ann_data
+            SET anndata_date = anndata_date -
+                               CASE anncheck_code
+                                   WHEN 1 THEN 0.25
+                                   WHEN 2 THEN 0.5
+                                   WHEN 3 THEN 1
+                                   ELSE 0
+                                   END
+            WHERE anninfo_code = 1
+        </update>
+
+<select id="anndata" resultType="Double">
+    SELECT SUM(anninfo.anninfo_date) AS total_anninfo_date
+    FROM annual
+    JOIN anninfo ON annual.anninfo_code = anninfo.anninfo_code
+    JOIN anncheck ON annual.anncheck_id = anncheck.anncheck_id
+    WHERE annual.emp_id = #{emp_id} AND anncheck.anncheck_ps = 1;
+
+</select>
+
+    <update id="updateCheckid"  parameterType="java.lang.Long">
+        UPDATE annual AS a
+            JOIN annInfo AS ai ON a.anninfo_code = ai.anninfo_code
+
+            SET a.anncheck_id= 2
+
+        WHERE a.annual_id = #{annual_id} ;
+
+
+    </update>
+
+    <update id = "minusDate"  parameterType="int">
+        UPDATE anndata as ad
+            join annual as a on a.emp_id = ad.emp_id
+            join anninfo as ai on ai.anninfo_code = a.anninfo_code
+            SET ad.anndata_extra = ad.anndata_extra - ai.anninfo_date,
+                ad.anndata_used = ad.anndata_used +ai.anninfo_date
+        where ad.emp_id = #{emp_id};
+    </update>
+
+    <update id="rejectDate" parameterType="java.lang.Long">
+        UPDATE annual
+        SET anncheck_id = 3
+        WHERE annual_id = #{annualId};
+    </update>
+    <select id="searchAnnualId" resultType="com.project.ownote.annual.dto.AnnualDto" >
+        SELECT a.annual_id, a.annual_content, a.annual_startdate, a.annual_enddate,
+        i.anninfo_name, i.anninfo_date, e.emp_name, c.anncheck_id, a.emp_id
+        FROM annual a
+        INNER JOIN anninfo i ON a.anninfo_code = i.anninfo_code
+        INNER JOIN emp e ON a.emp_id = e.emp_id
+        INNER JOIN anncheck c ON a.anncheck_id = c.anncheck_id
+        where a.emp_id = #{emp_id}
+
+        ORDER BY a.annual_startdate DESC
+    </select>
+
+    <update id="addAnnual" parameterType="int">
+        UPDATE anndata ad
+            INNER JOIN emp e ON e.emp_id = ad.emp_id
+            SET ad.anndata_add = ad.anndata_add + 1,
+                ad.anndata_extra = ad.anndata_extra + ad.anndata_add
+        WHERE DATEDIFF(NOW(), e.emp_date) >= 730 AND YEAR(NOW()) % 2 = 1 AND e.emp_id = #{emp_id};
+    </update>
+
+<select id="findDate" resultType="date">
+    select emp_date from emp where emp_id = #{emp_id}
+</select>
+</mapper>

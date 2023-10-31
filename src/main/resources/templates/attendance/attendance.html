@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>출근 및 퇴근 </title>
+
+</head>
+<body>
+<h1>출근 및 퇴근 </h1>
+
+
+<button id="recordAttendance"><a th:href="@{/attendance/record/go}">출근</a></button>
+
+<script>
+    const recordAttendanceButton = document.getElementById("recordAttendance");
+
+    recordAttendanceButton.addEventListener("click", () => {
+        const currentTime1 = new Date().toLocaleString();
+        alert("출근 시간: " + currentTime1);
+    });
+</script>
+
+
+
+<button id="recordAttendance2"><a th:href="@{/attendance/record/leave}">퇴근</a></button>
+
+<script>
+    const recordAttendanceButton2 = document.getElementById("recordAttendance2");
+
+    recordAttendanceButton2.addEventListener("click", () => {
+        const currentTime2 = new Date().toLocaleString();
+        alert("퇴근 시간: " + currentTime2);
+    });
+</script>
+
+<script>
+    const attendanceTimeSpan = document.getElementById("attendanceTime");
+    const leaveTimeSpan = document.getElementById("leaveTime");
+
+    const recordAttendanceButton = document.getElementById("recordAttendance");
+    const recordLeaveButton = document.getElementById("recordLeave");
+
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/style.css" rel="stylesheet">
+
+    <link href="/css/anndate.css" rel="stylesheet">
+    <link href="/css/annSelectbox.css" rel="stylesheet">
+    <link href="/css/annualTable.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="write">
+<div id="write" >
+
+    <form th:action="@{/annual/write}" method="post" onsubmit="return validateForm()">
+<!--    <input type="hidden" name="emp_id" th:data-emp_id='${authInfo.emp_id}'>-->
+        <p>
+            <label>연차 구분</label>
+            <div class="selectBox">
+            <select name="anninfo_code" id="anninfo_code" class="selectBox">
+                <option value="0">연차 종류를 선택하세요</option>
+                <option value="1">연차</option>
+                <option value="2">반차</option>
+                <option value="3">반반차</option>
+                <option value="4">공가</option>
+                <option value="5">병가</option>
+                <option value="6">출산휴가/배우자출산휴가</option>
+            </select>
+    </div>
+        </p>
+        <p>
+            <label>연차 사유</label><br>
+            <textarea name="annual_content" rows="10" cols="50" style="resize: none" required></textarea>
+
+        </p>
+
+        <p>
+            <label for="annual_startdate">연차 시작일</label>
+            <input type="date" id="annual_startdate" name="annual_startdate"  required><br>
+        </p>
+        <p>
+            <label for="annual_enddate">연차 종료일</label>
+            <input type="date" id="annual_enddate" name="annual_enddate"  required><br>
+        </p>
+
+        <input type="submit" value="연차 신청" class="button">
+    </form>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/annualDateFix.js"></script>
+<script src="/js/annDataCount.js"></script>
+
+
+</body>
+    </th:block>
+</th:block>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Management</title>
+</head>
+<body>
+<h1>근태관리 관리자 페이지</h1>
+
+
+<form th:action="@{/attendance/save}" method="post">
+    <label for="att_date">일자:</label>
+    <input type="date" id="att_date" name="att_date" required>
+    <br>
+    <label for="att_ontime">출근 시각:</label>
+    <input type="datetime-local" id="att_ontime" name="att_ontime" required>
+    <br>
+    <label for="att_offtime">퇴근 시각:</label>
+    <input type="time" id="att_offtime" name="att_offtime" required>
+    <br>
+    <label for="att_status">상태:</label>
+    <input type="text" id="att_status" name="att_status">
+    <br>
+    <label for="emp_name">사원 이름:</label>
+    <input type="text" id="emp_name" name="emp_name" required>
+    <br>
+    <label for="att_gradename">직급:</label>
+    <input type="text" id="att_gradename" name="att_gradename">
+    <br>
+    <label for="att_deptname">부서명:</label>
+    <input type="text" id="att_deptname" name="att_deptname">
+    <br>
+    <button type="submit">저장</button>
+</form>
+
+<!--
+<h2>근태관리 list</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>일자</th>
+        <th>사원 이름</th>
+        <th>직급</th>
+        <th>부서명</th>
+        <th>출근 시각</th>
+        <th>퇴근 시각</th>
+        <th>상태</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="attendance : ${allAttendances}">
+        <td th:text="${attendance.attendance_id}"></td>
+        <td th:text="${attendance.att_date}"></td>
+        <td th:text="${attendance.emp_name}"></td>
+        <td th:text="${attendance.att_gradename}"></td>
+        <td th:text="${attendance.att_deptname}"></td>
+        <td th:text="${attendance.att_ontime}"></td>
+        <td th:text="${attendance.att_offtime}"></td>
+        <td th:text="${attendance.att_status}"></td>
+
+        <td>
+            <a th:href="@{'/attendance/' + ${attendance.attendance_id}}" class="view-link">View</a>
+            <a th:href="@{'/attendance/' + ${attendance.attendance_id} + '/edit'}" class="edit-link">Edit</a>
+            <a th:href="@{'/attendance/' + ${attendance.attendance_id} + '/delete'}" class="delete-link">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+    -->
+</table>
+</body>
+</html>

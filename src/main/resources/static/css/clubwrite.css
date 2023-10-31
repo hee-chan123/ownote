@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.write_wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+.title_view{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.title_view strong {
+    font-size: 1.4rem;
+}
+.title_name{
+    margin-bottom: 30px;
+}
+.user_image {
+
+    width: 20px; /* 요소의 너비 설정 */
+    height: 20px; /* 요소의 높이 설정 */
+}
+.title_board p {
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
+
+.clubPR_content {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.file_box {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.button {
+    margin-top: 30px;
+    display: flex;
+
+    align-items: center;
+    font-size: 0;
+
+}
+.buttona {
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+}
+.buttons {
+    margin-right: 5px;
+}
+.buttons:nth-child(1) {
+    margin-right: 670px; /* 오른쪽으로 이동 */
+}
+.buttons a{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+
+    background: black;
+    color: white;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+
+}
+
+.input_css {
+    width: 1000px;
+    height: 50px;
+    font-size: 1.5rem;
+}

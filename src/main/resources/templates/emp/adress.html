@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/atag.css">
+</head>
+<body>
+<div class="board_wrap">
+<div class="adress-dept">
+    <a th:href="@{/emp/adress}" id="all_emp_adress">전체</a>
+    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=10)}">회계</a>
+    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=30)}">개발</a>
+    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=40)}">인사</a>
+    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=50)}">경영</a>
+    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=60)}">물류</a>
+    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=20)}">영업</a>
+</div>
+    <div class="board_list">
+<table>
+    <tr>
+        <th>이름</th>
+        <th>직책</th>
+        <th>부서</th>
+        <th>이메일</th>
+    </tr>
+    <tr th:each="obj : ${listPage.empAdressDtos}">
+        <td th:text="${obj.empName}"></td>
+        <td th:text="${obj.gradeName}"></td>
+        <td th:text="${obj.deptName}"></td>
+        <td th:text="${obj.empEmail}"></td>
+    </tr>
+</table>
+    </div>
+    <div class="adress-dept-page" th:if="${listPage.hasEmpAdressDtos()}">
+    <tr>
+        <td colspan="10">
+               <span th:if="${listPage.currentPage > 1}">
+                   <a th:href="@{'/emp/adress?pageNo=' + ${listPage.currentPage - 1}}">이전</a>
+               </span>
+            <span th:each="pNo: ${#numbers.sequence(listPage.startPage, listPage.endPage)}">
+                   <span th:if="${pNo == listPage.currentPage}">
+                       <strong th:text="${pNo}"></strong>
+                   </span>
+                   <span th:unless="${pNo == listPage.currentPage}">
+                       <a th:href="@{'/emp/adress?pageNo=' + ${pNo}}" >[[${pNo}]]</a>
+                   </span>
+               </span>
+            <span th:if="${listPage.currentPage < listPage.totalPages}">
+                   <a th:href="@{'/emp/adress?pageNo=' + ${listPage.currentPage + 1}}">다음</a>
+               </span>
+        </td>
+    </tr>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/getAdress.js"></script>
+</body>
+    </th:block>
+</th:block>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ownote.musicContest.dao.MusicContestMapper">
+    <select id="selectAllMusicContest" resultType="com.project.ownote.musicContest.dto.MusicContestDto">
+        select * from musiccontest
+    </select>
+
+    <select id="selectOneMusicContest" resultType="com.project.ownote.musicContest.dto.MusicContestDto">
+        select * from musiccontest where musiccontest_id = #{musiccontest_id}
+    </select>
+
+    <insert id="insertMusicContest" parameterType="com.project.ownote.musicContest.dto.MusicContestDto">
+        insert into musiccontest (musiccontest_id, musiccontest_num, musiccontest_emp_name, musiccontest_dept_name,
+                                  musiccontest_title, musiccontest_content, musiccontest_regdate, musiccontest_likes)
+        values (#{musiccontest_id}, #{musiccontest_num}, #{musiccontest_emp_name}, #{musiccontest_dept_name}, #{musiccontest_title},
+                #{musiccontest_content}, now(), #{musiccontest_likes})
+    </insert>
+
+    <delete id="deleteMusicContest">
+        delete from musiccontest where musiccontest_id = #{musiccontest_id}
+    </delete>
+
+    <update id="increaseLike" parameterType="com.project.ownote.musicContest.dto.MusicContestDto">
+        update musiccontest set musiccontest_likes = musiccontest_likes + 1 where musiccontest_id = #{musiccontest_id}
+    </update>
+
+    <insert id="insertLike" parameterType="com.project.ownote.musicContest.dto.LikeDto">
+        insert into musiccontest_like (musiccontest_id, emp_id) values (#{musiccontest_id}, #{emp_id})
+    </insert>
+
+    <select id="selectLike" resultType="com.project.ownote.musicContest.dto.LikeDto">
+        select * from musiccontest_like where musiccontest_id = #{musiccontest_id}
+    </select>
+</mapper>

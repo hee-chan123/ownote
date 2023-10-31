@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance List</title>
+    <link rel="stylesheet" href="/css/attendance.css" th:href="@{/css/attendance.css}">
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="/css/attendancetable.css" th:href="@{/css/attendancetable.css}">
+</head>
+<body>
+<h1>근태관리 List</h1>
+<!--<div th:if="${#authorization.expression('hasRole('''')')}">-->
+<form th:action="@{/attendance/search(emp_num=${allAttendances[0].attendance_id})}" method="get">
+    <tr>
+        <td>
+            <label for="emp_num">번호:</label>
+        </td>
+        <td>
+            <input type="text" id="emp_num" name="emp_num">
+        </td>
+        <td>
+            <button type="submit" onclick="location.href='list1';">조회</button>
+        </td>
+    </tr>
+</form>
+<table>
+
+   <!-- <form th:action="@{/attendance/search(emp_num=${allAttendances[0].attendance_id})}" method="get">
+        <label for="emp_num">번호:</label>
+        <input type="text" id="emp_num" name="emp_num">
+        <button type="submit" onclick="location.href='list1';"> 조회 </button>
+    </form>-->
+
+
+
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>emp Num</th>
+        <th>Date</th>
+        <th>On Time</th>
+        <th>Off Time</th>
+        <th>Status</th>
+        <th>Employee Name</th>
+        <th>Grade Name</th>
+        <th>Dept Name</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="allAttendances : ${allAttendances}">
+
+        <td>
+            <a th:href="@{/attendance/edit(attendance_id=${allAttendances.attendance_id})}" th:text="${allAttendances.attendance_id}"></a>
+        </td>
+        <td th:text="${allAttendances.emp_num}"></td>
+        <td th:text="${allAttendances.att_date}"></td>
+        <td th:text="${allAttendances.att_ontime}"></td>
+        <td th:text="${allAttendances.att_offtime}"></td>
+        <td th:text="${allAttendances.att_status}"></td>
+        <td th:text="${allAttendances.emp_name}"></td>
+        <td th:text="${allAttendances.att_gradename}"></td>
+        <td th:text="${allAttendances.att_deptname}"></td>
+        <td>
+            <button type="submit" th:attr="data-attendance-id=${allAttendances.attendance_id}" onclick="location.href='/attendance/delete/'+ this.getAttribute('data-attendance-id')">삭제</button>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+    </th:block>
+</th:block>
+</html>

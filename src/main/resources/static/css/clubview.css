@@ -1,0 +1,117 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.view_wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+.title_view{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.title_view strong {
+    font-size: 1.4rem;
+}
+.title_name{
+    margin-bottom: 30px;
+}
+.user_image {
+
+    width: 20px; /* 요소의 너비 설정 */
+    height: 20px; /* 요소의 높이 설정 */
+}
+.title_board p {
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
+
+.clubPR_content {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.file_box {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.button {
+    margin-top: 30px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    font-size: 0;
+
+}
+.buttons {
+    margin-right: 5px;
+}
+.buttons:nth-child(1) {
+    margin-right: 630px; /* 오른쪽으로 이동 */
+}
+.buttons a{
+    display: inline-block;
+    min-width: 80px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 1.4rem;
+
+    background: black;
+    color: white;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+
+}
+
+.board_list > table > thead {
+    border-bottom: 10px solid #999999;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    padding: 8px; /* 셀 안의 여백 설정 */
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    text-align: center;
+    width: 10px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: center;
+    width: 130px;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+
+    width: 500px;
+}
+
+tfoot {
+    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    text-align: center;
+}
+
+tbody tr:hover {
+    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+}

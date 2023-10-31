@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/musicContest/like}" method="post">
+<div th:each="dto : ${dto}">
+    <input type="hidden" name="musiccontest_id" th:value="${dto.musiccontest_id}">
+    <p>제목 : [[${dto.musiccontest_title}]]</p>
+    <hr>
+    <div style="text-align: left;">
+        개설자 : [[${dto.musiccontest_emp_name}]] ( [[${dto.musiccontest_dept_name}]] )<br> 작성시간: [[${#dates.format(dto.musiccontest_regdate, 'yyyy-MM-dd HH:mm:ss')}]]
+    </div>
+    <hr>
+    내용 :  <br>
+    <hr>
+    <div th:utext="${dto.musiccontest_content}" > [[${dto.musiccontest_content}]]</div>
+    <a th:href="@{/musicContest/list}">
+        리스트로 돌아가기
+    </a>
+    <th:block th:if="${authInfo.getDept_name().equals('인사') or authInfo.getDept_name().equals(dto.musiccontest_dept_name)}">
+        <div style="text-align: right;">
+            <a href="#" class="delete-link" th:data-musiccontest_id='${dto.musiccontest_id}'>[게시글삭제]</a>
+        </div>
+    </th:block>
+</div>
+<input type="submit" value="좋아용">좋아용</input>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/music.js"></script>
+</body>
+</html>
