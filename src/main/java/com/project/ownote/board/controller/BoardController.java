@@ -1,4 +1,4 @@
-package com.project.ownote.board.Controller;
+package com.project.ownote.board.controller;
 
 import com.project.ownote.board.dto.Board;
 import com.project.ownote.board.page.BoardPage;
