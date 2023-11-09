@@ -52,15 +52,15 @@
         <div class="boardMain-title-text">
             <div class="boardMain-title-board">
                 <strong>회사뉴스 및 공지</strong>
-                <a th:href = "@{/board/noticeList}">+</a>
+                <a th:href = "@{/board/noticelist}">+</a>
             </div>
             <div class="boardMain-title-board">
                 <strong>자유게시판</strong>
-                <a th:href = "@{/board/forumList}">+</a>
+                <a th:href = "@{/board/forumlist}">+</a>
             </div>
             <div class="boardMain-title-board2">
                 <strong>사내시스템 / FAQ</strong>
-                <a th:href = "@{/board/qaList}">+</a>
+                <a th:href = "@{/board/qalist}">+</a>
             </div>
         </div>
 
@@ -84,7 +84,7 @@
                         <th:block th:if="${board.boardimportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
                         <th:block th:if="${board.boardimportant != 1}"><td th:text="${board.boardnum}"></td></th:block>
                         <td th:text="${board.boardwriter}"></td>
-                        <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="${board.boardtitle}"></a></td>
+                        <td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="${board.boardtitle}"></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -108,7 +108,7 @@
                     <tr>
                         <td th:text="${board.boardnum}"></td>
                         <td th:text="${board.boardwriter}"></td>
-                        <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="${board.boardtitle}"></a></td>
+                        <td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="${board.boardtitle}"></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -139,10 +139,10 @@
                         </th:block>
                         <td th:text="${board.boardwriter}"></td>
                         <th:block th:if="${board.hierarchynum > 0}">
-                            <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="'↳'+${board.boardtitle}"></a></td>
+                            <td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="'↳'+${board.boardtitle}"></a></td>
                         </th:block>
                         <th:block th:if="${board.hierarchynum == 0}">
-                            <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="${board.boardtitle}"></a></td>
+                            <td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum}, mainCheck=${1})}" th:text="${board.boardtitle}"></a></td>
                         </th:block>
                     </tr>
                     </tbody>

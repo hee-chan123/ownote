@@ -13,7 +13,7 @@
         <div id="board-search">
             <div class="container">
                 <div class="search-window">
-                    <form th:action="@{/board/findLike}" method="post">
+                    <form th:action="@{/board/findlike}" method="post">
                         <div class="search-wrap">
                             <div class="select">
                                 <select id="boardDivision" name="boardDivision">
@@ -65,7 +65,7 @@
                     <tr th:each="board : ${boardPage.content}">
                         <td th:text="${board.boardnum}"></td>
                         <td th:text="${board.boardwriter}"></td>
-                        <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum})}" th:text="${board.boardtitle}"></a></td>
+                        <td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum})}" th:text="${board.boardtitle}"></a></td>
                         <td th:text="${#dates.format(board.boardregdate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${board.boardhit}"></td>
                     </tr>
@@ -75,13 +75,13 @@
                             <tr>
                                 <td colspan="5">
                                     <th:block th:if="${boardPage.currentPage > 1}">
-                                        <div class="page"><a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage - 1})}">이전</a></div>
+                                        <div class="page"><a th:href = "@{/board/forumlist(pageNo=${boardPage.currentPage - 1})}">이전</a></div>
                                     </th:block>
                                     <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
-                                        <div class="page"><a th:href="@{/board/forumList(pageNo=${pNo})}" th:text="${pNo}"></a></div>
+                                        <div class="page"><a th:href="@{/board/forumlist(pageNo=${pNo})}" th:text="${pNo}"></a></div>
                                     </th:block>
                                     <th:block th:if="${boardPage.currentPage < boardPage.totalPages}">
-                                        <div class="page"><a th:href = "@{/board/forumList(pageNo=${boardPage.currentPage + 1})}">다음</a></div>
+                                        <div class="page"><a th:href = "@{/board/forumlist(pageNo=${boardPage.currentPage + 1})}">다음</a></div>
                                     </th:block>
                                 </td>
                             </tr>

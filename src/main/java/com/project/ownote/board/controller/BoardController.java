@@ -36,10 +36,10 @@ public class BoardController {
         model.addAttribute("boardQa", boardQa);
         model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
-        return "board/boardMain";
+        return "board/boardmain";
     }
 
-    @GetMapping("/board/boardView/{boardnum}") //게시판 뷰
+    @GetMapping("/board/boardview/{boardnum}") //게시판 뷰
     public String View(@PathVariable Long boardnum, Model model, HttpSession session, @RequestParam(value = "mainCheck", required = false) String mainCheck){
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int empid = authInfo.getEmp_id();
@@ -56,7 +56,7 @@ public class BoardController {
         model.addAttribute("board", board);
         model.addAttribute("maxHierarchynum", maxHierarchynum);
         model.addAttribute("authInfo", authInfo);
-        return "board/boardView";
+        return "board/boardview";
     }
 
     @GetMapping("/board/boardwriteform") //게시판 글 쓰기 폼
@@ -67,7 +67,7 @@ public class BoardController {
 
         model.addAttribute("emp", emp);
         model.addAttribute("authInfo", authInfo);
-        return "board/boardWrite";
+        return "board/boardwrite";
     }
 
     @PostMapping("/board/boardwrite") //게시판 글 쓰기
@@ -84,11 +84,11 @@ public class BoardController {
 
         switch (board.getBoarddivision()) {
             case "회사뉴스및공지":
-                return "redirect:/board/noticeList";
+                return "redirect:/board/noticelist";
             case "자유게시판":
-                return "redirect:/board/forumList";
+                return "redirect:/board/forumlist";
             case "사내시스템/F&Q":
-                return "redirect:/board/qaList";
+                return "redirect:/board/qalist";
             default:
                 return "redirect:/board/boardmain";
         }
@@ -104,7 +104,7 @@ public class BoardController {
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
         model.addAttribute("authInfo", authInfo);
-        return "board/boardUpdate";
+        return "board/boardupdate";
     }
 
     @PostMapping("/board/boardupdate/{boardnum}") //게시판 업데이트
@@ -118,11 +118,11 @@ public class BoardController {
 
         switch (board.getBoarddivision()) {
             case "회사뉴스및공지":
-                return "redirect:/board/noticeList";
+                return "redirect:/board/noticelist";
             case "자유게시판":
-                return "redirect:/board/forumList";
+                return "redirect:/board/forumlist";
             case "사내시스템/F&Q":
-                return "redirect:/board/qaList";
+                return "redirect:/board/qalist";
             default:
                 return "redirect:/board/boardmain";
         }
@@ -141,17 +141,17 @@ public class BoardController {
 
         switch (boardDivision) {
             case "회사뉴스및공지":
-                return "redirect:/board/noticeList";
+                return "redirect:/board/noticelist";
             case "자유게시판":
-                return "redirect:/board/forumList";
+                return "redirect:/board/forumlist";
             case "사내시스템/F&Q":
-                return "redirect:/board/qaList";
+                return "redirect:/board/qalist";
             default:
                 return "redirect:/board/boardmain";
         }
     }
 
-    @GetMapping("/board/noticeList") //회사뉴스 및 공지
+    @GetMapping("/board/noticelist") //회사뉴스 및 공지
     public String notice(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
@@ -166,10 +166,10 @@ public class BoardController {
         model.addAttribute("emp", emp);
         model.addAttribute("boardPage", boardPage);
         model.addAttribute("authInfo", authInfo);
-        return "board/noticeList";
+        return "board/noticelist";
     }
 
-    @GetMapping("/board/forumList") //자유게시판
+    @GetMapping("/board/forumlist") //자유게시판
     public String forum(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
@@ -182,10 +182,10 @@ public class BoardController {
         model.addAttribute("boardPage", boardPage);
         model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
-        return "board/forumList";
+        return "board/forumlist";
     }
 
-    @GetMapping("/board/qaList") //사내시스템/F&Q
+    @GetMapping("/board/qalist") //사내시스템/F&Q
     public String qa(Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
         if(pageNoVal != null){
@@ -198,10 +198,10 @@ public class BoardController {
         model.addAttribute("boardPage", boardPage);
         model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
-        return "board/qaList";
+        return "board/qalist";
     }
 
-    @GetMapping("/board/findLike") //검색 게시판
+    @GetMapping("/board/findlike") //검색 게시판
     public String findLikePage(@RequestParam("find") String find, @RequestParam("boarddivision") String boarddivision, @RequestParam("searchOption") String searchOption,
                                Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
@@ -219,10 +219,10 @@ public class BoardController {
         model.addAttribute("searchOption", searchOption);
         model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
-        return "board/findLike";
+        return "board/findlike";
     }
 
-    @PostMapping("/board/findLike") //검색 게시판
+    @PostMapping("/board/findlike") //검색 게시판
     public String findLike(@RequestParam("find") String find, @RequestParam("boardDivision") String boarddivision, @RequestParam("searchOption") String searchOption,
                            Model model, @RequestParam(value = "pageNo", required = false) String pageNoVal, HttpSession session){
         int pageNo = 1;
@@ -240,7 +240,7 @@ public class BoardController {
         model.addAttribute("searchOption", searchOption);
         model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
-        return "board/findLike";
+        return "board/findlike";
     }
 
     @GetMapping("/board/replywrite/{boardnum}") //Q&A답변 폼
@@ -253,7 +253,7 @@ public class BoardController {
         model.addAttribute("emp", emp);
         model.addAttribute("board", board);
         model.addAttribute("authInfo", authInfo);
-        return "board/replyWrite";
+        return "board/replywrite";
     }
 
     @PostMapping("/board/replywrite/{boardnum}") //Q&A답변 저장
@@ -266,6 +266,6 @@ public class BoardController {
 
         model.addAttribute("authInfo", authInfo);
         model.addAttribute("emp", emp);
-        return "redirect:/board/qaList";
+        return "redirect:/board/qalist";
     }
 }

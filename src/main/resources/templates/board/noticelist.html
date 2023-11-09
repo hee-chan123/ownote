@@ -4,7 +4,7 @@
     <th:block th:fragment="content">
         <head>
             <meta charset="UTF-8">
-            <title>검색 게시판</title>
+            <title>회사뉴스 및 공지</title>
             <link rel="stylesheet" href="/css/style.css">
             <link rel="stylesheet" href="/css/board.css">
         </head>
@@ -13,7 +13,7 @@
         <div id="board-search">
             <div class="container">
                 <div class="search-window">
-                    <form th:action="@{/board/findLike}" method="post">
+                    <form th:action="@{/board/findlike}" method="post">
                         <div class="search-wrap">
                             <div class="select">
                                 <select id="boardDivision" name="boardDivision">
@@ -42,14 +42,14 @@
         <div class="board_wrap">
             <div class="title-text">
                 <div class="title_board">
-                    <strong>검색 결과</strong>
+                    <strong>회사뉴스 및 공지</strong>
                 </div>
             </div>
             <div class="board_list">
                 <table>
                     <thead>
                     <tr>
-                        <th>게시판</th>
+                        <th>글번호</th>
                         <th>작성자</th>
                         <th>제목</th>
                         <th>등록날짜</th>
@@ -63,62 +63,38 @@
                         </tr>
                     </th:block>
                     <tr th:each="board : ${boardPage.content}">
-
-                        <th:block th:if="${board.boarddivision == '회사뉴스및공지'}">
-                            <th:block th:if="${board.boardimportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
-                            <th:block th:if="${board.boardimportant != 1}"><td th:text="공지" ></td></th:block>
-                        </th:block>
-                        <th:block th:if="${board.boarddivision == '자유게시판'}">
-                            <td th:text="자유"></td>
-                        </th:block>
-                        <th:block th:if="${board.boarddivision == '사내시스템/F&Q'}">
-                            <th:block th:if="${board.hierarchynum > 0}">
-                                <th:block th:if="${board.hierarchynum % 2 == 1}"><td th:text="답변" style="color: red"></td></th:block>
-                                <th:block th:if="${board.hierarchynum % 2 == 0}"><td th:text="재질문" style="color: deepskyblue"></td></th:block>
-                            </th:block>
-                            <th:block th:if="${board.hierarchynum == 0}">
-                                <td th:text="'FAQ'"></td>
-                            </th:block>
-                        </th:block>
-
+                        <th:block th:if="${board.boardimportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
+                        <th:block th:if="${board.boardimportant != 1}"><td th:text="${board.boardnum}"></td></th:block>
                         <td th:text="${board.boardwriter}"></td>
-
-                        <th:block th:if="${board.hierarchynum > 0}">
-                            <th:block th:if="${board.hierarchynum % 2 == 1}"><td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum})}" th:text="'↳'+${board.boardtitle}"></a></td></th:block>
-                            <th:block th:if="${board.hierarchynum % 2 == 0}"><td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum})}" th:text="'↳'+${board.boardtitle}"></a></td></th:block>
-                        </th:block>
-                        <th:block th:if="${board.hierarchynum == 0}">
-                            <td><a th:href = "@{/board/boardView/{boardnum}(boardnum=${board.boardnum})}" th:text="${board.boardtitle}"></a></td>
-                        </th:block>
-
+                        <td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum})}" th:text="${board.boardtitle}"></a></td>
                         <td th:text="${#dates.format(board.boardregdate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${board.boardhit}"></td>
                     </tr>
                     </tbody>
                     <tfoot>
-                        <th:block th:if="${boardPage.hasArticles()}">
+                        <div class="board-page" th:if="${boardPage.hasArticles()}">
                             <tr>
                                 <td colspan="5">
                                     <th:block th:if="${boardPage.currentPage > 1}">
-                                        <div class="page"><a th:href = "@{/board/findLike(pageNo=${boardPage.currentPage - 1},boarddivision=${boarddivision},find=${find}, searchOption=${searchOption})}">이전</a></div>
+                                        <div class="page"><a th:href = "@{/board/noticelist(pageNo=${boardPage.currentPage - 1})}">이전</a></div>
                                     </th:block>
                                     <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
-                                        <div class="page">
-                                            <a th:href="@{/board/findLike(pageNo=${pNo},boarddivision=${boarddivision},find=${find}, searchOption=${searchOption})}" th:text="${pNo}"></a>
-                                        </div>
+                                        <div class="page"><a th:href="@{/board/noticelist(pageNo=${pNo})}" th:text="${pNo}"></a></div>
                                     </th:block>
                                     <th:block th:if="${boardPage.currentPage < boardPage.totalPages}">
-                                        <div class="page"><a th:href = "@{/board/findLike(pageNo=${boardPage.currentPage + 1},boarddivision=${boarddivision},find=${find}, searchOption=${searchOption})}">다음</a></div>
+                                        <div class="page"><a th:href = "@{/board/noticelist(pageNo=${boardPage.currentPage + 1})}">다음</a></div>
                                     </th:block>
                                 </td>
                             </tr>
-                        </th:block>
+                        </div>
                     </tfoot>
                 </table>
             </div>
-        </div>
-        <div class="buttons">
-            <button type="button" onclick="location.href='javascript:history.back();' ">뒤로가기</button>
+            <div class="buttons">
+                <th:block th:if="${emp.grade_num >= 3 or emp.dept_num == 40}">
+                    <button type="button" th:onclick="|location.href='@{/board/boardwriteform}'|">글쓰기</button>
+                </th:block>
+            </div>
         </div>
         <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
         </body>

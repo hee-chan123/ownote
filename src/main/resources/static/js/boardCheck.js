@@ -33,13 +33,13 @@ $(document).ready(function () {
                     alert("글 등록이 완료되었습니다.");
                     switch (boarddivision) {
                         case "회사뉴스및공지":
-                            window.location.href = "/board/noticeList";
+                            window.location.href = "/board/noticelist";
                             break;
                         case "자유게시판":
-                            window.location.href = "/board/forumList";
+                            window.location.href = "/board/forumlist";
                             break;
                         case "사내시스템/F&Q":
-                            window.location.href = "/board/qaList";
+                            window.location.href = "/board/qalist";
                             break;
                         default:
                             window.location.href = "/board/boardmain";
@@ -85,13 +85,13 @@ $(document).ready(function () {
                     alert("글 수정이 완료되었습니다.")
                     switch (boarddivision) {
                         case "회사뉴스및공지":
-                            window.location.href = "/board/noticeList";
+                            window.location.href = "/board/noticelist";
                             break;
                         case "자유게시판":
-                            window.location.href = "/board/forumList";
+                            window.location.href = "/board/forumlist";
                             break;
                         case "사내시스템/F&Q":
-                            window.location.href = "/board/qaList";
+                            window.location.href = "/board/qalist";
                             break;
                         default:
                             window.location.href = "/board/boardmain";
@@ -135,13 +135,13 @@ $(document).ready(function () {
                     alert("글 등록이 완료되었습니다.")
                     switch (boarddivision) {
                         case "회사뉴스및공지":
-                            window.location.href = "/board/noticeList";
+                            window.location.href = "/board/noticelist";
                             break;
                         case "자유게시판":
-                            window.location.href = "/board/forumList";
+                            window.location.href = "/board/forumlist";
                             break;
                         case "사내시스템/F&Q":
-                            window.location.href = "/board/qaList";
+                            window.location.href = "/board/qalist";
                             break;
                         default:
                             window.location.href = "/board/boardmain";
@@ -178,13 +178,13 @@ $(document).ready(function () { //삭제
                     alert('삭제가 완료되었습니다.')
                     switch (boarddivision) {
                         case "회사뉴스및공지":
-                            window.location.href = "/board/noticeList";
+                            window.location.href = "/board/noticelist";
                             break;
                         case "자유게시판":
-                            window.location.href = "/board/forumList";
+                            window.location.href = "/board/forumlist";
                             break;
                         case "사내시스템/F&Q":
-                            window.location.href = "/board/qaList";
+                            window.location.href = "/board/qalist";
                             break;
                     }
                 },
