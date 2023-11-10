@@ -18,10 +18,10 @@ import java.util.List;
 public class BoardController {
 
     @Autowired
-    BoardService boardService;
+    private BoardService boardService;
 
     @Autowired
-    ListBoard listBoard;
+    private ListBoard listBoard;
 
     @GetMapping("/board/boardmain") //게시판 메인
     public String boardMain(Model model, HttpSession session){
