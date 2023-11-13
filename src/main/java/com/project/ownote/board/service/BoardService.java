@@ -18,29 +18,29 @@ public class BoardService{
         return boardMapper.selectAll();
     }
 
-    public Board selectByNum(Long boardnum) { //게시물 번호로 한 개 게시물 가져오기
-        return boardMapper.selectByNum(boardnum);
+    public Board selectByNum(Long boardNum) { //게시물 번호로 한 개 게시물 가져오기
+        return boardMapper.selectByNum(boardNum);
     }
 
-    public void write(Board board, int empid) { //게시글 작성
-        boardMapper.write(board, empid);
+    public void write(Board board, int empId) { //게시글 작성
+        boardMapper.write(board, empId);
     }
 
     public void update(Board board) { //게시글 업데이트
         boardMapper.update(board);
     }
 
-    public void delete(Long boardnum, int parentnum) { //게시글 삭제
+    public void delete(Long boardNum, int parentNum) { //게시글 삭제
 
-        if(parentnum == boardnum){
-            boardMapper.deleteParentNum(boardnum, parentnum);
+        if(parentNum == boardNum){
+            boardMapper.deleteParentNum(boardNum, parentNum);
         }else {
-            boardMapper.deleteBoardNum(boardnum, parentnum);
+            boardMapper.deleteBoardNum(boardNum, parentNum);
         }
     }
 
-    public void hitPlus(Long boardnum) { //조회수 증가
-        boardMapper.hitPlus(boardnum);
+    public void hitPlus(Long boardNum) { //조회수 증가
+        boardMapper.hitPlus(boardNum);
     }
 
 //    @Override
@@ -77,42 +77,42 @@ public class BoardService{
         return boardMapper.maxBoardNum();
     }
 
-    public void parentNumUpdate(Long boardnum) { //게시물 작성시 parentnum업데이트
-        boardMapper.parentNumUpdate(boardnum);
+    public void parentNumUpdate(Long boardNum) { //게시물 작성시 parentnum업데이트
+        boardMapper.parentNumUpdate(boardNum);
     }
 
-    public void replywrite(Board pBoard, Board board, int empid) { //Q&A 답변
-        boardMapper.replywrite(board, pBoard.getParentnum(), pBoard.getHierarchynum()+1, pBoard.getPempid(), empid);
+    public void replyWrite(Board pBoard, Board board, int empId) { //Q&A 답변
+        boardMapper.replyWrite(board, pBoard.getParentNum(), pBoard.getHierarchyNum()+1, pBoard.getPEmpId(), empId);
     }
 
-    public int selectCount1(String boarddivision) { //게시물 개수
-        return boardMapper.selectCount1(boarddivision);
+    public int selectCount1(String boardDivision) { //게시물 개수
+        return boardMapper.selectCount1(boardDivision);
     }
 
-    public int selectCount2(String boarddivision, String find, String searchOption) { //게시물 개수
+    public int selectCount2(String boardDivision, String find, String searchOption) { //게시물 개수
         String f = "%" + find + "%";
 
-        return boardMapper.selectCount2(boarddivision, f, searchOption);
+        return boardMapper.selectCount2(boardDivision, f, searchOption);
     }
 
     public List<Board> select1(int startRow, int size) { //게시물 페이징
         return boardMapper.select1(startRow, size);
     }
 
-    public List<Board> select2(int startRow, int size, String boarddivision) { //게시물 페이징
-        return boardMapper.select2(startRow, size, boarddivision);
+    public List<Board> select2(int startRow, int size, String boardDivision) { //게시물 페이징
+        return boardMapper.select2(startRow, size, boardDivision);
     }
 
-    public List<Board> select3(int startRow, int size, String boarddivision, String find, String searchOption) { //검색 게시물 페이징
+    public List<Board> select3(int startRow, int size, String boardDivision, String find, String searchOption) { //검색 게시물 페이징
         String f = "%" + find + "%";
-        return boardMapper.select3(startRow, size, boarddivision, f, searchOption);
+        return boardMapper.select3(startRow, size, boardDivision, f, searchOption);
     }
 
-    public Emp selectEmp(int empid) { //사원 번호로 사원 정보 가져오기
-        return boardMapper.selectEmp(empid);
+    public Emp selectEmp(int empId) { //사원 번호로 사원 정보 가져오기
+        return boardMapper.selectEmp(empId);
     }
 
-    public int maxHierarchynum(int parentnum) {
-        return boardMapper.maxHierarchynum(parentnum);
+    public int maxHierarchyNum(int parentNum) {
+        return boardMapper.maxHierarchyNum(parentNum);
     }
 }

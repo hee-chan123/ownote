@@ -10,14 +10,14 @@
 </head>
 <body>
 <div class="write_wrap">
-    <form th:action="@{/board/replywrite/{boardnum}(boardnum=${board.boardnum})}" method="post">
-        <input type="hidden" id="boardNum" name="boardNum" th:value="${board.boardnum}" />
+    <form th:action="@{/board/replywrite/{boardNum}(boardNum=${board.boardNum})}" method="post">
+        <input type="hidden" id="boardNum" name="boardNum" th:value="${board.boardNum}" />
         <div>
             <div>
                 <div class="boardTitle">
                     <strong>제목</strong>
                     <br>
-                    <input class="input_css" type="text" id="boardTitle" name="boardTitle" th:value="'re : ' + ${board.boardtitle}" readonly="readonly"/>
+                    <input class="input_css" type="text" id="boardTitle" name="boardTitle" th:value="'re : ' + ${board.boardTitle}" readonly="readonly"/>
                 </div>
                 <hr>
                 <div class="boardWrite">

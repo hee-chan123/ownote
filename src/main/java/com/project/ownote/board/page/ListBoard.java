@@ -21,15 +21,15 @@ public class ListBoard {
 //        return new BoardPage(total,boardNum.intValue(), size, content);
 //    }
 
-    public BoardPage getBoardPage(Long boardnum, String boarddivision){
-        int total = boardService.selectCount1(boarddivision);
-        List<Board> content = boardService.select2(((boardnum.intValue()) - 1) * size, size, boarddivision);
-        return new BoardPage(total,boardnum.intValue(), size, content);
+    public BoardPage getBoardPage(Long boardNum, String boardDivision){
+        int total = boardService.selectCount1(boardDivision);
+        List<Board> content = boardService.select2(((boardNum.intValue()) - 1) * size, size, boardDivision);
+        return new BoardPage(total,boardNum.intValue(), size, content);
     }
 
-    public BoardPage getBoardPage(Long boardnum, String boarddivision, String find, String searchOption){
-        int total = boardService.selectCount2(boarddivision, find, searchOption);
-        List<Board> content = boardService.select3(((boardnum.intValue()) - 1) * size, size, boarddivision, find, searchOption);
-        return new BoardPage(total,boardnum.intValue(), size, content);
+    public BoardPage getBoardPage(Long boardNum, String boardDivision, String find, String searchOption){
+        int total = boardService.selectCount2(boardDivision, find, searchOption);
+        List<Board> content = boardService.select3(((boardNum.intValue()) - 1) * size, size, boardDivision, find, searchOption);
+        return new BoardPage(total,boardNum.intValue(), size, content);
     }
 }

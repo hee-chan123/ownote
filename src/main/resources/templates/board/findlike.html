@@ -64,35 +64,35 @@
                     </th:block>
                     <tr th:each="board : ${boardPage.content}">
 
-                        <th:block th:if="${board.boarddivision == '회사뉴스및공지'}">
-                            <th:block th:if="${board.boardimportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
-                            <th:block th:if="${board.boardimportant != 1}"><td th:text="공지" ></td></th:block>
+                        <th:block th:if="${board.boardDivision == '회사뉴스및공지'}">
+                            <th:block th:if="${board.boardDivision == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
+                            <th:block th:if="${board.boardDivision != 1}"><td th:text="공지" ></td></th:block>
                         </th:block>
-                        <th:block th:if="${board.boarddivision == '자유게시판'}">
+                        <th:block th:if="${board.boardDivision == '자유게시판'}">
                             <td th:text="자유"></td>
                         </th:block>
-                        <th:block th:if="${board.boarddivision == '사내시스템/F&Q'}">
-                            <th:block th:if="${board.hierarchynum > 0}">
-                                <th:block th:if="${board.hierarchynum % 2 == 1}"><td th:text="답변" style="color: red"></td></th:block>
-                                <th:block th:if="${board.hierarchynum % 2 == 0}"><td th:text="재질문" style="color: deepskyblue"></td></th:block>
+                        <th:block th:if="${board.boardDivision == '사내시스템/F&Q'}">
+                            <th:block th:if="${board.hierarchyNum > 0}">
+                                <th:block th:if="${board.hierarchyNum % 2 == 1}"><td th:text="답변" style="color: red"></td></th:block>
+                                <th:block th:if="${board.hierarchyNum % 2 == 0}"><td th:text="재질문" style="color: deepskyblue"></td></th:block>
                             </th:block>
-                            <th:block th:if="${board.hierarchynum == 0}">
+                            <th:block th:if="${board.hierarchyNum == 0}">
                                 <td th:text="'FAQ'"></td>
                             </th:block>
                         </th:block>
 
-                        <td th:text="${board.boardwriter}"></td>
+                        <td th:text="${board.boardWriter}"></td>
 
-                        <th:block th:if="${board.hierarchynum > 0}">
-                            <th:block th:if="${board.hierarchynum % 2 == 1}"><td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum})}" th:text="'↳'+${board.boardtitle}"></a></td></th:block>
-                            <th:block th:if="${board.hierarchynum % 2 == 0}"><td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum})}" th:text="'↳'+${board.boardtitle}"></a></td></th:block>
+                        <th:block th:if="${board.hierarchyNum > 0}">
+                            <th:block th:if="${board.hierarchyNum % 2 == 1}"><td><a th:href = "@{/board/boardview/{boardNum}(boardNum=${board.boardNum})}" th:text="'↳'+${board.boardTitle}"></a></td></th:block>
+                            <th:block th:if="${board.hierarchyNum % 2 == 0}"><td><a th:href = "@{/board/boardview/{boardNum}(boardNum=${board.boardNum})}" th:text="'↳'+${board.boardTitle}"></a></td></th:block>
                         </th:block>
-                        <th:block th:if="${board.hierarchynum == 0}">
-                            <td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum})}" th:text="${board.boardtitle}"></a></td>
+                        <th:block th:if="${board.hierarchyNum == 0}">
+                            <td><a th:href = "@{/board/boardview/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
                         </th:block>
 
-                        <td th:text="${#dates.format(board.boardregdate, 'yyyy-MM-dd')}"></td>
-                        <td th:text="${board.boardhit}"></td>
+                        <td th:text="${#dates.format(board.boardregDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${board.boardHit}"></td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -100,15 +100,15 @@
                             <tr>
                                 <td colspan="5">
                                     <th:block th:if="${boardPage.currentPage > 1}">
-                                        <div class="page"><a th:href = "@{/board/findlike(pageNo=${boardPage.currentPage - 1},boarddivision=${boarddivision},find=${find}, searchOption=${searchOption})}">이전</a></div>
+                                        <div class="page"><a th:href = "@{/board/findlike(pageNo=${boardPage.currentPage - 1},boardDivision=${boardDivision},find=${find}, searchOption=${searchOption})}">이전</a></div>
                                     </th:block>
                                     <th:block th:each="pNo : ${#numbers.sequence(boardPage.startPage, boardPage.endPage)}">
                                         <div class="page">
-                                            <a th:href="@{/board/findlike(pageNo=${pNo},boarddivision=${boarddivision},find=${find}, searchOption=${searchOption})}" th:text="${pNo}"></a>
+                                            <a th:href="@{/board/findlike(pageNo=${pNo},boardDivision=${boardDivision},find=${find}, searchOption=${searchOption})}" th:text="${pNo}"></a>
                                         </div>
                                     </th:block>
                                     <th:block th:if="${boardPage.currentPage < boardPage.totalPages}">
-                                        <div class="page"><a th:href = "@{/board/findlike(pageNo=${boardPage.currentPage + 1},boarddivision=${boarddivision},find=${find}, searchOption=${searchOption})}">다음</a></div>
+                                        <div class="page"><a th:href = "@{/board/findlike(pageNo=${boardPage.currentPage + 1},boardDivision=${boardDivision},find=${find}, searchOption=${searchOption})}">다음</a></div>
                                     </th:block>
                                 </td>
                             </tr>

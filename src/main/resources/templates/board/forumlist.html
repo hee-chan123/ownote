@@ -63,11 +63,11 @@
                         </tr>
                     </th:block>
                     <tr th:each="board : ${boardPage.content}">
-                        <td th:text="${board.boardnum}"></td>
-                        <td th:text="${board.boardwriter}"></td>
-                        <td><a th:href = "@{/board/boardview/{boardnum}(boardnum=${board.boardnum})}" th:text="${board.boardtitle}"></a></td>
-                        <td th:text="${#dates.format(board.boardregdate, 'yyyy-MM-dd')}"></td>
-                        <td th:text="${board.boardhit}"></td>
+                        <td th:text="${board.boardNum}"></td>
+                        <td th:text="${board.boardWriter}"></td>
+                        <td><a th:href = "@{/board/boardview/{boardNum}(boardNum=${board.boardNum})}" th:text="${board.boardTitle}"></a></td>
+                        <td th:text="${#dates.format(board.boardregDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${board.boardHit}"></td>
                     </tr>
                     </tbody>
                     <tfoot>

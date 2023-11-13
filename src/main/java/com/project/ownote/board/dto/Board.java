@@ -11,29 +11,29 @@ import java.util.Date;
 @ToString
 public class Board {
 
-    private Long boardnum;
-    private String boardtitle;
-    private String boardcontent;
-    private String boardwriter;
-    private String boarddivision;
-    private Date boardregdate;
-    private int boardhit;
-    private int boardimportant;
-    private int parentnum;
-    private int hierarchynum;
-    private int pempid;
-    private int empid;
+    private Long boardNum;
+    private String boardTitle;
+    private String boardContent;
+    private String boardWriter;
+    private String boardDivision;
+    private Date boardregDate;
+    private int boardHit;
+    private int boardImportant;
+    private int parentNum;
+    private int hierarchyNum;
+    private int pEmpId;
+    private int empId;
 
 
-    public Board(String boardtitle, String boardcontent, String boardwriter, String boarddivision, int boardimportant, int parentnum, int hierarchynum, int pempid, int empid) {
-        this.boardtitle = boardtitle;
-        this.boardcontent = boardcontent;
-        this.boardwriter = boardwriter;
-        this.boarddivision = boarddivision;
-        this.boardimportant = boardimportant;
-        this.parentnum = parentnum;
-        this.hierarchynum = hierarchynum;
-        this.pempid = pempid;
-        this.empid = empid;
+    public Board(String boardTitle, String boardContent, String boardWriter, String boardDivision, int boardImportant, int parentNum, int hierarchyNum, int pEmpId, int empId) {
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+        this.boardWriter = boardWriter;
+        this.boardDivision = boardDivision;
+        this.boardImportant = boardImportant;
+        this.parentNum = parentNum;
+        this.hierarchyNum = hierarchyNum;
+        this.pEmpId = pEmpId;
+        this.empId = empId;
     }
 }
