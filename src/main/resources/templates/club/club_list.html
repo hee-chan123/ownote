@@ -38,27 +38,7 @@
         </tbody>
 
         <tfoot>
-<!--            <div th:if="${listPage.hasClubBoardDtos()}">-->
-<!--                <tr>-->
-<!--                    <td colspan="10">-->
-<!--            <span th:if="${listPage.startPage > 1}">-->
-<!--                <a th:href="@{'/club/list?pageNo=' + (${listPage.startPage - 1})}">[이전]</a>-->
-<!--            </span>-->
-<!--                        <span th:each="pNo : ${#numbers.sequence(listPage.startPage, listPage.endPage)}">-->
-<!--                <span th:if="${pNo == listPage.currentPage}">-->
-<!--                    <strong th:text="${pNo}"></strong>-->
-<!--                </span>-->
-<!--                <span th:unless="${pNo == listPage.currentPage}">-->
-<!--                    <a href="/club/list?pageNo=${pNo}"></a>-->
-<!--                </span>-->
-<!--            </span>-->
-<!--                        <span th:if="${listPage.endPage < listPage.totalPages}">-->
-<!--                <a href="/club/list?pageNo=${listPage.endPage + 1}">[다음]</a>-->
-<!--            </span>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--            </div>-->
-            <div th:if="${listPage.hasClubBoardDtos()}">
+            <div class="board-list-page" th:if="${listPage.hasClubBoardDtos()}">
                 <tr>
                     <td colspan="10">
             <span th:if="${listPage.currentPage > 1}">
@@ -66,14 +46,7 @@
             </span>
                         <span th:each="pNo : ${#numbers.sequence(listPage.startPage, listPage.endPage)}">
                 <span th:if="${pNo == listPage.currentPage}">
-                    <strong style="display: inline-block;
-       font-weight: bold;
-       text-decoration: none;
-       padding: 5px 8px;
-       border: 1px solid #ccc;
-       color: blue;
-       background-color:white;
-       border-radius:10px;" th:text="${pNo}"></strong>
+                    <strong th:text="${pNo}"></strong>
                 </span>
                 <span th:unless="${pNo == listPage.currentPage}">
                     <a th:href="@{'/club/list?pageNo=' + ${pNo}}">[[${pNo}]]</a>

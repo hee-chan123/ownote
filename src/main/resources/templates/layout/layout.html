@@ -15,7 +15,7 @@
 <header>
     <nav id="nav2" style="display: flex;padding: 10px 15px;">
         <h1 style="font-family: 'Malgun Gothic', sans-serif; font-size: 24px; font-weight: bold; color: #000000; margin-top: 0; margin-bottom: 0;" >Ownote</h1>
-        <div class="logo">
+        <div class="logo image-link">
         <a th:href="@{/}">
             <img class="logo_image" src="/image/logo.png" alt="logoIcon">
         </a>
@@ -25,7 +25,7 @@
         </div>
         <div class="navbar-menu" th:if="${authInfo != null}">
             <!-- authInfo가 null이 아닐 때만 이 부분이 렌더링됩니다 -->
-            <a th:href="@{/emp/myPage}">[[${authInfo.emp_name}]]</a> | &nbsp
+            <img class="user_image" src="/image/usericon.png" alt="userIcon"><a th:href="@{/emp/myPage}">[[${authInfo.emp_name}]]</a>| &nbsp
             <a th:href="@{/logout}">로그아웃</a>
         </div>
     </nav>
@@ -37,10 +37,10 @@
               <a th:if="${authInfo.dept_num == 40}" th:href="@{/emp/signUp}">사원 등록</a>
 
           </li>
-          <li>
+          <li th:if="${authInfo != null}">
               <a th:href="@{#}">근태</a>
               <ul>
-                  <li><a th:href="@{/attendance/list1}">근태관리 </a></li>
+                  <li th:if="${authInfo.dept_num == 40}"><a th:href="@{/attendance/list1}">근태 관리</a></li>
                   <li><a th:href="@{/attendance/record}">출근/퇴근</a></li>
               </ul>
           </li>
@@ -53,7 +53,6 @@
                       <a th:if="${authInfo.grade_num >= 3}" th:href="@{annual/list}">연차 승인</a>
 
                   </li>
-                  <li><a th:href="@{#}">연차 수정 신청</a></li>
               </ul>
           </li>
           <li>
@@ -62,6 +61,7 @@
                   <li><a th:href="@{/board/noticelist}">회사뉴스 및 공지</a></li>
                   <li><a th:href="@{/board/forumlist}">자유게시판</a></li>
                   <li><a th:href="@{/board/qalist}">사내시스템 / F&Q</a></li>
+                  <li><a th:href="@{/musicContest/list}">이벤트 게시판</a></li>
               </ul>
           </li>
           <li>

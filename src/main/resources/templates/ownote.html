@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mainStyle.css">
     <link href="/css/mainboard.css" rel="stylesheet">
+    <link href="/css/mainslide.css" rel="stylesheet">
 
 </head>
 <body>
@@ -14,14 +15,14 @@
 <header>
     <nav id="nav2">
         <h1>Ownote</h1>
-        <div class="logo">
+        <div class="logo image-link">
             <a th:href="@{/}">
-            <img class="logo_image" src="/image/logo.png" alt="logoIcon">
+                <img class="logo_image" src="/image/logo.png" alt="logoIcon">
             </a>
         </div>
 
         <div class="navbar-menu" th:if="${authInfo == null}">
-        <a th:href="@{/emp/logIn}">로그인</a>
+            <a th:href="@{/emp/logIn}">로그인</a>
         </div>
         <div class="navbar-menu" th:if="${authInfo != null}">
             <!-- authInfo가 null이 아닐 때만 이 부분이 렌더링됩니다 -->
@@ -30,18 +31,18 @@
         </div>
     </nav>
 </header>
-  <aside class="side-bar">
+<aside class="side-bar">
 
     <ul>
         <li th:if="${authInfo != null}">
 
-          <a th:if="${authInfo.dept_num == 40}" th:href="@{/emp/signUp}">사원 등록</a>
+            <a th:if="${authInfo.dept_num == 40}" th:href="@{/emp/signUp}">사원 등록</a>
 
         </li>
-        <li>
+        <li th:if="${authInfo != null}">
             <a th:href="@{#}">근태</a>
             <ul>
-                <li><a th:href="@{/attendance/list1}">근태관리 </a></li>
+                <li th:if="${authInfo.dept_num == 40}"><a th:href="@{/attendance/list1}">근태 관리</a></li>
                 <li><a th:href="@{/attendance/record}">출근/퇴근</a></li>
             </ul>
         </li>
@@ -54,49 +55,142 @@
                     <a th:if="${authInfo.grade_num >= 3}" th:href="@{annual/list}">연차 승인</a>
 
                 </li>
-                <li><a th:href="@{#}">연차 수정 신청</a></li>
             </ul>
         </li>
         <li>
             <a th:href="@{/board/boardmain}">게시판</a>
             <ul>
-                <li><a th:href="@{/board/noticelist}">회사뉴스 및 공지</a></li>
-                <li><a th:href="@{/board/forumlist}">자유게시판</a></li>
-                <li><a th:href="@{/board/qalist}">사내시스템 / F&Q</a></li>
+                <li><a th:href="@{/board/noticeList}">회사뉴스 및 공지</a></li>
+                <li><a th:href="@{/board/forumList}">자유 게시판</a></li>
+                <li><a th:href="@{/board/qaList}">사내시스템 / F&Q</a></li>
+                <li><a th:href="@{/musicContest/list}">이벤트 게시판</a></li>
             </ul>
         </li>
         <li>
-          <a th:href="@{/club/list}">동아리</a>
+            <a th:href="@{/club/list}">동아리</a>
         <li>
-        <a th:href="@{/emp/adress}">주소록</a></li>
-      </ul>
+            <a th:href="@{/emp/adress}">주소록</a></li>
+    </ul>
 
-  </aside>
-<div class="board_wrap">
-    <div class="adress-dept">
-        <p><a th:href="@{/musicContest/list}" >더보기</a></p>
-        <table>
-            <tr>
-                <th>번호</th>
-                <th>사원</th>
-                <th>부서</th>
-                <th>제목</th>
-                <th>게시일</th>
-                <th>좋아요</th>
-            </tr>
-            <tr th:each="dto : ${contestList}">
-                <td th:text="${dto.musiccontest_num}"></td>
-                <td th:text="${dto.musiccontest_emp_name}"></td>
-                <td th:text="${dto.musiccontest_dept_name}"></td>
-                <td th:text="${dto.musiccontest_title}"></td>
-                <td th:text="${#dates.format(dto.musiccontest_regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                <td th:text="${dto.musiccontest_likes}"></td>
-            </tr>
-        </table>
+</aside>
+<div class="all">
+    <div class="section">
+        <input type="radio" name="slide" id="slide01" checked>
+        <input type="radio" name="slide" id="slide02">
+        <input type="radio" name="slide" id="slide03">
+        <div class="slidewrap">
+
+            <ul class="slidelist">
+                <!-- 슬라이드 영역 -->
+                <li class="slideitem">
+                    <a onclick="naverGo()">
+                        <div class="textbox">
+                            <h3>Spotify 파트너 기업</h3>
+                            <p>배너 클릭 시 링크 이동</p>
+                        </div>
+                        <img src="/image/spotify.jpeg">
+                    </a>
+                </li>
+                <li class="slideitem">
+                    <a>
+
+                        <div class="textbox">
+                            <h3 style="color : black">Ownote 연말 정산 공지</h3>
+                            <p style="color : black">자세한 내용은 메일 참조</p>
+                        </div>
+                        <img src="/image/money.png">
+                    </a>
+                </li>
+                <li class="slideitem">
+                    <a >
+
+                        <div class="textbox">
+                            <h3 style="color : black">&#127881;Ownote 입사 1주년을 축하합니다&#127881;</h3>
+
+                        </div>
+                        <img style="margin-bottom:200px;margin-left:350px;width: 300px; height: 300px;" src="/image/logo.png">
+                    </a>
+                </li>
+
+                <!-- 좌,우 슬라이드 버튼 -->
+                <div class="slide-control">
+                    <div>
+                        <label for="slide03" class="left"></label>
+                        <label for="slide02" class="right"></label>
+                    </div>
+                    <div>
+                        <label for="slide01" class="left"></label>
+                        <label for="slide03" class="right"></label>
+                    </div>
+                    <div>
+                        <label for="slide02" class="left"></label>
+                        <label for="slide01" class="right"></label>
+                    </div>
+                </div>
+
+            </ul>
+            <!-- 페이징 -->
+            <ul class="slide-pagelist">
+                <li><label for="slide01"></label></li>
+                <li><label for="slide02"></label></li>
+                <li><label for="slide03"></label></li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <div class="board_wrap">
+        <div class="eventBoard">
+            <div class="title">
+                <h1>이벤트 게시판</h1> <a th:href="@{/musicContest/list}">더보기</a>
+            </div>
+            <div class="board_list">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>사원</th>
+                        <th>부서</th>
+                        <th>제목</th>
+                        <th>좋아요</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="dto : ${contestList}">
+                        <td th:text="${dto.musiccontest_emp_name}"></td>
+                        <td th:text="${dto.musiccontest_dept_name}"></td>
+                        <td th:text="${dto.musiccontest_title}"></td>
+                        <td th:text="${dto.musiccontest_likes}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="noticeBoard">
+            <div class="title">
+                <h1>공지 게시판</h1> <a th:href="@{/board/noticeList}">더보기</a>
+            </div>
+            <div class="board_list" th:if="dto2 != null">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>글번호</th>
+                        <th>작성자</th>
+                        <th>제목</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="dto2 : ${boardNotice}" >
+                        <th:block th:if="${dto2.boardImportant == 1}"><td th:text="'★중요★'" style="color: red"></td></th:block>
+                        <th:block th:if="${dto2.boardImportant != 1}"><td th:text="${dto2.boardNum}"></td></th:block>
+
+                        <td th:text="${dto2.boardWriter}"></td>
+                        <td th:text="${dto2.boardTitle}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-
 <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
+<script src="/js/mainslide.js"></script>
 </body>
 
 </html>

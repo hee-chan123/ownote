@@ -10,46 +10,46 @@
 </head>
 <body>
 <div class="board">
-    <strong>연차 승인 페이지 </strong>
+    <div class="str">
+    <strong class ="str">연차 승인 페이지 </strong></div>
     <div class="board_list">
         <div class="write">
 <table>
-    <form action="/annual/datalist" method="post"  th:object="${annual}" id="annual">
+    <form action="/annual/datalist" method="post"  th:object="${annual}" id="annual" onsubmit="return validateForm()">
+<input type="hidden" name="emp_id" th:value="*{emp_id}" readonly>
 
         <tr>
             <td><label for="annual_content">연차 신청 사유</label></td>
-            <td><input type="text" name="annual_content" id="annual_content" th:value="*{annual_content}" readonly /></td>
+            <td><input type="text" name="annual_content" id="annual_content" th:value="*{annual_content}" readonly class="input"/></td>
         </tr>
 
         <tr>
             <td><label for="annual_startdate">연차 시작 시간</label></td>
-            <td><input type="date" name="annual_startdate" id="annual_startdate" th:value="*{annual_startdate}" readonly />
+            <td><input type="date" name="annual_startdate" id="annual_startdate" th:value="*{annual_startdate}" readonly class="input" />
             <input type="hidden" th:value = "${annual_id}" name="annual_id"></td>
         </tr>
         <tr>
             <td><label for="annual_enddate">연차 종료 시간</label></td>
-            <td><input type="date" name="annual_enddate" id="annual_enddate" th:value="*{annual_enddate}" readonly /></td>
+            <td><input type="date" name="annual_enddate" id="annual_enddate" th:value="*{annual_enddate}" readonly class="input" /></td>
         </tr>
+
+        <div id="agree">
           <tr>
             <td><label for="anncheck_id" id="anncheck_id">연차 승인</label></td>
 
             <td>
                 <!-- 연차 승인 체크박스 (옵션 1) -->
                 <input type="radio" name="anncheck_id" value="2" id="anncheck_id1" class="radio_box" onclick="updateAnncheck(2)"> 승인
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
+
                 <!-- 연차 승인 체크박스 (옵션 2) -->
-                <input type="radio" name="anncheck_id" value="3" id="anncheck_id2" class="radio_box"onclick="updateAnncheck(3)"> 반려
+                <input type="radio" name="anncheck_id" value="3" id="anncheck_id2" class="radio_box"onclick="updateAnncheck(3)" > 반려
 
             </td>
         </tr>
-
+        </div>
         <tr>
-            <td></td>
             </thead>
+            <td></td>
             <td>
                 <!-- 제출 버튼 -->
                 <input type="submit" value="제출" class="button">
@@ -66,7 +66,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/annUpdateAnncheck.js"></script>
-
+<script src="/js/annAgree.js"></script>
 </body>
 
 

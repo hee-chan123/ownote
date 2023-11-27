@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+<head>
+
+    <meta charset="UTF-8">
+    <title>annuallist</title>
+    <link href="/css/annualDataTable.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="board">
+
+<div class="board_list">
+
+<table>
+    <thead>
+
+
+    <tr>
+        <th>사원번호</th>
+        <th>사원 이름</th>
+        <th>연차 사유</th>
+        <th>연차 시작 일</th>
+        <th>연차 종료 일</th>
+        <th>연차 사용 수량</th>
+        <th>연차 종류</th>
+        <th>진행 상황</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="obj : ${list}">
+        <td th:text="${obj.emp_id}"></td>
+        <td th:text="${obj.emp_name}"></td>
+        <td th:text="${obj.annual_content}"></td>
+        <td th:text="${obj.annual_startdate}"></td>
+        <td th:text="${obj.annual_enddate}"></td>
+        <td th:text="${obj.anninfo_date}"></td>
+        <td th:text="${obj.anninfo_name}"></td>
+        <td>
+            <a th:if="${obj.anncheck_id == 1}" th:href="@{'/annual/anndataModify/' + ${obj.annual_id}}" style="color: #007BFF"><b>승인 필요</b></a>
+
+            <span th:unless="${obj.anncheck_id == 1}">완료</span>
+
+        </td>
+    <tr><td></td><td> </td><td></td>
+        <td>
+            <a th:href="@{/annual/list}" ><button class="button" > 뒤로 </button></a>
+        </td>
+    </tr>
+    </tr>
+    </tbody>
+
+    <tfoot>
+
+
+    </tfoot>
+
+</table>
+</div>
+
+
+</div>
+
+
+</body>
+    </th:block>
+</th:block>
+</html>

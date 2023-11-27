@@ -22,14 +22,6 @@
     </div>
 </div>
 <div id="error-message" th:text="${error_message}" th:style="${error_messageStyle}" style="color: red;"></div>
-<script>
-    // URL 매개변수를 통해 에러 코드를 확인하고 알림창을 표시합니다.
-    var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("error") === "1") {
-        window.location.href = "/emp/logIn";
-        alert("회원 정보가 일치하지 않습니다.");
-    }
-</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/checkLogin.js"></script>
 </body>

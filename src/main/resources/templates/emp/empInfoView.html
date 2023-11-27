@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <head>
+            <meta charset="UTF-8">
+            <title>사원 정보</title>
+            <link rel="stylesheet" href="/css/empInfoView.css">
+        </head>
+        <body>
+        <div class="board_wrap">
+            <div class="title">
+                <h1>사원 정보</h1>
+            </div>
+            <div class="board_list" th:each="emp : ${emp}">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>사원번호</th>
+                        <th>이름</th>
+                        <th>이메일</th>
+                        <th>전화번호</th>
+                        <th>직책 번호</th>
+                        <th>부서 번호</th>
+                        <th>생년월일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>[[${emp.emp_num}]]</td>
+                        <td>[[${emp.emp_name}]]</td>
+                        <td>[[${emp.emp_email}]]</td>
+                        <td>[[${emp.emp_phone}]]</td>
+                        <td>[[${emp.grade_num}]]</td>
+                        <td>[[${emp.dept_num}]]</td>
+                        <td>[[${emp.emp_birth}]]</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="deleteEmpAtag">
+                <a class="deleteEmp" th:if="${authInfo.dept_num == 40}" th:href="@{'/emp/delete?emp_email=' + ${emp.emp_email}}">퇴사</a>
+            </div>
+        </div>
+        </body>
+    </th:block>
+</th:block>
+</html>

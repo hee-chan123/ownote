@@ -39,13 +39,14 @@
     <hr>
 
 
-    <th:block th:if="${authInfo.getEmp_name() == dto.clubboard_emp_name}">
+
         <div class="container">
             <div class="button-effect" >
                 <a class="effect effect-1" th:href="@{/club/list}">
                     돌아가기
                 </a>
             </div>
+            <th:block th:if="${authInfo.getEmp_name() == dto.clubboard_emp_name}">
             <div class="button-effect">
                 <a class="effect effect-1" th:href="@{'/club/modify?clubboard_id=' + ${dto.clubboard_id}}">게시글수정</a>
             </div>

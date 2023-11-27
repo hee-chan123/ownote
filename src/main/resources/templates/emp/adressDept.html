@@ -2,45 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/css/adressDept.css">
-</head>
-<body>
-<div class="board_wrap">
-<div class="adress-dept">
-    <a th:href="@{/emp/adress}" id="all_emp_adress">전체</a>
-    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=10)}">회계</a>
-    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=30)}">개발</a>
-    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=40)}">인사</a>
-    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=50)}">경영</a>
-    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=60)}">물류</a>
-    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=20)}">영업</a>
-</div>
-    <div class="board_list">
-<table>
-    <tr>
-        <th>이름</th>
-        <th>직책</th>
-        <th>부서</th>
-        <th>이메일</th>
-    </tr>
-    <tr th:each="obj : ${deptPage.deptAdressDtos}">
-        <td th:text="${obj.empName}"></td>
-        <td th:text="${obj.gradeName}"></td>
-        <td th:text="${obj.deptName}"></td>
-        <td th:text="${obj.empEmail}"></td>
-    </tr>
-</table>
-    </div>
-<div th:if="${deptPage.hasDeptAdressDtos()}">
-    <tr>
-        <td colspan="10">
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+            <link rel="stylesheet" href="/css/adressDept.css">
+        </head>
+        <body>
+        <div class="board_wrap">
+            <h1 class="title">사원 주소록</h1>
+            <div class="adress-dept">
+                <a th:href="@{/emp/adress}" id="all_emp_adress">전체</a>
+                <a th:href="@{/emp/adressDept/{dept_num}(dept_num=10)}">회계</a>
+                <a th:href="@{/emp/adressDept/{dept_num}(dept_num=30)}">개발</a>
+                <a th:href="@{/emp/adressDept/{dept_num}(dept_num=40)}">인사</a>
+                <a th:href="@{/emp/adressDept/{dept_num}(dept_num=50)}">경영</a>
+                <a th:href="@{/emp/adressDept/{dept_num}(dept_num=60)}">물류</a>
+                <a th:href="@{/emp/adressDept/{dept_num}(dept_num=20)}">영업</a>
+            </div>
+            <div class="board_list">
+                <table>
+                    <tr>
+                        <th>이름</th>
+                        <th>직책</th>
+                        <th>부서</th>
+                        <th>이메일</th>
+                    </tr>
+                    <tr th:each="obj : ${deptPage.deptAdressDtos}">
+                        <td th:text="${obj.empName}"></td>
+                        <td th:text="${obj.gradeName}"></td>
+                        <td th:text="${obj.deptName}"></td>
+                        <td th:text="${obj.empEmail}"></td>
+                    </tr>
+                    <tfoot>
+                    <div class="adress-dept-page" th:if="${deptPage.hasDeptAdressDtos()}">
+                        <tr>
+                            <td colspan="10">
                <span th:if="${deptPage.currentPage > 1}">
                    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=${dept_num}, pageNo=${deptPage.currentPage - 1})}">[이전]</a>
                </span>
-            <span th:each="pNo: ${#numbers.sequence(deptPage.startPage, deptPage.endPage)}">
+                                <span th:each="pNo: ${#numbers.sequence(deptPage.startPage, deptPage.endPage)}">
                    <span th:if="${pNo == deptPage.currentPage}">
                        <strong th:text="${pNo}"></strong>
                    </span>
@@ -48,15 +48,18 @@
                        <a th:href="@{/emp/adressDept/{dept_num}(dept_num=${dept_num}, pageNo=${pNo})}">[[${pNo}]]</a>
                    </span>
                </span>
-            <span th:if="${deptPage.currentPage < deptPage.totalPages}">
+                                <span th:if="${deptPage.currentPage < deptPage.totalPages}">
                    <a th:href="@{/emp/adressDept/{dept_num}(dept_num=${dept_num}, pageNo=${deptPage.currentPage + 1})}">[다음]</a>
                </span>
-        </td>
-    </tr>
-</div>
-</div>
-<script src="/js/getAdress.js"></script>
-</body>
+                            </td>
+                        </tr>
+                    </div>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <script src="/js/getAdress.js"></script>
+        </body>
     </th:block>
 </th:block>
 </html>

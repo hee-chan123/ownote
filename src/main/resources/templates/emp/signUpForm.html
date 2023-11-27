@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,7 +15,7 @@
             <h1>사원등록</h1>
 
             <label for="emp_password">비밀번호:</label><br>
-            <input id="emp_password" type="password" name="emp_password" placeholder="전화번호 뒷 4자리가 자동으로 입력 됩니다." readonly/>
+            <input id="emp_password" type="password" name="emp_password" placeholder="전화번호 뒷 4자리가 입력 됩니다." readonly/>
             <div id="textError1"></div>
 
             <label for="emp_birth">생년 월일:</label><br>
@@ -66,4 +68,6 @@
 <script src="/js/check.js"></script>
 <script src="/js/checkEmail.js"></script>
 </body>
+    </th:block>
+</th:block>
 </html>

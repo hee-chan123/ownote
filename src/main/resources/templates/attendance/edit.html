@@ -2,57 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
   <th:block th:fragment="content">
-<head>
-  <meta charset="UTF-8">
-  <title>Attendance List</title>
-  <link rel="stylesheet" href="/css/attendance.css" th:href="@{/css/attendance.css}">
-  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
-  <link rel="stylesheet" href="/css/attendancetable.css" th:href="@{/css/attendancetable.css}">
-</head>
-<body>
-<h1>근태관리 List</h1>
-<table border="1">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Emp Num</th>
-    <th>Date</th>
-    <th>On Time</th>
-    <th>Off Time</th>
-    <th>Status</th>
-    <th>Employee Name</th>
-    <th>Grade Name</th>
-    <th>Dept Name</th>
-  </tr>
-  </thead>
-  <tbody>
-  <form action="${pageContext.request.contextPath}/attendance/update" th:action="update" th:object="${dto}" method="post">
-    <tr th:each="item : ${allAttendances}">
-    <td th:text="${item.attendance_id}"></td>
-    <td th:text="${item.emp_num}"></td>
-    <td th:text="${item.att_date}"></td>
-    <td>
-      <input type="hidden" name="attendance_id" th:value="${item.attendance_id}">
-      <input type="text" name="att_ontime" th:value="${item.att_ontime}" id="ontime_${attendance.attendance_id}">
-    </td>
-    <td>
-      <input type="text"  name="att_offtime" th:value="${item.att_offtime}" id="offtime_${attendance.attendance_id}">
-    </td>
-    <td>
-      <input type="text"  name="att_status" th:value="${item.att_status}" id="status_${attendance.attendance_id}">
-    </td>
-    <td th:text="${item.emp_name}"></td>
-    <td th:text="${item.att_gradename}"></td>
-    <td th:text="${item.att_deptname}"></td>
-  </tr>
-    <button type="submit"> 수정 </button>
-  </form>
-  </tbody>
+    <head>
+      <meta charset="UTF-8">
+      <title>Attendance List</title>
+      <link rel="stylesheet" href="/css/attendance.css" th:href="@{/css/attendance.css}">
+      <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+      <link rel="stylesheet" href="/css/attendancetable.css" th:href="@{/css/attendancetable.css}">
+      <link rel="stylesheet" href="/css/attendancemodify.css" th:href="@{/css/attendancemodify.css}">
+    </head>
+    <body>
 
-</table>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Emp Num</th>
+        <th>Date</th>
+        <th>On Time</th>
+        <th>Off Time</th>
+        <th>Status</th>
+        <th>Employee Name</th>
+        <th>Grade Name</th>
+        <th>Dept Name</th>
+        <th>Modify</th> <!-- 추가: 수정 버튼 헤더 -->
+      </tr>
+      </thead>
+      <tbody>
+      <form action="${pageContext.request.contextPath}/attendance/update" th:action="update" th:object="${dto}" method="post">
+        <tr th:each="item : ${allAttendances}">
+          <td th:text="${item.attendance_id}"></td>
+          <td th:text="${item.emp_num}"></td>
+          <td th:text="${item.att_date}"></td>
+          <td>
+            <input type="hidden" name="attendance_id" th:value="${item.attendance_id}">
+            <input type="text" name="att_ontime" th:value="${item.att_ontime}" id="ontime_${attendance.attendance_id}">
+          </td>
+          <td>
+            <input type="text" name="att_offtime" th:value="${item.att_offtime}" id="offtime_${attendance.attendance_id}">
+          </td>
+          <td>
+            <input type="text" name="att_status" th:value="${item.att_status}" id="status_${attendance.attendance_id}">
+          </td>
+          <td th:text="${item.emp_name}"></td>
+          <td th:text="${item.att_gradename}"></td>
+          <td th:text="${item.att_deptname}"></td>
+          <td>
+            <button type="submit">수정</button>
+          </td>
+        </tr>
+      </form>
+      </tbody>
+    </table>
 
-
-</body>
+    </body>
   </th:block>
 </th:block>
 </html>

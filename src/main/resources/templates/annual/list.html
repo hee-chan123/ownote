@@ -13,12 +13,15 @@
 
         <body>
         <div class="board">
-
+            <div class="str"> <strong>연차 승인 페이지</strong></div>
             <div class="board_list">
-
+                <form action="/search" method="get">
+                    <label for="emp_id">사원번호검색:</label>
+                    <input type="text" id="emp_id" name="emp_id" required>
+                    <button type="submit" class="b">조회</button>
+                </form>
                 <table>
                     <thead>
-<!--      -->
 
                     <tr>
                         <th>사원번호</th>
@@ -58,7 +61,7 @@
                         <tr>
                             <td colspan="10">
             <span th:if="${annualPage.currentPage > 1}">
-                <a th:href="@{'/annual/list?pageNo=' + ${annualPage.currentPage - 1}}" class="page">[이전]</a>
+                <a th:href="@{'/annual/list?pageNo=' + ${annualPage.currentPage - 1}}" class="page">이전</a>
             </span>
                                 <span th:each="pNo : ${#numbers.sequence(annualPage.startPage, annualPage.endPage)}">
                 <span th:if="${pNo == annualPage.currentPage}">
@@ -69,7 +72,7 @@
                 </span>
             </span>
                                 <span th:if="${annualPage.currentPage < annualPage.totalPages}">
-                <a th:href="@{'/annual/list?pageNo=' + ${annualPage.currentPage + 1}}" class="page">[다음]</a>
+                <a th:href="@{'/annual/list?pageNo=' + ${annualPage.currentPage + 1}}" class="page">다음</a>
             </span>
                             </td>
                         </tr>
@@ -86,4 +89,20 @@
         </body>
     </th:block>
 </th:block>
+<script>
+    function searchAnnualId() {
+        var empId = document.getElementById("emp_id").value;
+
+        // AJAX를 사용하여 서버에 요청을 보냅니다.
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/annual/search?emp_id=" + empId, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 서버로부터 응답을 받은 후 수행할 작업을 이곳에 추가하세요.
+                // 예를 들어, 검색 결과를 동적으로 업데이트하거나 화면을 다시 그릴 수 있습니다.
+            }
+        };
+        xhr.send();
+    }
+</script>
 </html>

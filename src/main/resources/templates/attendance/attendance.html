@@ -1,29 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+<th:block th:replace="~{/layout/layout :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
 
 <head>
     <meta charset="UTF-8">
     <title>출근 및 퇴근 </title>
+    <link rel="stylesheet" href="/css/attendancebutton.css" th:href="@{/css/attendancebutton.css}">
 
 </head>
 <body>
-<h1>출근 및 퇴근 </h1>
+<div th:if="${alertMessage != null}" class="alert alert-warning">
+    <script>
+        alert("이미 출근기록이 존재합니다.");
+        window.location.href = "/";
+    </script>
 
+</div>
 
-<button id="recordAttendance"><a th:href="@{/attendance/record/go}">출근</a></button>
+<div th:if="${alertMessage2 != null}" class="alert alert-warning">
+    <script>
+        alert("이미 퇴근기록이 존재합니다.");
+        window.location.href = "/";
+    </script>
+</div>
+
+<div class="button-container">
+    <button id="recordAttendance"><a th:href="@{/attendance/record/go}">출근</a></button>
+    <button id="recordAttendance2"><a th:href="@{/attendance/record/leave}">퇴근</a></button>
+</div>
+
 
 <script>
     const recordAttendanceButton = document.getElementById("recordAttendance");
 
     recordAttendanceButton.addEventListener("click", () => {
         const currentTime1 = new Date().toLocaleString();
+
         alert("출근 시간: " + currentTime1);
+
+
     });
 </script>
 
 
 
-<button id="recordAttendance2"><a th:href="@{/attendance/record/leave}">퇴근</a></button>
+<button id="recordAttendance3"><a th:href="@{/attendance/record/leave}">퇴근</a></button>
 
 <script>
     const recordAttendanceButton2 = document.getElementById("recordAttendance2");
@@ -44,5 +66,6 @@
 
 </script>
 </body>
-
+    </th:block>
+</th:block>
 </html>

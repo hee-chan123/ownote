@@ -5,15 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <title>ANnualData</title>
-    <link href="/css/annualDataTable.css" rel="stylesheet">
+    <link href="/css/annualDatacheckTable.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
 <input type="hidden" id= "${#httpSession.getAttribute('authInfo').emp_id}" name="empId">
 
 <div class="write">
+    <div class="ss">
+    <Strong class="strong">연차 정보</Strong></br>
+    </div>
 <table border="1">
-    <Strong>연차 정보</Strong></br>
+
     <tr><th>기존 연차</th><th>추가된 연차</th><th>사용된 연차</th><th>잔여 연차</th></tr>
     <tr th:each="obj : ${list}">
         <td th:text="${obj.anndata_date}"></td>
@@ -27,7 +30,9 @@
 <hr>
 
 <div class="board">
-    <strong> 연차 신청 내역</strong>
+    <div class="ss">
+    <strong class="strong"> 연차 신청 내역</strong>
+    </div>
     <div class="board_list">
 
 <table>
@@ -70,18 +75,18 @@
             <tr>
                 <td colspan="10">
             <span th:if="${annualPage.currentPage > 1}">
-                <a th:href="@{'/annual/anndata?pageNo=' + ${annualPage.currentPage - 1}}">[이전]</a>
+                <a th:href="@{'/annual/anndata?pageNo=' + ${annualPage.currentPage - 1}}" class="page">[이전]</a>
             </span>
                     <span th:each="pNo : ${#numbers.sequence(annualPage.startPage, annualPage.endPage)}">
                 <span th:if="${pNo == annualPage.currentPage}">
-                    <strong th:text="${pNo}"></strong>
+                    <strong th:text="${pNo}" class="select"></strong>
                 </span>
                 <span th:unless="${pNo == annualPage.currentPage}">
-                    <a th:href="@{'/annual/anndata?pageNo=' + ${pNo}}">[[${pNo}]]</a>
+                    <a th:href="@{'/annual/anndata?pageNo=' + ${pNo}}" class="page">[[${pNo}]]</a>
                 </span>
             </span>
                     <span th:if="${annualPage.currentPage < annualPage.totalPages}">
-                <a th:href="@{'/annual/anndata?pageNo=' + ${annualPage.currentPage + 1}}">[다음]</a>
+                <a th:href="@{'/annual/anndata?pageNo=' + ${annualPage.currentPage + 1}}" class="page">[다음]</a>
             </span>
                 </td>
             </tr>
