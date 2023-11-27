@@ -71,4 +71,7 @@
     <select id="gradeByNum" resultType="String">
         select grade_name from grade where grade_num = #{grade_num}
     </select>
+    <delete id="deleteEmp">
+        delete from emp where emp_email = #{emp_email}
+    </delete>
 </mapper>

@@ -5,7 +5,7 @@
 
 <mapper namespace="com.project.ownote.musicContest.dao.MusicContestMapper">
     <select id="selectAllMusicContest" resultType="com.project.ownote.musicContest.dto.MusicContestDto">
-        select * from musiccontest
+        select * from musiccontest order by musiccontest_likes desc
     </select>
 
     <select id="selectOneMusicContest" resultType="com.project.ownote.musicContest.dto.MusicContestDto">
@@ -13,10 +13,7 @@
     </select>
 
     <insert id="insertMusicContest" parameterType="com.project.ownote.musicContest.dto.MusicContestDto">
-        insert into musiccontest (musiccontest_id, musiccontest_num, musiccontest_emp_name, musiccontest_dept_name,
-                                  musiccontest_title, musiccontest_content, musiccontest_regdate, musiccontest_likes)
-        values (#{musiccontest_id}, #{musiccontest_num}, #{musiccontest_emp_name}, #{musiccontest_dept_name}, #{musiccontest_title},
-                #{musiccontest_content}, now(), #{musiccontest_likes})
+        insert into musiccontest (musiccontest_id, musiccontest_num, musiccontest_emp_name, musiccontest_dept_name, musiccontest_title, musiccontest_content, musiccontest_regdate, musiccontest_likes) values (#{musiccontest_id}, #{musiccontest_num}, #{musiccontest_emp_name}, #{musiccontest_dept_name}, #{musiccontest_title}, #{musiccontest_content}, now(), #{musiccontest_likes})
     </insert>
 
     <delete id="deleteMusicContest">
@@ -32,6 +29,10 @@
     </insert>
 
     <select id="selectLike" resultType="com.project.ownote.musicContest.dto.LikeDto">
-        select * from musiccontest_like where musiccontest_id = #{musiccontest_id}
+        select * from musiccontest where musiccontest_id = #{musiccontest_id}
+    </select>
+
+    <select id="selectLikeEmp" resultType="com.project.ownote.musicContest.dto.LikeDto">
+        select * from musiccontest_like where emp_id = #{emp_id}
     </select>
 </mapper>
