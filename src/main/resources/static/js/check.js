@@ -95,7 +95,7 @@ $(document).ready(function () {
 
                   success: function (data) {
                       alert('사원 등록이 완료되었습니다.');
-                      window.location.href = "/ownote";
+                      window.location.href = "/";
                   },
                   error: function () {
                       // 오류 발생 시 처리

@@ -18,12 +18,20 @@ a {
     padding: 5px 8px;
     border: 1px solid #ccc;
     color: white;
-    background-color: #ccc;
+    background-color: #007BFF;
+    border-radius:10px;
+
 }
 
-.page_select a{
-    color: #007BFF;
-    background-color: #007BFF;
+.select {
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    color: blue;
+    background-color:white;
+    border-radius:10px;
 }
 
 .write{
@@ -31,13 +39,19 @@ a {
     margin: 100px auto;
 
 }
+.str {
+    font-size: 1.5rem;
+    margin: 10px;
+}
 .board{
     width: 1000px;
     margin: 100px auto;
 }
 .button {
+
+    margin: 10px;
     display: inline-block;
-    padding: 10px 20px;
+    padding: 10px 10px;
     font-size: 16px;
     text-align: center;
     text-decoration: none;
@@ -48,12 +62,15 @@ a {
     background-color: #61adf6;
 }
 
-
+.b{
+    margin: 10px;
+}
 .title_board{
     margin-bottom: 30px;
 }
-strong {
+.strong {
     font-size: 1.5rem;
+    margin: 10px;
 }
 .title_board p {
     margin-top: 5px;
@@ -77,7 +94,17 @@ strong {
     background: black;
     color: white;
 }
+.b{
+    display: inline-block;
+    min-width: 20px;
+    padding: 10px;
+    border: 1px solid #61adf6;
+    border-radius: 5px;
+    font-size: 1rem;
 
+    background: #61adf6;
+    color: black;
+}
 .board_list {
     width: 100%;
     border-top: 2px solid #61adf6;
@@ -100,7 +127,7 @@ th, td {
 th:nth-child(1),
 td:nth-child(1) {
     text-align: center;
-    width: 250px;
+    width: 70px;
 }
 
 th:nth-child(2),
@@ -112,27 +139,60 @@ td:nth-child(2) {
 th:nth-child(3),
 td:nth-child(3) {
     text-align: center;
-    width: 90px;
+    width: 200px;
 }
 th:nth-child(4),
 td:nth-child(4) {
+    width: 100px;
     text-align: center;
 
 }
 
 th:nth-child(5),
 td:nth-child(5) {
+    width: 100px;
     text-align: center;
 
 }
 th:nth-child(6),
 td:nth-child(6) {
     text-align: center;
+    width: 110px;
 
 }
-
-tfoot {
-    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+th:nth-child(7),
+td:nth-child(7) {
     text-align: center;
+    width: 100px;
+
 }
+th:nth-child(8),
+td:nth-child(8) {
+    text-align: center;
+    width: 100px;
+
+}
+
+tfoot a {
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    color: white;
+    background-color: #61adf6;
+    border-radius:10px;
+
+}
+tfoot strong {
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    color: black;
+    background-color:white;
+    border-radius:10px;
+}
+
 

@@ -33,6 +33,9 @@ a {
     color: black;
     background-color: #61adf6;
 }
+.sbutton{
+    margin: 10px;
+}
 
 
 .title_board{
@@ -101,11 +104,3 @@ td:nth-child(3) {
     width: 250px;
 }
 
-tfoot {
-    background-color: #f2f2f2; /* 풋터 배경색 설정 */
-    text-align: center;
-}
-
-tbody tr:hover {
-    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
-}

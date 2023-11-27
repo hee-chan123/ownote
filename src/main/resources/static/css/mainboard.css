@@ -1,63 +1,88 @@
 .board_wrap{
   width: 1000px;
-  margin: 100px auto;
+  margin: 100px 0;
+  display: flex;
+}
+.eventBoard {
+  border: 2px solid #61adf6;
+  border-radius: 15px;
+  margin-right: 8px;
+}
+.noticeBoard {
+  border: 2px solid #61adf6;
+
+  border-radius: 15px;
+  margin-left: 8px;
+}
+.board_list {
+  width: 500px;
+  border-top: 2px solid #61adf6;
+  /*border-bottom: 2px solid #61adf6;*/
 }
 
-.board_list {
-  width: 100%;
-  border-top: 2px solid #61adf6;
-  border-bottom: 2px solid #61adf6;
-}
 
 .board_list > table > thead {
   border-bottom: 10px solid #999999;
 }
 
-table {
+.board_wrap table {
   width: 100%;
 }
 
-th, td {
+.board_list th, td {
   padding: 8px; /* 셀 안의 여백 설정 */
 }
 
-th:nth-child(1),
-td:nth-child(1) {
+.board_list th:nth-child(1),
+.board_list td:nth-child(1) {
   text-align: center;
   width: 50px;
 }
 
-th:nth-child(2),
-td:nth-child(2) {
+.board_list th:nth-child(2),
+.board_list td:nth-child(2) {
   text-align: center;
-  width: 130px;
+  width: 56px;
 }
 
-th:nth-child(3),
-td:nth-child(3) {
+.board_list th:nth-child(3),
+.board_list td:nth-child(3) {
+  display: block; /* 또는 display: inline-block; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: center;
   width: 250px;
 }
 
-th:nth-child(4),
-td:nth-child(4) {
+.board_list th:nth-child(4),
+.board_list td:nth-child(4) {
   text-align: center;
 }
 
-th:nth-child(5),
-td:nth-child(5) {
+.board_list th:nth-child(5),
+.board_list td:nth-child(5) {
   text-align: center;
 }
 
-th:nth-child(6),
-td:nth-child(6) {
+.board_list th:nth-child(6),
+.board_list td:nth-child(6) {
   text-align: center;
 }
-tfoot {
+.board_list tfoot {
   background-color: #f2f2f2; /* 풋터 배경색 설정 */
   text-align: center;
 }
 
-  tbody tr:hover {
+.board_list tbody tr:hover {
     background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
   }
+
+.title {
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+  background-color: #98c9f8;
+}
+.title h1, .title a {
+  margin-left: 10px;
+}

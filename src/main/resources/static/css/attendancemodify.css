@@ -1,0 +1,12 @@
+/* attendancemodify.css */
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px; /* 원하는 여백 값으로 조정 */
+}
+
+button[type="submit"] {
+    margin-left: 10px; /* 원하는 여백 값으로 조정 */
+}

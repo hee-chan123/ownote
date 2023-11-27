@@ -1,0 +1,53 @@
+.board_wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+}
+
+.board_list > table > thead {
+    border-bottom: 10px solid #999999;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    padding: 8px; /* 셀 안의 여백 설정 */
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    text-align: center;
+    width: 50px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: center;
+    width: 80px;
+}
+
+tfoot {
+    background-color: #f2f2f2; /* 풋터 배경색 설정 */
+    text-align: center;
+}
+
+tbody tr:hover {
+    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
+}
+
+input[type="submit"] {
+    margin-left: 850px;
+    border: 0px;
+    width: 100px;
+    color: white;
+    background-color: #61adf6;
+    padding: 10px 18px;
+    border-radius: 15px;
+}

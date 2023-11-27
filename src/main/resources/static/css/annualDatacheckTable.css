@@ -11,17 +11,60 @@ a {
     text-decoration: none;
     color: inherit;
 }
+.page {
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    color: white;
+    background-color: #007BFF;
+    border-radius:10px;
 
-.board_wrap{
+}
+
+.select {
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    color: blue;
+    background-color:white;
+    border-radius:10px;
+}
+
+.write{
+    width: 700px;
+    margin: 100px auto;
+
+}
+.board{
     width: 1000px;
     margin: 100px auto;
+}
+.button {
+
+    margin: 10px;
+    display: inline-block;
+    padding: 10px 10px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    background-color: #61adf6;
+}
+
+.b{
+    margin: 10px;
 }
 .title_board{
     margin-bottom: 30px;
 }
-.title_board strong {
-    font-size: 3rem;
-}
+
 .title_board p {
     margin-top: 5px;
     font-size: 1.4rem;
@@ -44,7 +87,17 @@ a {
     background: black;
     color: white;
 }
+.b{
+    display: inline-block;
+    min-width: 20px;
+    padding: 10px;
+    border: 1px solid #61adf6;
+    border-radius: 5px;
+    font-size: 1rem;
 
+    background: #61adf6;
+    color: black;
+}
 .board_list {
     width: 100%;
     border-top: 2px solid #61adf6;
@@ -67,34 +120,44 @@ th, td {
 th:nth-child(1),
 td:nth-child(1) {
     text-align: center;
-    width: 10px;
+    width: 250px;
 }
 
 th:nth-child(2),
 td:nth-child(2) {
     text-align: center;
-    width: 130px;
+    width: 90px;
 }
 
 th:nth-child(3),
 td:nth-child(3) {
-
-    display: block; /* 또는 display: inline-block; */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 500px; /* 더 큰 값으로 조정 가능 */
-}
-
-tfoot {
-    background-color: #f2f2f2; /* 풋터 배경색 설정 */
     text-align: center;
+    width: 90px;
+}
+th:nth-child(4),
+td:nth-child(4) {
+    width: 110px;
+    text-align: center;
+
 }
 
-tbody tr:hover {
-    background-color: #61adf6; /* 호버(마우스를 올렸을 때) 상태 배경색 설정 */
-}
+th:nth-child(5),
+td:nth-child(5) {
+    text-align: center;
 
+}
+th:nth-child(6),
+td:nth-child(6) {
+    text-align: center;
+    width: 90px;
+
+}
+th:nth-child(7),
+td:nth-child(7) {
+    text-align: center;
+    width: 80px;
+
+}
 tfoot a {
     display: inline-block;
     font-weight: bold;
@@ -115,4 +178,9 @@ tfoot strong {
     color: black;
     background-color:white;
     border-radius:10px;
+}
+
+.ss {
+    margin-bottom: 8px;
+    font-size: 1.5rem;
 }

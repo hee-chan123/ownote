@@ -1,0 +1,65 @@
+
+.view-wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+.title {
+    width: 100%
+    margin: 8px 8px 8px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board-list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+}
+
+.view_title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.view_title strong {
+     font-size: 1.4rem;
+}
+
+.view-person {
+    margin-bottom: 30px;
+}
+
+.view_content {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.container {
+    display: flex;
+}
+
+.button-effect {
+    width: 140px;
+    color: white;
+    background-color: #61adf6;
+    padding: 10px 10px;
+    border-radius: 15px;
+}
+
+.delete-button {
+    width: 90px;
+    color: white;
+    background-color: #61adf6;
+    padding: 10px 10px;
+    border-radius: 15px;
+}
+
+input[type="submit"] {
+    text-align: right;
+    width: 80px;
+    color: white;
+    background-color: #61adf6;
+    padding: 10px 18px;
+    border-radius: 15px;
+}

@@ -31,13 +31,21 @@ $(document).ready(function () {
                     emp_password: emp_password
                 },
                 success: function (data) {
+                console.log(data);
+                if (data === 'success'){
+
                         window.location.href = "/";
-                },
-                error: function () {
-                    // AJAX 요청 실패 시 오류 메시지 표시
-                    alert("정보가 일치하지 않습니다.")
-                    document.getElementById("error-message").text('서버 오류. 다시 시도하세요.');
+                    }else {
+                    alert("회원 정보가 일치하지 않습니다.")
                 }
+
+                },
+                error: function (x) {
+                    console.log(x);
+                    // 오류 발생 시 처리
+                    alert("회원 정보가 일치하지 않습니다.");
+                }
+
             });
         }
     });

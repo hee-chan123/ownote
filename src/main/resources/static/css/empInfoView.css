@@ -1,0 +1,50 @@
+.board_wrap{
+    width: 1000px;
+    margin: 100px auto;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #61adf6;
+    border-bottom: 2px solid #61adf6;
+}
+
+.board_list > table > thead {
+    border-bottom: 10px solid #999999;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+}
+
+th, td {
+    padding: 8px; /* 셀 안의 여백 설정 */
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    text-align: center;
+    width: 60px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: center;
+    width: 80px;
+}
+
+.deleteEmpAtag {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.deleteEmp {
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 18px;
+    color: white;
+    background-color: #61adf6;
+    border-radius:10px;
+}

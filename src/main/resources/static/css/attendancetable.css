@@ -3,7 +3,7 @@
     text-align: left;
     line-height: 1.5;
     border-top: 1px solid #ccc;
-    border-left: 3px solid #369;
+    border-left: 3px solid #61adf6;
     margin: 20px 10px;
 
     .table1 th {
@@ -11,7 +11,7 @@
         padding: 10px;
         font-weight: bold;
         vertical-align: top;
-        color: #153d73;
+        color: #61adf6;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
     }

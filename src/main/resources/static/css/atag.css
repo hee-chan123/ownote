@@ -4,40 +4,45 @@
     width: 50%;
    justify-content: space-between;
     align-items: center;
+    margin-bottom: 8px;
 }
 
 .adress-dept a {
 	display: block;
     text-decoration: none;
     color: white;
-    background-color: #007BFF;
+    background-color: #61adf6;
     padding: 10px 18px;
     border-radius: 15px;
+}
+
+.title {
+    margin-bottom: 8px;
 }
 
 .adress-dept a:hover {
     box-shadow: 100px 0 0 0 rgba(0,0,0,0.5) inset;
 }
 
-.adress-dept-page a {
+tfoot a {
     display: inline-block;
     font-weight: bold;
     text-decoration: none;
     padding: 5px 8px;
     border: 1px solid #ccc;
     color: white;
-    background-color: #007BFF;
+    background-color: #61adf6;
     border-radius:10px;
 
 }
 
-strong {
+tfoot strong {
      display: inline-block;
        font-weight: bold;
        text-decoration: none;
        padding: 5px 8px;
        border: 1px solid #ccc;
-       color: blue;
+       color: black;
        background-color:white;
        border-radius:10px;
 }

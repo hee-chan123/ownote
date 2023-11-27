@@ -90,12 +90,18 @@ table {
         padding: 10px;
     }
 
-
+.text{
+    border: 2px solid black; /* 테두리 스타일과 두께 설정 */
+    border-radius: 10px; /* 꼭짓점을 둥글게 만드는 속성 */
+    width: 90%; /* 가로 폭을 100%로 설정하여 컨테이너에 맞게 확장 */
+    resize: none; /* 사용자가 크기를 조절하지 못하도록 설정 */
+    padding: 10px; /* 내용과 테두리 사이의 간격 설정 */
+}
 
 th:nth-child(1),
 td:nth-child(1) {
     text-align: center;
-    width: 100px;
+    width: 300px;
 }
 
 th:nth-child(2),
@@ -110,7 +116,3 @@ td:nth-child(3) {
     width: 250px;
 }
 
-tfoot {
-    background-color: #f2f2f2; /* 풋터 배경색 설정 */
-    text-align: center;
-}

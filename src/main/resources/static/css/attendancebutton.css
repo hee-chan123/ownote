@@ -1,0 +1,29 @@
+/* 출근 및 퇴근 버튼 컨테이너 스타일 */
+
+.button-container {
+    text-align: center; /* 가운데 정렬 */
+    padding-top: 350px; /* 원하는 크기로 조절하세요 */
+}
+
+
+/* 출근 및 퇴근 버튼 스타일 */
+#recordAttendance, #recordAttendance2 {
+    font-size: 24px;
+    background-color: #1835D0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 20px 50px; /* 수정된 크기 */
+    cursor: pointer;
+    margin: 10px;
+}
+
+#recordAttendance:hover, #recordAttendance2:hover {
+    background-color: #1835D0;
+}
+
+/* 링크 스타일 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
