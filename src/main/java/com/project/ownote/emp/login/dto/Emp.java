@@ -25,6 +25,9 @@ public class Emp {
     private String grade_name;
     private String dept_name;
 
+    public Emp(int empId, int empNum, String empPassword, String empName, String empBirth, String empEmail, String empPhone, java.sql.Date empDate, int gradeNum, int deptNum) {
+    }
+
     public void changePassword(String oldPassword, String newPassword) {
         if (!emp_password.equals(oldPassword))
             throw new WrongIdPasswordException();
@@ -40,16 +43,6 @@ public class Emp {
     public boolean matchPassword(String password) {
         return this.emp_password.equals(password);}
 
-    public Emp(int emp_id, int emp_num, String emp_password, String emp_name, String emp_birth, String emp_email, String emp_phone, Date emp_date, int grade_num, int dept_num) {
-        this.emp_id = emp_id;
-        this.emp_num = emp_num;
-        this.emp_password = emp_password;
-        this.emp_name = emp_name;
-        this.emp_birth = emp_birth;
-        this.emp_email = emp_email;
-        this.emp_phone = emp_phone;
-        this.emp_date = emp_date;
-        this.grade_num = grade_num;
-        this.dept_num = dept_num;
-    }
+    public boolean matchEmail(String email) {
+        return this.emp_email.equals(email);}
 }

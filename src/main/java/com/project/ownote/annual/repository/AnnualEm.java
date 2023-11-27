@@ -27,7 +27,6 @@ public class AnnualEm {
         return annual;
     }
 
-
     @Transactional
     public void annModify(Annual annual){
         em.merge(annual);

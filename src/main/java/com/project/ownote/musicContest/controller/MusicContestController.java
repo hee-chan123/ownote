@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -24,10 +25,12 @@ public class MusicContestController {
     LikeService likeService;
 
     @GetMapping("/musicContest/list")
-    public String list(Model model){
+    public String list(Model model, HttpSession session){
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         List<MusicContestDto> contestList = musicContestService.selectAllMusicContest();
         System.out.println(contestList);
         model.addAttribute("contestList", contestList);
+        model.addAttribute("authInfo", authInfo);
         return "musicContest/musicContest_list";
     }
 
@@ -69,7 +72,9 @@ public class MusicContestController {
         System.out.println("-----------------------------------------"+dto);
         likeDto.setEmp_id(authInfo.getEmp_id());
         System.out.println("987987987897987989"+likeDto);
-        if(dto == null) {
+        LikeDto likeEmpDto = likeService.selectLikeEmp(authInfo.getEmp_id());
+
+        if (likeEmpDto == null) {
             likeService.increaseLike(musiccontest_id);
             likeService.insertLike(likeDto);
             model.addAttribute("dto", dto);

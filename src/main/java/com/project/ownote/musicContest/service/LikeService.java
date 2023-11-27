@@ -21,4 +21,8 @@ public class LikeService {
     public LikeDto selectLike(int musiccontest_id){
         return musicContestMapper.selectLike(musiccontest_id);
     }
+
+    public LikeDto selectLikeEmp(int emp_id) {
+        return musicContestMapper.selectLikeEmp(emp_id);
+    };
 }

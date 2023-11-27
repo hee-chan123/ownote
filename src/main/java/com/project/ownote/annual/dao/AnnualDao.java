@@ -2,6 +2,7 @@ package com.project.ownote.annual.dao;
 
 import com.project.ownote.annual.dto.AnnualDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -45,4 +46,23 @@ Integer countAnnualdate(int emp_id);
     List<AnnualDto> annualListByID(int emp_id, int startRow, int size);
 
     int addAnnual(int emp_id);
+
+String findName(int emp_id);
+
+    List<AnnualDto> find(int emp_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -56,8 +56,9 @@ public class AnnualController {
 //    }
 
     @GetMapping("/annual/write")
-    public String write(HttpSession session) {
+    public String write(HttpSession session,Model model) {
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+        model.addAttribute("authInfo", authInfo);
         int empId= authInfo.getEmp_id();
 
         return "annual/annualWrite";
@@ -72,6 +73,7 @@ public class AnnualController {
         int empId= authInfo.getEmp_id();
         annualDto.setEmp_id(empId);
         Double countdate =annDT.selectData(empId);
+
         System.out.println("======================================countdate"+countdate);
         if(countdate!=0.0&&countdate!=0 &&countdate>0.0){
             annualDao.writeAnnual(annualDto);
@@ -88,18 +90,14 @@ public class AnnualController {
     public String getAnnualList(Model model, @RequestParam(name = "pageNo", required = false) String pageNo, HttpSession session) {
 
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-        model.addAttribute("authInfo",authInfo);
+        model.addAttribute("authInfo", authInfo);
+        model.addAttribute("grade_num",authInfo.getGrade_num());
         Integer grade_num= authInfo.getGrade_num();
         int empId= authInfo.getEmp_id();
         System.out.println("===================================================================="+authInfo.getGrade_num());
         int pageSize = 4; // 페이지 크기 설정 (한 페이지에 보여줄 회원 수)
         int pageNum = 1;
 
-//        List<AnnualDto> search= annualDao.searchAnnualId(1);
-//        for(AnnualDto list : search){
-//            System.out.println( list);
-//        }
-//        System.out.println("====================검색 "+search);
 
         if (pageNo != null) {
             pageNum = Integer.parseInt(pageNo);
@@ -108,21 +106,37 @@ public class AnnualController {
         log.info("-------" + annualPage);
         model.addAttribute("annualPage", annualPage);
         model.addAttribute("pageNo", pageNo);
-        return "annual/list";
+        return "/annual/list";
     }
 
 
 
-   // @RequestMapping(value = "/annual/search", method = RequestMethod.POST)
-//public String searchAnnualId(Model model,@RequestParam("search-option")String search){
-    //List<AnnualDto> searchResults =  annualDao.searchAnnualId();
-   // model.addAttribute("searchAnnualId",searchResults);
+    @GetMapping("/search")
+    public String search(@RequestParam("emp_id") Integer emp_id, Model model, HttpSession session) {
 
+        System.out.println("입력된 번호 ========="+emp_id);
+        if (emp_id == null || emp_id.equals("")) {
+            // 사원 번호가 입력되지 않은 경우
+            String nullAlert = "사원 번호를 입력하세요.";
+            model.addAttribute("nullAlert", nullAlert);
+            return "redirect:/annual/annsearch";
+        } else {
+            // 입력된 사원 번호로 연차 정보 검색
+            List<AnnualDto> list = annualDao.find(emp_id);
+            if (list.isEmpty()) {
+                // 검색 결과가 없는 경우
+                String nullAlert = "사원 번호에 해당하는 연차 정보가 없습니다.";
+                model.addAttribute("nullAlert", nullAlert);
+            } else {
+                model.addAttribute("list", list);
+            }
+        }
 
-//return  "searchResults";
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+        model.addAttribute("authInfo", authInfo);
 
-//}
-
+        return "annual/annsearch";
+    }
 
 
 
@@ -131,6 +145,7 @@ public class AnnualController {
     @RequestMapping(value = "/delete/{annual_id}", method = RequestMethod.GET)
     public String annDelete(@PathVariable Long annual_id, Model model,HttpSession session) {
         AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+        model.addAttribute("authInfo", authInfo);
         int empId= authInfo.getEmp_id();
         annualEm.annDeleteById(annual_id);
         return "redirect:/annual/anndata";
@@ -145,8 +160,11 @@ public class AnnualController {
     @RequestMapping(value = "/annual/annModify/{annual_id}", method = RequestMethod.GET)
     public String annModify(@PathVariable Long annual_id, Model model,HttpSession session) {
 
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         Annual annual = annualEm.annFindById(annual_id);
         model.addAttribute("annual", annual);
+        model.addAttribute("authInfo", authInfo);
+
         return "annual/annualModify";
     }
     @RequestMapping(value = "/annual/annualModify", method = RequestMethod.POST)
@@ -165,24 +183,26 @@ public class AnnualController {
 
 
     @RequestMapping(value = "/annual/anndataModify/{annual_id}", method = RequestMethod.GET)
-    public String anndataModify(@PathVariable Long annual_id, Model model) {
-
+    public String anndataModify(@PathVariable Long annual_id, Model model, HttpSession session) {
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         Annual annual = annualEm.annFindById(annual_id);
+        int annualEmp_id = annual.getEmp_id();
         model.addAttribute("annual", annual);
         model.addAttribute("annual_id", annual.getAnnual_id());
+        model.addAttribute("authInfo", authInfo);
+        System.out.println(annual+"-------------------------------------------");
         return "annual/dataModify";
     }
 
 
     @RequestMapping(value = "/annual/datalist", method = RequestMethod.POST)
     @Transactional
-    public String anndataModify2(@RequestParam("annual_id") Long annual_id,
-                                 Model model, HttpSession session, @RequestParam("anncheck_id") int anncheck_id) {
-        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-        int empId= authInfo.getEmp_id();
-        Annual annual = annualEm.annFindById(annual_id);
-        annual.setEmp_id(empId);
+    public String anndataModify2(@RequestParam("annual_id") Long annual_id,@RequestParam("emp_id") int emp_id,
+                                 Model model, HttpSession session, @RequestParam("anncheck_id") Integer anncheck_id) {
 
+        Annual annual = annualEm.annFindById(annual_id);
+
+        int annualEmp_id = annual.getEmp_id();
         Long annualId =annual.getAnnual_id();
         model.addAttribute("annual",annual);
         model.addAttribute("anncheck_id",anncheck_id);
@@ -193,11 +213,13 @@ public class AnnualController {
 
         if(anncheck_id==2){
             annualDao.updateCheckid(annual.getAnnual_id());
-            annualDao.minusDate(empId);
+            annualDao.minusDate(annualEmp_id);
 
 
         }else if (anncheck_id==3){
             annualDao.rejectDate(annualId);
+        }else if( anncheck_id!=2 && anncheck_id!=3){
+
         }
 
         return "redirect:/annual/list";

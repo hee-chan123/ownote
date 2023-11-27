@@ -1,19 +1,12 @@
 package com.project.ownote.attendance.dao;
 
 import com.project.ownote.attendance.dto.Attendance;
-import com.project.ownote.attendance.dto.AttendanceDto;
 import com.project.ownote.attendance.repository.AttendanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -104,7 +97,11 @@ public class AttendanceDao {
     }
 
     public List<Attendance> findByEmpNumAAndAtt_date(Long emp_num, LocalDate att_date) {
-        return attendanceRepository.findByEmpNumAAndAtt_date(emp_num, att_date);
+        return attendanceRepository.findByEmpNumAndAtt_date(emp_num, att_date);
+    }
+
+    public List<Attendance> findByEmpNumAndAtt_dateAndatAndAtt_offtime(Long emp_num, LocalDate att_date, LocalTime att_offtime) {
+        return attendanceRepository.findByEmpNumAndAtt_dateAndatAndAtt_offtime(emp_num, att_date,att_offtime);
     }
 
     public void  deleteById(Long attendace_id) {

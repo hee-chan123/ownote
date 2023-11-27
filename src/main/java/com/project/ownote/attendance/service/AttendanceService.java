@@ -93,5 +93,9 @@ public class AttendanceService {
         return attendanceDao.findByEmpNumAAndAtt_date(emp_num, att_date);
     }
 
+    public  List<Attendance> findByEmpNumAndAtt_dateAndatAndAtt_offtime(Long emp_num, LocalDate att_date, LocalTime att_offtime) {
+        return attendanceDao.findByEmpNumAndAtt_dateAndatAndAtt_offtime(emp_num, att_date,att_offtime);
+    }
+
 }
 

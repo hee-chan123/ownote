@@ -55,4 +55,13 @@ public void minusDate(int emp_id){
 public Date findDate(int emp_id){
     return findDate(emp_id);
 }
+
+public String findName(int emp_id){
+    return findName(emp_id);
+}
+
+public List<AnnualDto> find(int emp_id){
+    return annualDao.find(emp_id);
+}
+
 }

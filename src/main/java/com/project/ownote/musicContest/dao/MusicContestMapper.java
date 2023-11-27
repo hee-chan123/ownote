@@ -16,4 +16,6 @@ public interface MusicContestMapper {
     void increaseLike(@Param("musiccontest_id") int musiccontest_id);
     void insertLike(LikeDto likeDto);
     LikeDto selectLike(@Param("musiccontest_id") int musiccontest_id);
+
+    LikeDto selectLikeEmp(@Param("emp_id") int emp_id);
 }

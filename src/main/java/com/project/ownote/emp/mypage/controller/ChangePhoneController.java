@@ -27,6 +27,7 @@ public class ChangePhoneController {
         Emp emp = changePhoneService.selectByEmail2(authInfo.getEmp_email());
         System.out.println("-----------------------------------"+emp);
         model.addAttribute("emp", emp);
+        model.addAttribute("authInfo", authInfo);
         return "emp/changePhoneForm";
     }
 

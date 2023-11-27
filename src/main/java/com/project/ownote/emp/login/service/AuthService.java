@@ -19,16 +19,11 @@ public class AuthService {
         String dept_name = empMapper.deptByNum(emp.getDept_num());
         String grade_name = empMapper.gradeByNum(emp.getGrade_num());
         if (emp == null) {
-            throw new WrongIdPasswordException();
+            return new AuthInfo(emp.getEmp_id(),emp.getEmp_num(),dept_name,grade_name,emp.getEmp_password(),"error999",emp.getEmp_email(), emp.getGrade_num(), emp.getDept_num());
         }
         if (!emp.matchPassword(password)) {
-            throw new WrongIdPasswordException();
+            return new AuthInfo(emp.getEmp_id(),emp.getEmp_num(),dept_name,grade_name,emp.getEmp_password(),"error999",emp.getEmp_email(), emp.getGrade_num(), emp.getDept_num());
         }
         return new AuthInfo(emp.getEmp_id(),emp.getEmp_num(),dept_name,grade_name,emp.getEmp_password(),emp.getEmp_name(),emp.getEmp_email(), emp.getGrade_num(), emp.getDept_num());
     }
-
-//    public boolean loginByEmail(String emp_email) {
-//        LoginDto loginDto = empMapper.loginByEmail(emp_email);
-//        return loginDto != null;
-//    }
 }

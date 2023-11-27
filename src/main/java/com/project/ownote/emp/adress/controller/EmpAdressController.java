@@ -5,12 +5,14 @@ import com.project.ownote.emp.adress.dto.DeptAdressPage;
 import com.project.ownote.emp.adress.dto.EmpAdressDto;
 import com.project.ownote.emp.adress.dto.EmpAdressPage;
 import com.project.ownote.emp.adress.service.EmpAdressService;
+import com.project.ownote.emp.login.dto.AuthInfo;
 import com.project.ownote.emp.login.dto.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -18,7 +20,7 @@ public class EmpAdressController {
 
     @Autowired
     private EmpAdressService empAdressService;
-    private int size = 10;
+    private int size = 5;
 
     public EmpAdressPage getEmpAdressPage(int pageNum, int pageSize) {
         int total = empAdressService.countEmpAdress();// 전체 사용자 수 조회
@@ -33,7 +35,8 @@ public class EmpAdressController {
     }
 
     @RequestMapping(value = "/emp/adress", method = RequestMethod.GET)
-    public String getEmpAddress(Model model, @RequestParam(name = "pageNo", required = false) String pageNo) {
+    public String getEmpAddress(Model model, @RequestParam(name = "pageNo", required = false) String pageNo, HttpSession session) {
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int pageSize = 4;
         int pageNum = 1;
         try{
@@ -45,11 +48,13 @@ public class EmpAdressController {
         }
         EmpAdressPage empAdressPage = getEmpAdressPage(pageNum, pageSize);
         model.addAttribute("listPage", empAdressPage);
+        model.addAttribute("authInfo", authInfo);
         return "emp/adress";
     }
 
     @GetMapping  ("/emp/adressDept/{dept_num}")
-    public String deptAdress(Model model, @RequestParam(name = "pageNo", required = false) String pageNo, @PathVariable(name = "dept_num") int dept_num) {
+    public String deptAdress(Model model, @RequestParam(name = "pageNo", required = false) String pageNo, @PathVariable(name = "dept_num") int dept_num, HttpSession session) {
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
         int pageSize = 4;
         int pageNum = 1;
         try {
@@ -62,6 +67,7 @@ public class EmpAdressController {
         DeptAdressPage empAdressPage = getDeptAdressPage(pageNum, pageSize, dept_num);
         model.addAttribute("deptPage", empAdressPage);
         model.addAttribute("dept_num", dept_num);
+        model.addAttribute("authInfo", authInfo);
         System.out.println("pageNo= " + pageNo);
         return "emp/adressDept";
     }

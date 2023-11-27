@@ -26,6 +26,7 @@ public class MyPageController {
         String emp_email = authInfo.getEmp_email();
         Emp myPage = myPageService.selectByEmailForMyPage(emp_email);
         model.addAttribute("myPage", myPage);
+        model.addAttribute("authInfo", authInfo);
         return "emp/myPage";
     }
 }
